@@ -1,0 +1,6 @@
+*.vcd
+*.out
+sim
+sim.exe
+a.out
+*.log
