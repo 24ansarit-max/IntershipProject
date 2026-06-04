@@ -8,7 +8,6 @@ Each strategy is a self-contained `.sv` file: the **prompt** is in header commen
 
 ```
 ripple carry adder/
-├── prompt/          (legacy prompt notes)
 └── prompts/
     ├── 01_zero_shot.sv
     ├── 02_few_shot.sv
