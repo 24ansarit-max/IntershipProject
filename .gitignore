@@ -4,3 +4,5 @@ sim
 sim.exe
 a.out
 *.log
+pdf_extract.txt
+extract_cla_prompts.py
