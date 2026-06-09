@@ -1,0 +1,33 @@
+Prompt Strategy: Self-Planning Prompt  
+Prompt: 
+INSTRUCTION: Before writing any Verilog code, produce a complete written PLAN  
+answering all questions below. Then execute that plan to produce final code. 
+ 
+STRICT BEHAVIORAL RULE: 
+adder16_beh must use ONLY always @(*) with blocking assignments (=). 
+No assign, no structural, no gate primitives. All driven outputs must be reg. 
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+PLANNING PHASE — answer all 12 questions: 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+ 
+Q1.  What is the exact module port signature including reg/wire/signed declarations? 
+Q2.  Why must sum and ovf be declared as output reg and not output wire? 
+Q3.  What is always @(*) and why is it the correct construct for a combinational adder? 
+Q4.  What is the difference between = and <=? Which is correct here and why? 
+Q5.  What does $signed({A[15],A}) do? Trace it for A=32767 and A=-1. 
+Q6.  How does ovf = sum[16]^sum[15] detect overflow? 
+     Trace manually for: 32767+1, -32768+(-1), 100+200. 
+Q7.  What are the 20 corner case pairs for the for loop and why is each important? 
+Q8.  What distinct verification purpose does each loop type serve? 
+     (for = ?, while = ?, repeat = ?, forever = ?) 
+Q9.  How is expected computed in the testbench? What type should it be declared as? 
+Q10. How should A, B, sum, ovf be declared in the testbench (reg vs wire)? 
+Q11. How do I prevent the forever loop from running indefinitely? 
+Q12. What final summary output should the testbench print? 
+ 
+Write complete answers to Q1–Q12 as your PLAN section. 
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
+EXECUTION PHASE — write based on your plan: 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

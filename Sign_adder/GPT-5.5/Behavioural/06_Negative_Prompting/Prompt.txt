@@ -1,0 +1,8 @@
+Prompt Strategy: Negative Prompting 
+Prompt: 
+Write a 16-bit signed adder in Verilog using behavioral modeling only,  
+with a comprehensive testbench covering all loop types. 
+ 
+STRICTLY DO NOT VIOLATE ANY OF THE FOLLOWING RULES: 
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

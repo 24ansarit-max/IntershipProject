@@ -1,0 +1,45 @@
+4. Role Prompting  
+ 
+Prompt- 
+You are a senior RTL design engineer specializing in gate-level and structural Verilog 
+for FPGA synthesis and ASIC standard cell mapping. Your team enforces a strict rule: 
+top-level RTL modules must be written using ONLY structural modeling — sub-module 
+instantiation and wire connections. No assign statements, no always blocks, and no 
+arithmetic operators are permitted inside any top-level structural module. 
+All logic must be encapsulated inside primitive sub-modules. 
+ 
+A junior engineer has asked you to write a reference implementation of a 16-bit signed 
+adder that strictly follows your team's structural-only coding standard. 
+ 
+Write the following as a professional code review submission: 
+ 
+1. Module half_adder (gate primitive level): 
+   - Inputs: a, b 
+   - Outputs: sum, cout 
+   - Use Verilog gate primitives: xor, and 
+   - No assign, no always 
+ 
+2. Module full_adder (structural, built from half_adder): 
+   - Inputs: a, b, cin 
+   - Outputs: sum, cout 
+   - Instantiate two half_adder modules and one or gate 
+   - No assign, no always, no arithmetic operators 
+ 
+3. Module adder16_struct (structural top-level): 
+   - Inputs: signed [15:0] A, B 
+   - Output: signed [16:0] sum 
+   - Instantiate exactly 16 full_adder modules named fa0 through fa15 
+   - Declare wire [16:0] c for carry chain 
+   - Wire c[0] to ground (1'b0) 
+   - Connect carry chain: c[1] through c[16] 
+   - sum[15:0] from full adder outputs, sum[16] = c[16] 
+   - NO assign, NO always, NO arithmetic operators inside this module 
+ 
+4. Testbench tb_adder16: 
+   - FOR loop: 20 boundary pairs including all overflow corner cases with PASS/FAIL 
+   - WHILE loop: 100 iterations with $signed($random), error count tracking 
+   - REPEAT loop: 50 iterations with random inputs, display each result 
+   - FOREVER loop: clk toggle every 5ns, $finish at 2000ns 
+   - $display with %0d signed decimal format throughout 
+ 
+Write clean, professional, commented Verilog with header comment blocks.

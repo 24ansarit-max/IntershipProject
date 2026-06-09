@@ -1,0 +1,4 @@
+9. Iterative Correction Prompt
+Prompt-
+Write a 16-bit signed adder using an iterative self-correction process.
+ABSOLUTE RULE ACROSS ALL ITERATIONS: The

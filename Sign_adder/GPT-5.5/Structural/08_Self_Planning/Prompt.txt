@@ -1,0 +1,11 @@
+8. Self-Planning Prompt  
+Prompt- 
+Before writing any Verilog code, create a detailed plan and then execute it. 
+STRICT RULE: adder16_struct must contain ONLY wire declarations and module 
+instantiations. 
+No assign, no always, no arithmetic operators inside the structural top-level module. 
+All logic lives inside half_adder and full_adder sub-modules only. 
+ 
+PLANNING PHASE — answer each question first: 
+ 
+Q1. What are the three

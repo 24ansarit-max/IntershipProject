@@ -1,0 +1,5 @@
+5. Instruction + Format Prompt
+Prompt-
+TASK: Write a 16-bit signed adder in Verilog using STRICTLY DATAFLOW MODELING ONLY.
+
+ABSOLUTE RULE: The
