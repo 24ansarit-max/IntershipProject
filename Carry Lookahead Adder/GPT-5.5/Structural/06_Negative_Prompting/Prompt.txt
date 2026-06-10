@@ -1,0 +1,16 @@
+Generate a 16-bit CLA in STRUCTURAL Verilog. 
+ 
+AVOID THESE MISTAKES: 
+- Do NOT use assign in the top module (defeats structural style) 
+- Do NOT use always blocks in structural modules 
+- Do NOT instantiate full adders in a chain (that's ripple carry) 
+- Do NOT use arithmetic operators (+, -) 
+- Do NOT create modules with no clear single responsibility 
+ 
+CORRECT APPROACH: 
+- pg_cell module: only AND and XOR primitives or assign for G and P 
+- carry_logic module: only AND/OR tree for carry bits 
+- cla_4bit_block: instantiates pg_cell x4 + carry_logic 
+- cla_16bit: instantiates 4x cla_4bit_block + group carry logic 
+ 
+Each module must have a // Responsibility: comment, // Area: comment, // Delay: comment.

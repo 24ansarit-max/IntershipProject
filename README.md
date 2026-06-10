@@ -11,6 +11,15 @@ ripple carry adder/
 └── prompts/
     ├── 01_zero_shot.sv … 10_hybrid.sv
 
+Carry Lookahead Adder/
+└── GPT-5.5/
+    ├── Behavioural/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    ├── Dataflow/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    └── Structural/
+        ├── 01_Zero_Shot/ … 10_Hybrid/
+
 Booth Multiplier/
 └── GPT-5.5/
     ├── Behavioural/
@@ -44,6 +53,18 @@ Carry Select Adder/
 | 8 | `08_self_planning.sv` | Self-planning — phased design plan |
 | 9 | `09_iterative_correction.sv` | Iterative correction — `rca_4bit_iterative` |
 | 10 | `10_hybrid.sv` | Hybrid — structural lower + behavioral upper bits |
+
+## Carry Lookahead Adder (16-bit CLA)
+
+Generated from `CARRY_LOOKAHEAD_ADDER.pdf`. Implementations are organized under `Carry Lookahead Adder/GPT-5.5/` by architectural style:
+
+| Section | Description |
+|---------|-------------|
+| Structural | Gate-level hierarchy with `pg_cell`, 4-bit CLA blocks, and explicit primitive gates |
+| Dataflow | Pure `assign` carry lookahead equations with expanded inter-group carries |
+| Behavioural | `always @(*)` procedural logic with grouped lookahead and overflow detection |
+
+Each prompting folder contains `Prompt.txt` (the LLM prompt) and `carry_lookahead_adder.v` (the generated RTL).
 
 ## Booth Multiplier (16-bit Signed)
 

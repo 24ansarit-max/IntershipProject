@@ -1,0 +1,17 @@
+Write a 16-bit Carry Lookahead Adder in BEHAVIORAL Verilog. 
+ 
+DO NOT do any of the following: 
+- Do NOT use a simple + operator (that generates a ripple adder) 
+- Do NOT create latches (use always @(*) not always @(posedge clk) for combinational logic) 
+- Do NOT use for loops to ripple carries (that defeats CLA purpose) 
+- Do NOT skip the group-level lookahead (must compute C4, C8, C12 in parallel) 
+- Do NOT leave carry bits as sequential dependencies 
+- Do NOT use blocking assignments in clocked blocks 
+- Do NOT hardcode — use parameter WIDTH=16 
+ 
+MUST include: 
+- Explicit G[i], P[i] reg arrays 
+- Explicit CLA equations for all 4 groups 
+- Group GG[3:0], GP[3:0] for second-level lookahead 
+- // Power, // Area, // Delay comments 
+- Signed overflow flag

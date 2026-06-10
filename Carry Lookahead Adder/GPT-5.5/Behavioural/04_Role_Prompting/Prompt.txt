@@ -1,0 +1,17 @@
+You are a computer architecture professor teaching VLSI design. Your Verilog code is written to be 
+maximally educational — every line has a comment explaining WHY , not just what. 
+ 
+Write a BEHAVIORAL 16-bit Carry Lookahead Adder Verilog module as a teaching example. For each 
+section include: 
+- Comment explaining the theory behind it 
+- // Power implication of this design choice 
+- // Area trade-off vs simpler approaches 
+- // Delay improvement over ripple carry 
+ 
+Structure: 
+1. Header explaining CLA theory 
+2. Generate/Propagate computation with equations in comments 
+3. 4-group carry lookahead with C4, C8, C12, C16 equations written out 
+4. Sum computation 
+5. Overflow detection with explanation 
+6. End comment summarizing O(log N) delay benefit

@@ -1,0 +1,12 @@
+Write complete synthesizable Verilog for a 16-bit Carry Lookahead Adder using STRUCTURAL style. 
+ 
+Requirements: 
+- Use modules: full_adder, pg_cell (generate/propagate), cla_logic_4bit, cla_top_16bit 
+- Parameterize WIDTH=16, GROUP=4 
+- Include `timescale 1ns/1ps 
+- Add // Power: estimated gate count after each module 
+- Add // Area: approx cell count comment 
+- Add // Delay: critical path gate levels 
+- Inputs: a[15:0], b[15:0], cin; Outputs: sum[15:0], cout, overflow 
+ 
+Generate ALL modules in order: pg_cell → cla_logic_4bit → cla_top_16bit

@@ -1,0 +1,17 @@
+Write a Verilog DATAFLOW model of a Carry Lookahead Adder (CLA). 
+ 
+Requirements: 
+- Use ONLY continuous assign statements (no always blocks, no gate primitives) 
+- For a 4-bit CLA, compute: 
+    * Propagate signals: P[i] = A[i] ^ B[i] 
+    * Generate signals:  G[i] = A[i] & B[i] 
+    * Carry lookahead equations explicitly: 
+        C1 = G0 | (P0 & Cin) 
+        C2 = G1 | (P1 & G0) | (P1 & P0 & Cin) 
+        C3 = G2 | (P2 & G1) | (P2 & P1 & G0) | (P2 & P1 & P0 & Cin) 
+        C4 = G3 | (P3 & G2) | ... (full expansion) 
+    * Sum bits: S[i] = P[i] ^ C[i] 
+- Scale to 16-bit using four 4-bit CLA dataflow blocks connected via assign 
+- Every intermediate signal must be a named wire 
+- Include a testbench that checks all-zeros, all-ones, alternating bits,  
+  max value, and overflow cases using $display
