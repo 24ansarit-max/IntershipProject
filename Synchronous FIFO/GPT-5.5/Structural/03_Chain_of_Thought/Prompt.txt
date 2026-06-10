@@ -1,0 +1,38 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Think step by step, then produce STRUCTURAL Verilog. 
+ 
+/* ── STEP 1: STRUCTURAL BOUNDARY DECISIONS ───────── */ 
+// For each module boundary below, write one sentence justifying 
+// why this responsibility belongs in its own module: 
+//   a) fifo_mem   — why separate storage from control? 
+//   b) fifo_ctrl  — why separate pointers from flags? 
+//   c) fifo_flags — why separate flags from top? 
+//   d) fifo_top   — what is the rule for what goes here? 
+ 
+/* ── STEP 2: WIRE INTERFACE BETWEEN MODULES ─────── */ 
+// List all internal wires that fifo_top must declare 
+// to connect the three sub-modules. For each wire, state: 
+//   wire name | width | driven by | consumed by 
+ 
+/* ── STEP 3: MODELING STYLE PER MODULE ──────────── */ 
+// Decide the Verilog modeling style for each module's internals: 
+//   fifo_mem   → behavioral (always @posedge clk) — explain why 
+//   fifo_ctrl  → behavioral (always @posedge clk) — explain why 
+//   fifo_flags → dataflow (assign) — explain why 
+//   fifo_top   → structural (instantiation only) — explain why 
+ 
+/* ── STEP 4: LOOP AUDIT ──────────────────────────── */ 
+// Identify every place a loop could appear in this design. 
+// For each: state whether it synthesizes safely, and if not, 
+// what replaces it. (Pointer increment is the key case.) 
+ 
+/* ── STEP 5: TIMING CLOSURE ─────────────────────── */ 
+// Trace the critical path from wr_ptr/rd_ptr comparison 
+// to full/empty output. How many logic levels? 
+// Does fifo_top register the flag outputs for Fmax > 100 MHz? 
+ 
+/* ── STEP 6: WRITE THE RTL ──────────────────────── */ 
+// Now produce the complete synthesizable Verilog. 
+// fifo_top MUST contain only wire declarations + instantiations. 
+// Each module gets a comment block: 
+//   // Power : ...  Area : X LUTs / Y FFs  Delay : Z ns

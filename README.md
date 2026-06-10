@@ -38,6 +38,15 @@ Carry Select Adder/
     │   ├── 01_Zero_Shot/ … 10_Hybrid/
     └── Structural/
         ├── 01_Zero_Shot/ … 10_Hybrid/
+
+Synchronous FIFO/
+└── GPT-5.5/
+    ├── Behavioural/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    ├── Dataflow/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    └── Structural/
+        ├── 01_Zero_Shot/ … 10_Hybrid/
 ```
 
 ## Prompt strategies
@@ -97,6 +106,18 @@ Generated from `carry select adder_ structural2.pdf` and `carry_select_head_data
 | Structural | Gate-level hierarchy with explicit `full_adder`, `rca4`, and `mux2` instantiations |
 | Dataflow | Pure continuous assignments (`assign`) for dual-candidate sums and carry-select mux |
 | Behavioural | Procedural `always @(*)` implementations with if-else carry selection |
+
+## Synchronous FIFO (16-bit)
+
+Generated from `SYNCHRONOUS FIFO.pdf`. Implementations are organized under `Synchronous FIFO/GPT-5.5/` by architectural style:
+
+| Section | Description |
+|---------|-------------|
+| Structural | Hierarchical `fifo_top` with explicit submodule instantiations for memory, control, and flags |
+| Dataflow | Continuous `assign` flag and occupancy logic with explicit pointer algebra |
+| Behavioural | Procedural `always` blocks for memory, pointers, and status registers |
+
+Each prompting folder contains `Prompt.txt` (the LLM prompt) and `synchronous FIFO.v` (the generated RTL).
 
 ## Simulation
 

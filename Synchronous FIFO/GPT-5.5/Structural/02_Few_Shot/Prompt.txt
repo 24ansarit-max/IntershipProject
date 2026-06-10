@@ -1,0 +1,62 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Use STRUCTURAL decomposition. Mirror the style shown below. 
+ 
+/* ── REFERENCE 1: structural top pattern ────────── */ 
+module example_top #(parameter DW=8, AW=4)( 
+  input  clk, rst_n, 
+  input  wr_en, rd_en, 
+  input  [DW-1:0] din, 
+  output [DW-1:0] dout, 
+  output full, empty 
+); 
+  wire [AW:0]   wr_ptr, rd_ptr;   // 5-bit: MSB=wrap 
+  wire [DW-1:0] mem_dout; 
+  // Structural instantiations only — no logic here 
+  mem_block  #(.DW(DW),.AW(AW)) u_mem  
+(.clk,.wr_en,.wr_ptr,.rd_ptr,.din,.dout(mem_dout)); 
+  ptr_logic  #(.AW(AW))         u_ctrl (.clk,.rst_n,.wr_en,.rd_en,.full,.empty,.wr_ptr,.rd_ptr); 
+  assign dout = mem_dout; 
+endmodule 
+ 
+/* ── REFERENCE 2: BRAM inference (fifo_mem style) ── */ 
+(* ram_style = "block" *) 
+module fifo_mem #(parameter DW=16, AW=4)( 
+  input              clk, wr_en, 
+  input  [AW-1:0]    wr_addr, rd_addr, 
+  input  [DW-1:0]    din, 
+  output reg [DW-1:0] dout 
+); 
+  reg [DW-1:0] mem [0:(1<<AW)-1]; 
+  always @(posedge clk) begin 
+    if (wr_en) mem[wr_addr] <= din;   // behavioral write 
+    dout <= mem[rd_addr];             // read-first mode 
+  end 
+endmodule 
+ 
+/* ── REFERENCE 3: pointer module (fifo_ctrl style) ─ */ 
+module fifo_ctrl #(parameter AW=4)( 
+  input            clk, rst_n, wr_en, rd_en, 
+  input            full, empty, 
+  output reg [AW:0] wr_ptr, rd_ptr  // behavioral FFs 
+); 
+  always @(posedge clk) begin 
+    if (!rst_n) begin 
+      wr_ptr <= 0; rd_ptr <= 0; 
+    end else begin 
+      if (wr_en && !full)  wr_ptr <= wr_ptr + 1'b1; 
+      if (rd_en && !empty) rd_ptr <= rd_ptr + 1'b1; 
+    end 
+  end 
+endmodule 
+ 
+/* ── NOW GENERATE FULL FIFO ─────────────────────── */ 
+// Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+// Add fifo_flags module: 
+//   assign full        = (wr_ptr[4] != rd_ptr[4]) && 
+//                        (wr_ptr[3:0] == rd_ptr[3:0]); 
+//   assign empty       = (wr_ptr == rd_ptr); 
+//   assign almost_full = (DEPTH - (wr_ptr - rd_ptr)) <= 2; 
+//   assign almost_empty= ((wr_ptr - rd_ptr) <= 2); 
+// 
+// fifo_top: structural only — wire declarations + 3 instantiations 
+// Annotate each module: Power / Area / Delay

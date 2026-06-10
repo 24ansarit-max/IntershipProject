@@ -1,0 +1,43 @@
+S 
+/* ══════════════════════════════════════════════════ 
+   HARD CONSTRAINTS — satisfy ALL before writing any code 
+   ══════════════════════════════════════════════════ */ 
+ 
+[STRUCTURE]  Mandatory four-module hierarchy: 
+             fifo_top  → structural only (no logic) 
+             fifo_mem  → behavioral BRAM (always @posedge clk) 
+             fifo_ctrl → behavioral pointers (always @posedge clk) 
+             fifo_flags→ dataflow flags (assign) 
+             Violation = monolithic or merged modules = FAIL 
+ 
+[TIMING]     Fmax ≥ 100 MHz on xc7a100tcsg324-2 (-2 speed) 
+             All flag outputs must be registered inside fifo_top 
+             (output FF stage) before leaving the module boundary. 
+             Max combinational depth from pointer compare to flag: 2 LUTs. 
+ 
+[AREA]       ≤ 40 LUTs total (fifo_top + fifo_ctrl + fifo_flags) 
+             ≤ 30 FFs total (excluding BRAM internal registers) 
+             Storage MUST infer BRAM18E1 via (* ram_style="block" *) 
+ 
+[POWER]      Clock-enable on wr_ptr and rd_ptr FFs: 
+               wr_ptr FF: CE = wr_en & ~full 
+               rd_ptr FF: CE = rd_en & ~empty 
+             Prevents unnecessary switching when FIFO is idle. 
+ 
+[CODING]     No inferred latches — every always output assigned 
+             in all branches or given a default at block entry. 
+             Synchronous active-low rst_n only (no async). 
+             Non-blocking assignments (<=) in all clocked always. 
+             Named port connections in all module instantiations. 
+ 
+/* ══════════════════════════════════════════════════ 
+   TASK (implement after internalizing constraints above) 
+   ══════════════════════════════════════════════════ */ 
+// Target: Nexys A7, DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+// Ports: clk, rst_n, wr_en, rd_en, din[15:0], dout[15:0], 
+//        full, empty, almost_full, almost_empty 
+// 
+// After each module, annotate: 
+// // Constraint compliance: 
+// //   [STRUCTURE] ✓  [TIMING] ✓  [AREA] ✓  [POWER] ✓  [CODING] ✓ 
+// // Power: ...  Area: X LUTs / Y FFs  Delay: Z ns

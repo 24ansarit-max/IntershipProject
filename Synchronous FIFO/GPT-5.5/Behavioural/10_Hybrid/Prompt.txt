@@ -1,0 +1,85 @@
+/* ════════════════════════════════════════════════ 
+   ROLE 
+   ════════════════════════════════════════════════ */ 
+You are a principal RTL architect. Every always block 
+you write has a justified existence: you can state in 
+one sentence why it is a separate block and not merged 
+into another. You never write always @(*). You never 
+use forbidden loop constructs in synthesizable RTL. 
+ 
+/* ════════════════════════════════════════════════ 
+   HARD CONSTRAINTS 
+   ════════════════════════════════════════════════ */ 
+[TARGET]    xc7a100tcsg324-2 — Nexys A7 Artix-7 
+[PARAMS]    DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5 
+[BEHAVIORAL]ALL sequential logic in always @(posedge clk). 
+            Non-blocking <= everywhere. NO always @(*). 
+[LOOP RULES]ALLOWED: always @(posedge), for-in-always(reset), 
+                     generate for 
+            FORBIDDEN: always @(*), forever, while, repeat, 
+                       for(arithmetic), initial blocks 
+[TIMING]    Fmax ≥ 100 MHz. Flag block uses next-state look-ahead. 
+            Output register closes dout timing path. 
+[AREA]      ≤ 40 LUTs. ≤ 30 FFs (excl BRAM). BRAM18E1 mandatory. 
+            No BRAM mem-array reset in rst_n branch. 
+[POWER]     CE on ptr FFs. BRAM write gated. All in always blocks. 
+[CODING]    Sync rst_n only. Default/full-branch in every block. 
+            Each always block: header PPA comment. 
+ 
+/* ════════════════════════════════════════════════ 
+   CHAIN-OF-THOUGHT REASONING 
+   ════════════════════════════════════════════════ */ 
+Step 1 — Block separation justification: 
+  For each always block (A through G), write one sentence 
+  justifying why it is a separate block. Focus on: 
+  synthesis retiming, critical path isolation, BRAM inference 
+  rules, and clock-enable granularity for power. 
+ 
+Step 2 — Next-state look-ahead derivation: 
+  Derive wr_ptr_next and rd_ptr_next as combinational wires. 
+  Explain: why does Block D use these instead of current ptrs? 
+  Show the registered-flag timing diagram: 
+    cycle N:   wr/rd event occurs → ptrs update 
+    cycle N+1: flags reflect new state (registered) 
+ 
+Step 3 — Loop audit (all types): 
+  For each loop construct: allowed/forbidden + reason. 
+  For for-in-always: show that synthesis unrolls to 
+  DEPTH parallel reset enables — no ripple, no carry. 
+  For generate-for: confirm zero elaborated hardware. 
+ 
+Step 4 — Latch prevention strategy: 
+  State the default-at-top pattern used in Block D. 
+  Verify: every output of every block has a value 
+  in all branches before any if/else. 
+ 
+Step 5 — BRAM inference rule: 
+  State the three conditions for BRAM18E1 inference: 
+  (a) (* ram_style="block" *) attribute 
+  (b) read-first or write-first mode (not transparent) 
+  (c) no reset of memory contents in rst_n branch 
+ 
+/* ════════════════════════════════════════════════ 
+   OUTPUT FORMAT (exact section order) 
+   ════════════════════════════════════════════════ */ 
+## Block catalog table (Block|Name|FFs driven|CE|Reset value) 
+## Loop inventory table (Type|Allowed|Used|Cost|Reason) 
+## Block A — Pointer FFs [always @posedge clk] 
+## Block B — BRAM write  [always @posedge clk] 
+## Block C — BRAM read   [always @posedge clk, read-first] 
+## Block D — Flag register [always @posedge, next-state look-ahead] 
+## Block E — Count register [always @posedge clk] 
+## Block F — Output register [always @posedge clk, CE] 
+## Block G — Error flags [always @posedge clk] 
+## Loop H  — Generate-for [parametric, 0 cost] 
+## Loop I  — For-inside-always [array reset, unrolled] 
+## XDC / synthesis attribute notes 
+ 
+/* PPA header on every always block: */ 
+// ───────────────────────────────────────────────── 
+// Block X — <name> 
+// Power   : <CE gating notes, switching estimate> 
+// Area    : <LUT count> LUTs | <FF count> FFs 
+// Delay   : critical path within block ≈ <ns> 
+// Loop    : <loop type used, safety note> 
+// ─────────────────────────────────────────────────

@@ -1,0 +1,36 @@
+Write a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5 
+ 
+/* ── DATAFLOW DO ─────────────────────────────── */ 
+// ✓ All combinational logic via continuous assign 
+// ✓ assign full  = (wr_ptr[4]^rd_ptr[4]) & (wr_ptr[3:0]==rd_ptr[3:0]) 
+// ✓ assign empty = (wr_ptr == rd_ptr) 
+// ✓ assign count = wr_ptr[3:0] - rd_ptr[3:0]   // modular subtraction 
+// ✓ assign almost_full  = (count >= (DEPTH - 2)) 
+// ✓ assign almost_empty = (count <= 2) 
+// ✓ assign wr_addr = wr_ptr[ADDR_WIDTH-1:0] 
+// ✓ assign rd_addr = rd_ptr[ADDR_WIDTH-1:0] 
+// ✓ assign wr_en_safe = wr_en & ~full 
+// ✓ assign rd_en_safe = rd_en & ~empty 
+// ✓ Only always @(posedge clk) for FFs and BRAM 
+ 
+/* ── DATAFLOW DO NOT ─────────────────────────── */ 
+// ✗ Do NOT use always @(*) for any combinational logic 
+// ✗ Do NOT use always_comb anywhere 
+// ✗ Do NOT re-derive full/empty inside an always block 
+// ✗ Do NOT use if/case inside a combinational always block 
+// ✗ Do NOT use blocking = for combinational output signals 
+// ✗ Do NOT mix assign and always driving the same signal 
+// ✗ Do NOT use ? : ternary inside always blocks for combinational 
+//   (write as assign x = cond ? a : b; instead) 
+// ✗ Do NOT use assign on signals that also appear on LHS of <= 
+// ✗ Do NOT gate BRAM write enable inside always block — 
+//   use assign wr_en_safe = wr_en & ~full; THEN use wr_en_safe 
+//   as the sequential block's condition 
+// ✗ Do NOT produce a FIFO with full/empty only driven by always 
+//   (these must remain as assign for synthesis optimization) 
+// ✗ Do NOT omit the count signal — it enables both almost flags 
+ 
+/* ── PPA ANNOTATION ─────────────────────────── */ 
+// Each assign cluster: 
+// // Power: ... Area: X LUTs Delay: Z ns (N logic levels)

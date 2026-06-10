@@ -1,0 +1,70 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Think through every possible loop type, justify each, then write RTL. 
+ 
+/* ══ STEP 1: LOOP TAXONOMY ══════════════════════ */ 
+// For a synchronous FIFO, identify ALL loop constructs 
+// that could appear in Verilog. For each, state: 
+//   (a) Is it synthesizable? 
+//   (b) Does this FIFO need it? 
+//   (c) What does it implement? 
+// 
+// Loop types to evaluate: 
+//   always @(posedge clk)    → pointer FFs, BRAM, flags, regs 
+//   always @(*)              → combinational — do we need it? 
+//   for (i=...) inside always → array reset, initialization 
+//   for (i=...) inside initial → simulation only — EXCLUDE 
+//   generate for             → parameterized replication 
+//   forever loop             → synthesizable? needed? 
+//   repeat(N)                → synthesizable? needed? 
+//   while loop               → synthesizable? needed? 
+ 
+/* ══ STEP 2: ALWAYS BLOCK INVENTORY ════════════ */ 
+// For every always @(posedge clk) this FIFO needs, state: 
+//   Block name | Signals it drives | Reset value | CE condition 
+// 
+//   Block A: Pointer FFs 
+//     Drives: wr_ptr[4:0], rd_ptr[4:0] 
+//     Reset:  0  |  CE: wr_en & ~full / rd_en & ~empty 
+// 
+//   Block B: BRAM write 
+//     Drives: mem[wr_addr] <= din 
+//     Reset:  none (BRAM contents not reset) 
+//     CE:     wr_en & ~full 
+// 
+//   Block C: BRAM read (read-first) 
+//     Drives: dout_pre[15:0] 
+//     Reset:  0  |  CE: always reading 
+// 
+//   Block D: Next-state flag logic 
+//     Drives: full, empty, almost_full, almost_empty, count[4:0] 
+//     Reset:  full=0, empty=1, af=0, ae=1, count=0 
+//     Derives from: wr_ptr_next, rd_ptr_next 
+// 
+//   Block E: Output pipeline register 
+//     Drives: dout[15:0] 
+//     Reset:  0  |  CE: rd_en & ~empty 
+// 
+//   Block F: Error flag register 
+//     Drives: overflow, underflow 
+//     Reset:  0  |  Driven by combinational comparison 
+ 
+/* ══ STEP 3: FOR-LOOP AUDIT ═════════════════════ */ 
+// Identify every place a for loop appears. For each: 
+//   Safe: synthesis unrolls to parallel logic? (YES/NO) 
+//   Risk: could it infer a carry chain or latch? (YES/NO) 
+//   Replace with: what if unsafe? 
+// 
+//   Case 1 — pointer increment: use +1'b1, NOT for loop 
+//   Case 2 — array reset in always: for(k=0;k<N;k=k+1) 
+//             → synthesis unrolls to N parallel reset enables ✓ 
+//   Case 3 — generate for: elaboration, zero cost ✓ 
+//   Case 4 — for in initial: simulation only, EXCLUDE ✓ 
+ 
+/* ══ STEP 4: LATCH AUDIT ════════════════════════ */ 
+// For each always block: does every output have a value 
+// assigned in all branches OR a default at block top? 
+// Show the default pattern used to prevent latches. 
+ 
+/* ══ STEP 5: WRITE THE RTL ══════════════════════ */ 
+// Implement all blocks A–F plus generate-for and for-reset. 
+// Every block: // Power: ...  Area: X LUTs/Y FFs  Delay: Z ns

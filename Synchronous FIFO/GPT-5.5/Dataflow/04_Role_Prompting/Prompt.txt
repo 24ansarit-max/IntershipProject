@@ -1,0 +1,38 @@
+You are a principal RTL design architect specializing in Xilinx 
+Artix-7 optimization. Your rule: combinational logic lives in 
+continuous assign statements — never in always_comb or always @(*). 
+This gives synthesis tools maximum freedom to optimize logic cones. 
+ 
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+ 
+/* ── ARCHITECT'S DATAFLOW PHILOSOPHY ────────── */ 
+// Before writing any RTL, state 4 reasons why dataflow assign 
+// is superior to always_comb for FIFO flag logic on Artix-7: 
+//   1. Timing: no sensitivity list overhead 
+//   2. Area: synthesis can merge cones across assign boundaries 
+//   3. Latch safety: assign can NEVER infer a latch 
+//   4. Readability: one line per signal, self-documenting 
+ 
+/* ── COMPLETE ASSIGN SIGNAL CATALOG ─────────── */ 
+// Document every assign before coding: 
+// 
+//   assign full         = ...   // when is FIFO full? 
+//   assign empty        = ...   // when is FIFO empty? 
+//   assign count[4:0]   = ...   // current occupancy 
+//   assign almost_full  = ...   // threshold: DEPTH-2 entries 
+//   assign almost_empty = ...   // threshold: 2 entries 
+//   assign wr_addr[3:0] = ...   // BRAM write address 
+//   assign rd_addr[3:0] = ...   // BRAM read address 
+//   assign wr_en_safe   = ...   // gated write enable 
+//   assign rd_en_safe   = ...   // gated read enable 
+//   assign overflow     = ...   // write when full 
+//   assign underflow    = ...   // read when empty 
+ 
+/* ── SEQUENTIAL ELEMENTS (only FFs, only clocked) ── */ 
+// wr_ptr[4:0] — synchronous rst_n → 0 
+// rd_ptr[4:0] — synchronous rst_n → 0 
+// BRAM storage — always @(posedge clk), read-first 
+// Output flag FFs — register full/empty at output 
+ 
+/* ── PPA BREAKDOWN PER ASSIGN ────────────────── */ 
+// For each assign: Power / Area (LUTs) / Delay (logic levels)

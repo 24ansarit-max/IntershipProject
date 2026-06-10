@@ -1,0 +1,51 @@
+/* ════════════════════════════════════════════════ 
+   HARD CONSTRAINTS — satisfy ALL before writing RTL 
+   ════════════════════════════════════════════════ */ 
+ 
+[BEHAVIORAL]  ALL logic in always @(posedge clk) blocks. 
+              No always @(*). No always_comb. No assign for 
+              sequential signals. Non-blocking <= everywhere. 
+ 
+[LOOP RULES]  ALLOWED loops: 
+                always @(posedge clk) — ALL sequential logic 
+                for(k=0;k<N;k++) inside always — array reset only 
+                generate for — parameterized replication 
+              FORBIDDEN loops: 
+                forever, while, repeat — not synthesizable here 
+                for loops for arithmetic (use +1 increment) 
+                for loops inside initial blocks 
+ 
+[TIMING]      Fmax ≥ 100 MHz on xc7a100tcsg324-2. 
+              Flag always block MUST use next-state look-ahead 
+              (wr_ptr_next, rd_ptr_next) to register outputs. 
+              No combinational flag paths on critical path. 
+              BRAM must use read-first mode (1-cycle latency). 
+ 
+[AREA]        ≤ 40 LUTs total (all always blocks combined). 
+              ≤ 30 FFs (excluding BRAM output register FFs). 
+              Storage: (* ram_style = "block" *) mandatory. 
+              No reset of BRAM mem array contents. 
+ 
+[POWER]       CE on wr_ptr FF: if (wr_en && !full) 
+              CE on rd_ptr FF: if (rd_en && !empty) 
+              BRAM write gated: if (wr_en && !full) 
+              Prevents spurious switching — mandatory. 
+ 
+[CODING]      Synchronous active-low rst_n on ALL FFs. 
+              Every always output: default or full branch coverage. 
+              Each always block: header comment with PPA numbers. 
+ 
+/* ════════════════════════════════════════════════ 
+   TASK (after constraints are internalized) 
+   ════════════════════════════════════════════════ */ 
+// 16-bit FIFO: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+// Signals: clk, rst_n, wr_en, rd_en, din[15:0], dout[15:0] 
+//          full, empty, almost_full, almost_empty, count[4:0] 
+//          overflow, underflow, wr_ack, rd_valid 
+// 
+// Include all loop types: A(ptr FFs) B(BRAM wr) C(BRAM rd) 
+//   D(flag reg) E(count reg) F(output reg) G(generate) H(for-reset) 
+// 
+// After each always block: 
+// // Constraint compliance: [BEHAVIORAL]✓ [TIMING]✓ [AREA]✓ [POWER]✓ 
+// // Power: ...  Area: X LUTs / Y FFs  Delay: Z ns

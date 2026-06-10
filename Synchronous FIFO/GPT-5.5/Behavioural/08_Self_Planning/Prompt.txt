@@ -1,0 +1,59 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Build a behavioral design plan, review it, then implement. 
+ 
+/* ══ PLAN: always BLOCK INVENTORY ══════════════ */ 
+// Before writing any RTL, fill in this table: 
+// 
+//  Block | Signals driven      | Reset value     | CE condition 
+//  ────────────────────────────────────────────────────────────── 
+//  A     | wr_ptr, rd_ptr      | 0               | wr/rd_en_safe 
+//  B     | mem[wr_addr]        | N/A (BRAM)      | wr_en_safe 
+//  C     | dout_pre            | 0               | always (read) 
+//  D     | full, empty, af, ae | 0,1,0,1         | always 
+//  E     | count[4:0]          | 0               | always 
+//  F     | dout                | 0               | rd_en&&!empty 
+//  G     | overflow, underflow | 0               | always 
+//        | wr_ack, rd_valid    |                 | 
+ 
+/* ══ PLAN: LOOP INVENTORY ═══════════════════════ */ 
+// For each loop type below, answer YES/NO and give reason: 
+// 
+//  always @(posedge clk)  — needed? YES — all sequential FFs 
+//  always @(*)            — needed? NO  — use assign or clocked 
+//  for inside always      — needed? YES — array reset (Loop H) 
+//  generate for           — needed? YES — parametric (Loop I) 
+//  for arithmetic         — needed? NO  — use +1 binary 
+//  forever                — needed? NO  — not synthesizable 
+//  while                  — needed? NO  — unbounded 
+//  repeat                 — needed? NO  — use for instead 
+ 
+/* ══ PLAN: LATCH RISK PER BLOCK ════════════════ */ 
+// For each always block, identify the latch risk and mitigation: 
+// 
+//  Block D (flags): risk if full/empty not assigned in all branches 
+//    Mitigation: assign defaults at top OR use full branch coverage 
+//    State which approach you'll use for each output. 
+// 
+//  Block F (dout): risk if CE path doesn't cover reset 
+//    Mitigation: rst_n branch covers dout reset to 0 
+ 
+/* ══ PLAN: NEXT-STATE LOOK-AHEAD ══════════════ */ 
+// Block D uses wr_ptr_next, rd_ptr_next for look-ahead. 
+// Define these as wire combinational signals: 
+//   wire [PTR_WIDTH-1:0] wr_ptr_next = 
+//     (wr_en && !full) ? wr_ptr + 1'b1 : wr_ptr; 
+//   wire [PTR_WIDTH-1:0] rd_ptr_next = 
+//     (rd_en && !empty) ? rd_ptr + 1'b1 : rd_ptr; 
+// Explain: why does Block D use _next not current ptrs? 
+ 
+/* ══ SELF-REVIEW ════════════════════════════════ */ 
+// 1. Any signal driven by two always blocks? → fix (multi-driver) 
+// 2. Any always output without default or full coverage? → fix 
+// 3. Any for-loop doing arithmetic (not reset)? → replace with +1 
+// 4. Any forever/while/repeat loop? → remove 
+// 5. BRAM memory array reset in always block? → remove 
+// 6. Any async reset (posedge rst)? → change to sync rst_n 
+ 
+/* ══ IMPLEMENTATION ════════════════════════════ */ 
+// Implement the reviewed plan. All blocks A–G plus loops H–I. 
+// Each always block: // Power / Area / Delay annotation.

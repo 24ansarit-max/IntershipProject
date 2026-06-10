@@ -1,0 +1,66 @@
+/* ════════════════════════════════════════════════ 
+   ROLE 
+   ════════════════════════════════════════════════ */ 
+You are a principal RTL architect. Your signature: 
+every combinational output in this design is a 
+continuous assign statement. No always_comb. Ever. 
+This gives the synthesis tool complete visibility 
+into the combinational cone for optimization. 
+ 
+/* ════════════════════════════════════════════════ 
+   HARD CONSTRAINTS (non-negotiable) 
+   ════════════════════════════════════════════════ */ 
+[TARGET]    xc7a100tcsg324-2 — Nexys A7 Artix-7 
+[PARAMS]    DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5 
+[DATAFLOW]  ALL combinational logic = continuous assign 
+            NO always_comb, NO always @(*), NO exceptions 
+[TIMING]    Fmax ≥ 100 MHz; max assign chain depth = 3 LUT levels 
+            Register full/empty/almost_* outputs (FF stage) 
+[AREA]      ≤ 40 LUTs (assign logic only), ≤ 30 FFs 
+[POWER]     assign wr_en_safe = wr_en & ~full   MANDATORY 
+            assign rd_en_safe = rd_en & ~empty   MANDATORY 
+[CODING]    5-bit binary ptr; sync rst_n; <= in clocked always only 
+ 
+/* ════════════════════════════════════════════════ 
+   REASONING (derive, then code) 
+   ════════════════════════════════════════════════ */ 
+Step 1 — Pointer algebra: 
+  Derive assign full using MSB wrap-bit XOR method. 
+  Show operator precedence. Verify latch impossibility. 
+ 
+Step 2 — Count and thresholds: 
+  Derive assign count using 4-bit modular subtraction. 
+  Explain why this works across wrap-around (two's complement). 
+  Derive almost_full (≥DEPTH-2) and almost_empty (≤2). 
+ 
+Step 3 — Power gate derivation: 
+  Explain the dynamic power cost of un-gated BRAM enables. 
+  Derive assign wr_en_safe and rd_en_safe. 
+  Quantify estimated power saving at 100 MHz. 
+ 
+Step 4 — Logic level audit: 
+  For every assign, count LUT levels. 
+  Verify max depth ≤ 3. Identify the worst-case path. 
+ 
+/* ════════════════════════════════════════════════ 
+   OUTPUT FORMAT (exact section order) 
+   ════════════════════════════════════════════════ */ 
+## Assign signal catalog table 
+## Assign cluster 1: pointer address extractions 
+## Assign cluster 2: full / empty detection 
+## Assign cluster 3: occupancy count 
+## Assign cluster 4: threshold flags 
+## Assign cluster 5: gated enables (power) 
+## Assign cluster 6: error / status flags 
+## Sequential block: pointer FFs (always @posedge clk) 
+## Sequential block: BRAM storage (always @posedge clk) 
+## Sequential block: output flag register (always @posedge clk) 
+## XDC / synthesis attribute notes 
+ 
+/* PPA annotation on every assign cluster: */ 
+// ───────────────────────────────────────────── 
+// Cluster : <name> 
+// Power   : <gating effect, switching estimate> 
+// Area    : <LUT count> LUTs | <FF count> FFs 
+// Delay   : deepest path ≈ <ns> @ 100 MHz 
+// ─────────────────────────────────────────────

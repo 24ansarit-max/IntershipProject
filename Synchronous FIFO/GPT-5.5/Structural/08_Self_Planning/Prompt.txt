@@ -1,0 +1,52 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Before writing any Verilog, produce a structural design plan, 
+review it, then implement. 
+ 
+/* ── PLAN ────────────────────────────────────────── */ 
+// Answer each point before writing a single line of code: 
+// 
+// a) MODULE LIST 
+//    Name every module. For each: one-sentence responsibility. 
+//    Confirm: does fifo_top contain zero logic? 
+// 
+// b) WIRE MANIFEST 
+//    List every wire that fifo_top must declare. 
+//    Format: <name> [<width>] — from <module> → to <module> 
+// 
+// c) PORT MAPS 
+//    For each sub-module instantiation in fifo_top, write 
+//    the named port connection list (before writing the module body). 
+// 
+// d) MODELING STYLE PER MODULE 
+//    fifo_mem:   behavioral? dataflow? structural? → justify 
+//    fifo_ctrl:  behavioral? dataflow? structural? → justify 
+//    fifo_flags: behavioral? dataflow? structural? → justify 
+//    fifo_top:   behavioral? dataflow? structural? → justify 
+// 
+// e) FLAG LOGIC EXPRESSIONS 
+//    Write the Boolean expressions for full and empty 
+//    using 5-bit pointer notation (MSB=wrap). Confirm: can these 
+//    be expressed as assign statements without a latch? 
+// 
+// f) LOOP AUDIT 
+//    Enumerate every potential loop. For each: 
+//    safe to synthesize as-is / must replace with X? 
+// 
+// g) RESET COVERAGE 
+//    List every FF by module. Which value does each reset to? 
+ 
+/* ── SELF-REVIEW ─────────────────────────────────── */ 
+// Check your plan against these questions: 
+// 1. Does fifo_top have any logic other than wires + instances? 
+//    If yes → fix the plan. 
+// 2. Is the flag path registered before leaving fifo_top? 
+//    If no  → add output FFs in fifo_top. 
+// 3. Are all wires in the manifest actually used? 
+//    Remove any that aren't. 
+// 4. Does any module depend on another module's internal signal 
+//    directly (bypassing the port interface)? 
+//    If yes → expose it as a port. 
+ 
+/* ── IMPLEMENTATION ──────────────────────────────── */ 
+// Now write the complete RTL matching the reviewed plan. 
+// Each module: // Power / Area / Delay annotation.

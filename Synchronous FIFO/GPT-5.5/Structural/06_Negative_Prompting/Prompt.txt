@@ -1,0 +1,34 @@
+Write a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2) 
+using STRUCTURAL decomposition. 
+ 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+Modules required: fifo_mem · fifo_ctrl · fifo_flags · fifo_top 
+ 
+/* ── STRUCTURAL RULES (DO) ───────────────────────── */ 
+// ✓ fifo_top contains ONLY wire declarations + module instantiations 
+// ✓ fifo_mem  uses always @(posedge clk) + (* ram_style="block" *) 
+// ✓ fifo_ctrl uses always @(posedge clk) with <= assignments only 
+// ✓ fifo_flags uses assign for combinational flag expressions 
+// ✓ All flags registered at fifo_top output boundary (output FFs) 
+// ✓ Synchronous active-low rst_n on every FF in the design 
+// ✓ 5-bit binary pointers (MSB=wrap bit, [3:0]=BRAM address) 
+// ✓ Parameter propagation through all module instantiations 
+ 
+/* ── STRUCTURAL VIOLATIONS (DO NOT) ─────────────── */ 
+// ✗ Do NOT place any always block inside fifo_top 
+// ✗ Do NOT place assign flag logic inside fifo_ctrl 
+// ✗ Do NOT merge fifo_mem and fifo_ctrl into one module 
+// ✗ Do NOT use a monolithic single-module FIFO 
+// ✗ Do NOT use positional port connections (use .port(wire) form) 
+// ✗ Do NOT use implicit wire declarations in fifo_top 
+// ✗ Do NOT use generate-for to instantiate duplicate logic 
+// ✗ Do NOT use async reset (posedge clk or posedge rst) 
+// ✗ Do NOT use blocking assignment (=) in clocked always blocks 
+// ✗ Do NOT leave any always output unassigned in any branch 
+//   (infers latches — kills timing, causes DRC errors) 
+// ✗ Do NOT use integer loop variables in synthesizable code 
+// ✗ Do NOT use casex / casez (use full case with default) 
+// ✗ Do NOT use for-loops for pointer increment (ripple carry risk) 
+ 
+/* ── PPA ANNOTATION ─────────────────────────────── */ 
+// Each module: // Power / Area (LUTs, FFs) / Delay (ns)

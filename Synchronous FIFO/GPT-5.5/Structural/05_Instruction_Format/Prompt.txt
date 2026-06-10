@@ -1,0 +1,51 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Produce output in EXACTLY this order. Do not add extra sections. 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 1 — STRUCTURAL DESIGN SUMMARY 
+   One paragraph: module hierarchy, internal wire count, 
+   BRAM choice, pointer scheme, Fmax margin over 100 MHz. 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 2 — MODULE HIERARCHY TABLE 
+   Markdown table: Module | Style | Responsibility | Est. LUTs | Est. FFs 
+   Rows: fifo_mem, fifo_ctrl, fifo_flags, fifo_top 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 3 — INTERNAL WIRE TABLE 
+   Markdown table: Wire | Width | From module | To module 
+   (all wires declared in fifo_top) 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 4 — MODULE: fifo_mem 
+   Style: BEHAVIORAL (always @posedge clk, BRAM inference) 
+   (* ram_style = "block" *), read-first, DATA_WIDTH=16 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 5 — MODULE: fifo_ctrl 
+   Style: BEHAVIORAL (clocked always, sync rst_n) 
+   5-bit binary pointers; CE gating on pointer FFs 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 6 — MODULE: fifo_flags 
+   Style: DATAFLOW (continuous assign) 
+   full, empty, almost_full (entries≥14), almost_empty (entries≤2) 
+   Register outputs at fifo_top boundary 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 7 — MODULE: fifo_top  ← STRUCTURAL ONLY 
+   Contains ONLY: parameter declarations, wire declarations, 
+   and four module instantiations with named port maps. 
+   ZERO always blocks. ZERO assign statements (except clk/rst). 
+   ══════════════════════════════════════════════════ */ 
+ 
+/* ══════════════════════════════════════════════════ 
+   SECTION 8 — XDC / SYNTHESIS NOTES 
+   Any Vivado attributes, RAM_STYLE, KEEP directives needed. 
+   ══════════════════════════════════════════════════ */

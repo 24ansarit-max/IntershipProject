@@ -1,0 +1,66 @@
+/* ════════════════════════════════════════════════ 
+   TURN 1 — INITIAL BEHAVIORAL GENERATION 
+   ════════════════════════════════════════════════ */ 
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Behavioral style: all logic in always @(posedge clk). 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5. 
+Include all loop types: 
+  A) Pointer FFs    B) BRAM write    C) BRAM read-first 
+  D) Flag register  E) Count register F) Output register 
+  G) Error flags    H) Generate-for  I) For-inside-always 
+Sync rst_n, Fmax>100 MHz, BRAM, no always @(*), no latches. 
+ 
+────────────────────────────────────────────────── 
+[Paste generated RTL here, then send TURN 2] 
+────────────────────────────────────────────────── 
+ 
+/* ════════════════════════════════════════════════ 
+   TURN 2 — BEHAVIORAL CRITIQUE PASS 
+   ════════════════════════════════════════════════ */ 
+Review the Verilog. Check every always block and loop: 
+ 
+ALWAYS CHECK 1 — LOOP TYPE COVERAGE 
+  always @(posedge clk) for ptr FFs? [YES/NO + line] 
+  always @(posedge clk) for BRAM write? [YES/NO] 
+  always @(posedge clk) for BRAM read? [YES/NO] 
+  always @(posedge clk) for flag register? [YES/NO] 
+  always @(posedge clk) for output register? [YES/NO] 
+  generate for present? [YES/NO] 
+  for inside always present? [YES/NO] 
+  Any forbidden always @(*) found? [YES/NO — must be NO] 
+ 
+ALWAYS CHECK 2 — LATCH SAFETY 
+  Block D (flags): do full/empty have default at block top 
+  OR are they assigned in EVERY branch? [YES/NO + evidence] 
+  Block F (dout): does dout have a hold/reset in all branches? 
+  Any other signal assigned in only some branches? [list] 
+ 
+ALWAYS CHECK 3 — LOOP SAFETY 
+  Any for loop doing arithmetic (not array reset)? [YES/NO] 
+  Any forever/while/repeat loop? [YES/NO — must be NO] 
+  For-inside-always: does it only reset array elements? [YES/NO] 
+  Generate-for: does it contain zero logic? [YES/NO] 
+ 
+ALWAYS CHECK 4 — RESET CORRECTNESS 
+  Async reset (posedge rst_n) anywhere? [YES/NO — must be NO] 
+  BRAM mem array reset in rst_n branch? [YES/NO — must be NO] 
+  All pointer FFs reset to 0 on rst_n? [YES/NO] 
+  Flag FFs reset to correct values (empty=1, full=0)? [YES/NO] 
+ 
+ALWAYS CHECK 5 — BRAM INFERENCE 
+  (* ram_style = "block" *) attribute present? [YES/NO] 
+  BRAM read is unconditional (read-first)? [YES/NO] 
+  BRAM write gated by wr_en && !full? [YES/NO] 
+  Any reset of mem array contents? [YES/NO — must be NO] 
+ 
+ALWAYS CHECK 6 — PPA ANNOTATION 
+  Every always block has Power/Area/Delay comment? [YES/NO] 
+ 
+/* ════════════════════════════════════════════════ 
+   TURN 3 — BEHAVIORAL FIX PASS 
+   ════════════════════════════════════════════════ */ 
+Fix every issue found in Turn 2. 
+Output only the corrected always blocks. 
+For each fix: 
+  // BEHAVIORAL FIX: [issue found] → [correction applied] 
+Add missing PPA annotations to any always block lacking them.

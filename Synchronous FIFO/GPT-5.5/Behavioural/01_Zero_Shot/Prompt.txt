@@ -1,0 +1,67 @@
+Write synthesizable Verilog for a 16-bit synchronous FIFO 
+targeting Nexys A7 (xc7a100tcsg324-2) in BEHAVIORAL form. 
+ 
+/* ═══ PARAMETERS ════════════════════════════════ */ 
+localparam DATA_WIDTH = 16; 
+localparam DEPTH      = 16; 
+localparam ADDR_WIDTH = 4; 
+localparam PTR_WIDTH  = ADDR_WIDTH + 1; // 5-bit: MSB=wrap 
+ 
+/* ═══ MANDATORY BEHAVIORAL LOOPS ════════════════ */ 
+// The design MUST contain ALL of the following always blocks: 
+// 
+// LOOP A — Pointer FFs (synchronous reset, clock enable) 
+//   always @(posedge clk) begin 
+//     if (!rst_n) begin wr_ptr<=0; rd_ptr<=0; end 
+//     else begin 
+//       if (wr_en && !full)  wr_ptr <= wr_ptr + 1'b1; 
+//       if (rd_en && !empty) rd_ptr <= rd_ptr + 1'b1; 
+//     end 
+//   end 
+// 
+// LOOP B — BRAM write port (inference) 
+//   (* ram_style = "block" *) 
+//   always @(posedge clk) 
+//     if (wr_en && !full) mem[wr_ptr[ADDR_WIDTH-1:0]] <= din; 
+// 
+// LOOP C — BRAM read port, read-first mode 
+//   always @(posedge clk) 
+//     dout_pre <= mem[rd_ptr[ADDR_WIDTH-1:0]]; 
+// 
+// LOOP D — Flag logic (registered, no latches) 
+//   always @(posedge clk) begin 
+//     if (!rst_n) begin full<=0; empty<=1; ... end 
+//     else begin 
+//       full  <= (wr_ptr_next[PTR_WIDTH-1] != rd_ptr[PTR_WIDTH-1]) && 
+//                (wr_ptr_next[ADDR_WIDTH-1:0] == rd_ptr[ADDR_WIDTH-1:0]); 
+//       empty <= (wr_ptr_next == rd_ptr_next); 
+//       // ... almost_full, almost_empty, count 
+//     end 
+//   end 
+// 
+// LOOP E — Output register (registered dout for timing closure) 
+//   always @(posedge clk) 
+//     if (!rst_n) dout <= {DATA_WIDTH{1'b0}}; 
+//     else if (rd_en && !empty) dout <= dout_pre; 
+// 
+// LOOP F — Generate-for (parameterized reset of wide signals) 
+//   genvar i; 
+//   generate 
+//     for (i=0; i<PTR_WIDTH; i=i+1) begin : ptr_reset_gen 
+//       // structural hook for per-bit reset tie-off if needed 
+//     end 
+//   endgenerate 
+// 
+// LOOP G — For loop inside always (initialise count register) 
+//   integer k; 
+//   always @(posedge clk) 
+//     if (!rst_n) for (k=0; k<DEPTH; k=k+1) count_arr[k] <= 1'b0; 
+ 
+/* ═══ RULES ══════════════════════════════════════ */ 
+// • Non-blocking <= in ALL clocked always blocks 
+// • Synchronous active-low rst_n — NO async reset 
+// • No inferred latches — every output assigned in all branches 
+//   or given a default at top of block 
+// • No for-loops creating carry chains for arithmetic 
+// • Comments: every always block has a header comment 
+//   // Power: ...  Area: X LUTs / Y FFs  Delay: Z ns

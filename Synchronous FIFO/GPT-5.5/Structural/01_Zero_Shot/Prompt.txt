@@ -1,0 +1,39 @@
+Write synthesizable Verilog RTL for a 16-bit synchronous FIFO 
+targeting Nexys A7 (xc7a100tcsg324-2) using STRUCTURAL form. 
+ 
+/* ── PARAMETERS ─────────────────────────────────── */ 
+parameter DATA_WIDTH = 16; 
+parameter DEPTH      = 16; 
+parameter ADDR_WIDTH = 4;   // log2(DEPTH) 
+ 
+/* ── TOP-LEVEL INTERFACE (fifo_top) ─────────────── */ 
+// input  clk, rst_n          // synchronous active-low reset 
+// input  wr_en, rd_en 
+// input  [DATA_WIDTH-1:0] din 
+// output [DATA_WIDTH-1:0] dout 
+// output full, empty, almost_full, almost_empty 
+ 
+/* ── REQUIRED MODULE HIERARCHY (structural) ─────── */ 
+// fifo_top        — instantiates the three modules below; 
+//                   contains ONLY port maps and wire declarations, 
+//                   NO logic, NO always blocks, NO assign logic 
+//   └─ fifo_mem   — BRAM storage; behavioral always @(posedge clk); 
+//                   (* ram_style = "block" *); read-first mode 
+//   └─ fifo_ctrl  — 5-bit pointer logic (MSB=wrap, [3:0]=addr); 
+//                   behavioral always @(posedge clk); synchronous rst_n 
+//   └─ fifo_flags — full/empty/almost_full/almost_empty; 
+//                   combinational: assign (dataflow style) 
+ 
+/* ── STRUCTURAL RULES ───────────────────────────── */ 
+// • fifo_top must contain ONLY: 
+//     wire declarations + module instantiations 
+// • No inferred latches — full case/default in every always block 
+// • Synchronous active-low reset on ALL flip-flops 
+// • Fmax > 100 MHz: register all flag outputs at fifo_top boundary 
+// • No for-loops creating carry chains (use binary +1 increment) 
+// • Parameterize with localparams; propagate through hierarchy 
+ 
+/* ── PPA ANNOTATION (add to each module) ─────────── */ 
+// // Power : <switching estimate> 
+// // Area  : <LUT count> LUTs | <FF count> FFs 
+// // Delay : <critical path> ≈ <ns> @ 100 MHz

@@ -1,0 +1,44 @@
+Write synthesizable Verilog for a 16-bit synchronous FIFO 
+targeting Nexys A7 (xc7a100tcsg324-2) in DATAFLOW form. 
+ 
+/* ── PARAMETERS ──────────────────────────────── */ 
+localparam DATA_WIDTH = 16; 
+localparam DEPTH      = 16; 
+localparam ADDR_WIDTH = 4;   // log2(DEPTH) 
+localparam PTR_WIDTH  = 5;   // ADDR_WIDTH+1 (MSB=wrap bit) 
+ 
+/* ── DATAFLOW RULES (mandatory) ─────────────── */ 
+// ALL combinational logic must use continuous assign: 
+// 
+//   assign full         = (wr_ptr[4] ^ rd_ptr[4]) & 
+//                         (wr_ptr[3:0] == rd_ptr[3:0]); 
+//   assign empty        = (wr_ptr == rd_ptr); 
+//   assign count        = wr_ptr - rd_ptr;   // 5-bit subtraction 
+//   assign almost_full  = (count >= (DEPTH-2)); 
+//   assign almost_empty = (count <= 2); 
+//   assign wr_addr      = wr_ptr[ADDR_WIDTH-1:0]; 
+//   assign rd_addr      = rd_ptr[ADDR_WIDTH-1:0]; 
+//   assign wr_en_safe   = wr_en & ~full; 
+//   assign rd_en_safe   = rd_en & ~empty; 
+// 
+// NO always @(*) or always_comb for combinational logic. 
+// always blocks ONLY for: 
+//   (a) pointer FFs — always @(posedge clk) 
+//   (b) BRAM inference — always @(posedge clk) 
+//   (c) output flag register — always @(posedge clk) 
+ 
+/* ── INTERFACE ───────────────────────────────── */ 
+// module fifo_16bit #(...)(...); 
+// Ports: clk, rst_n, wr_en, rd_en, 
+//        din[15:0], dout[15:0], 
+//        full, empty, almost_full, almost_empty, count[4:0] 
+ 
+/* ── STORAGE ─────────────────────────────────── */ 
+// (* ram_style = "block" *) on memory array 
+// Read-first mode (dout registered on posedge clk) 
+// Synchronous active-low reset on all pointer FFs 
+ 
+/* ── PPA ANNOTATION (add inline) ────────────── */ 
+// // Power : <switching estimate, gating notes> 
+// // Area  : <LUT count> LUTs | <FF count> FFs 
+// // Delay : critical path expression → assign → FF ≈ <ns>

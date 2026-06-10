@@ -1,0 +1,79 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Produce output in EXACTLY this section order. No deviations. 
+ 
+/* ══ SECTION 1 — BEHAVIORAL DESIGN SUMMARY ═════ */ 
+// Paragraph: why behavioral style, all loop types used, 
+// BRAM strategy, registered-flag approach, Fmax margin. 
+ 
+/* ══ SECTION 2 — LOOP INVENTORY TABLE ══════════ */ 
+// Markdown table: 
+// Loop | Type | Block name | Signals driven | LUTs | FFs | Delay 
+ 
+/* ══ SECTION 3 — MODULE HEADER + PARAMETERS ════ */ 
+// module fifo_16bit #( 
+//   parameter DATA_WIDTH = 16, 
+//   parameter DEPTH      = 16, 
+//   parameter ADDR_WIDTH = 4, 
+//   parameter PTR_WIDTH  = ADDR_WIDTH + 1 
+// )( 
+//   input clk, rst_n, wr_en, rd_en, 
+//   input  [DATA_WIDTH-1:0] din, 
+//   output reg [DATA_WIDTH-1:0] dout, 
+//   output reg full, empty, almost_full, almost_empty, 
+//   output reg [PTR_WIDTH-1:0] count, 
+//   output reg overflow, underflow, wr_ack, rd_valid 
+// ); 
+ 
+/* ══ SECTION 4 — LOOP A: Pointer FFs ═══════════ */ 
+// always @(posedge clk) — wr_ptr, rd_ptr, wr_ptr_next, rd_ptr_next 
+// Synchronous rst_n. CE = wr_en_safe / rd_en_safe. 
+// // Power: ...  Area: X LUTs / Y FFs  Delay: Z ns 
+ 
+/* ══ SECTION 5 — LOOP B: BRAM write ════════════ */ 
+// (* ram_style = "block" *) 
+// always @(posedge clk) — mem[wr_addr] <= din 
+// Gated by wr_en && !full 
+// // Power: ...  Area: BRAM18E1  Delay: 1 cycle 
+ 
+/* ══ SECTION 6 — LOOP C: BRAM read-first ═══════ */ 
+// always @(posedge clk) — dout_pre <= mem[rd_addr] 
+// Read-first mode — no conditional 
+// // Power: ...  Area: 0 LUTs / DATA_WIDTH FFs  Delay: 1 cycle 
+ 
+/* ══ SECTION 7 — LOOP D: Flag register ═════════ */ 
+// always @(posedge clk) — full, empty, almost_full, almost_empty 
+// Use wr_ptr_next / rd_ptr_next to look one step ahead 
+// Synchronous rst_n: full=0, empty=1, af=0, ae=1 
+// // Power: ...  Area: X LUTs / 4 FFs  Delay: not on crit path 
+ 
+/* ══ SECTION 8 — LOOP E: Count register ════════ */ 
+// always @(posedge clk) — count[PTR_WIDTH-1:0] 
+// count = wr_ptr - rd_ptr (5-bit modular) 
+// // Power: ...  Area: X LUTs / Y FFs  Delay: Z ns 
+ 
+/* ══ SECTION 9 — LOOP F: Output register ═══════ */ 
+// always @(posedge clk) — dout, rd_valid, wr_ack 
+// CE: rd_en && !empty 
+// // Power: ...  Area: 0 LUTs / DATA_WIDTH FFs  Delay: 1 cycle latency 
+ 
+/* ══ SECTION 10 — LOOP G: Error flags ══════════ */ 
+// always @(posedge clk) — overflow, underflow 
+// overflow  = wr_en && full (write when full) 
+// underflow = rd_en && empty (read when empty) 
+// // Power: ...  Area: X LUTs / 2 FFs  Delay: Z ns 
+ 
+/* ══ SECTION 11 — LOOP H: Generate-for ═════════ */ 
+// genvar gi; generate for(...) — parameterized instance 
+// Purpose: per-bit reset tie-off, or debug probe hooks 
+// // Cost: 0 LUTs, 0 FFs — elaboration only 
+ 
+/* ══ SECTION 12 — LOOP I: For inside always ════ */ 
+// integer k; 
+// always @(posedge clk) if (!rst_n) 
+//   for(k=0;k<DEPTH;k=k+1) overflow_log[k] <= 1'b0; 
+// Synthesis unrolls to DEPTH parallel reset enables 
+// // Cost: 0 LUTs, DEPTH FFs 
+ 
+/* ══ SECTION 13 — XDC / SYNTHESIS NOTES ════════ */ 
+// (* ram_style = "block" *) attribute 
+// Any KEEP or MAX_FANOUT directives

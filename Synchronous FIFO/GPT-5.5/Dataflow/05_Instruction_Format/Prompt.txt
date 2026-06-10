@@ -1,0 +1,59 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Produce output in EXACTLY this order. No extra sections. 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 1 — DATAFLOW DESIGN SUMMARY 
+   One paragraph: why dataflow assign for all combinational, 
+   pointer scheme used, BRAM strategy, Fmax margin. 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 2 — COMPLETE ASSIGN SIGNAL TABLE 
+   Markdown table: 
+   Signal | Expression | LUT cost | Logic levels | Power note 
+   (all signals driven by assign in this design) 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 3 — ASSIGN BLOCK: pointer-derived signals 
+   assign full, empty, count, wr_addr, rd_addr 
+   Comment each line: // Power: ... Area: ... Delay: ... 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 4 — ASSIGN BLOCK: threshold flags 
+   assign almost_full, almost_empty 
+   assign overflow, underflow 
+   Comment each: // Power: ... Area: ... Delay: ... 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 5 — ASSIGN BLOCK: gated enables 
+   assign wr_en_safe = wr_en & ~full 
+   assign rd_en_safe = rd_en & ~empty 
+   Comment: why gating here saves BRAM dynamic power 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 6 — SEQUENTIAL BLOCK: pointer FFs 
+   ONLY always @(posedge clk) — sync rst_n 
+   wr_ptr[4:0], rd_ptr[4:0] with CE = wr/rd_en_safe 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 7 — SEQUENTIAL BLOCK: BRAM storage 
+   (* ram_style="block" *), read-first mode 
+   always @(posedge clk) — no reset on memory contents 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 8 — SEQUENTIAL BLOCK: output flag register 
+   Register full/empty/almost_full/almost_empty 
+   always @(posedge clk) — sync rst_n → 0 
+   (adds 1 cycle latency, removes flags from crit path) 
+   ════════════════════════════════════════════════ */ 
+ 
+/* ════════════════════════════════════════════════ 
+   SEC 9 — XDC / SYNTHESIS ATTRIBUTES 
+   (* ram_style="block" *), any KEEP directives 
+   ════════════════════════════════════════════════ */
