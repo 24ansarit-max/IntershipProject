@@ -1,0 +1,7 @@
+Prompt Strategy: Iterative Correction Prompt  
+Prompt: 
+Write a 16-bit signed adder using behavioral modeling through a structured  
+iterative self-correction process. 
+ 
+ABSOLUTE RULE ACROSS ALL ITERATIONS: 
+The

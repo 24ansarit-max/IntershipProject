@@ -1,0 +1,2 @@
+3. Chain-of-Thought Promptprompt-Think step by step and reason through each decision before writing Verilog code.
+STRICT RULE: Every

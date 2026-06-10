@@ -1,0 +1,7 @@
+Prompt Strategy: Zero Shot 
+Prompt: 
+Write a complete Verilog implementation of a 16-bit signed adder using  
+STRICTLY BEHAVIORAL MODELING ONLY. 
+ 
+STRICT BEHAVIORAL RULE: 
+The

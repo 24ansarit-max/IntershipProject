@@ -1,0 +1,4 @@
+1. Zero-Shot prompt-Write synthesizable Verilog code for a 16-bit signed adder using STRICTLY dataflow modeling only.
+
+STRICT RULE: Use ONLY assign statements and Verilog operators (arithmetic, bitwise, concatenation, conditional).
+Do NOT use any always blocks, structural instantiation, gate primitives, or behavioral constructs anywhere in the

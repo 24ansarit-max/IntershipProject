@@ -1,0 +1,3 @@
+2. Few-Shot Promptprompt -I will show you examples of dataflow-only Verilog adder patterns. You will extend them to a full 16-bit signed adder with testbench. 
+
+STRICT RULE FOR ALL CODE: Use ONLY assign statements and operators in ALL

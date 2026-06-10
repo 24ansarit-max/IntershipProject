@@ -1,0 +1,7 @@
+Prompt Strategy: Few Shot 
+Prompt: 
+I will show you examples of behavioral Verilog. You will extend them into a  
+complete 16-bit signed adder with testbench. 
+ 
+STRICT BEHAVIORAL RULE: 
+ALL

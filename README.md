@@ -29,6 +29,7 @@ Booth Multiplier/
     └── Structural/
         ├── 01_Zero_Shot/ … 10_Hybrid/
 
+Sign_adder/
 Carry Select Adder/
 └── GPT-5.5/
     ├── Behavioural/
@@ -75,6 +76,17 @@ Generated from `Booth Multiplier Structural.pdf`, `Booth_multiplier_dataflow.pdf
 | Structural | Gate-level hierarchy with explicit `booth_encoder`, `pp_gen`, and `adder32` instantiations |
 | Dataflow | Pure continuous assignments (`assign`) for partial-product generation and summation |
 | Behavioural | Procedural block implementations (`always`) for multiplication logic |
+
+## Sign Adder (16-bit Signed)
+
+Generated from `Sign_Adder_dataflow_16bit.docx`, `sign_adder_BEHAVIORAL_16bit.pdf`, and `sign_adder_structural_16bit.pdf`. The implementation is separated into folders based on the architectural style under `Sign_adder/GPT-5.5/`:
+
+| Section | Description |
+|---------|-------------|
+| Structural | Gate-level hierarchy with 16 explicit `full_adder` sub-module instantiations |
+| Dataflow | Pure continuous assignments (`assign`) for sign extension and summation |
+| Behavioural | Procedural block implementations (`always @(*)`) handling two's complement and overflow logic |
+
 
 ## Carry Select Adder (16-bit)
 
