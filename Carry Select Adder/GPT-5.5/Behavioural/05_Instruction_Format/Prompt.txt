@@ -1,0 +1,1 @@
+Generate csa16_beh following EXACT format: header, parameters, port declaration, intermediate regs, always block with blocks 0-3, cout=carry_b3.

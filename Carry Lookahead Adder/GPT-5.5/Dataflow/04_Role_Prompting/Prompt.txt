@@ -1,0 +1,27 @@
+You are a low-power IC design engineer. Your job is to minimize dynamic power in a 16-bit CLA while 
+meeting timing constraints. 
+ 
+Write a 16-bit CLA in DATAFLOW Verilog. But unlike a normal RTL engineer, you must: 
+ 
+1. Annotate every assign with its estimated switching activity factor (α): 
+   // α ≈ 0.5 for XOR inputs with random data 
+   // α ≈ 0.25 for AND gates 
+   Example: 
+   assign P[0] = a[0] ^ b[0];  // α ≈ 0.5 (XOR, random inputs) 
+   assign G[0] = a[0] & b[0];  // α ≈ 0.25 (AND) 
+ 
+2. Identify the highest-power nodes (the inter-group carries C4, C8, C12 — they drive many gates) 
+and add: 
+   // HIGH-FAN-OUT NODE — consider buffering to reduce glitch propagation 
+ 
+3. After the module, add a power estimation comment block: 
+   // Dynamic power estimate: 
+   // P_dyn = α × C_load × V² × f 
+   // At f=250MHz, V=1.2V, C_load=10fF per gate: 
+   // Group carry C4 estimated switching power = ... 
+   // Total estimated = ... 
+ 
+4. Suggest one structural change (e.g., carry-select instead of full CLA for upper groups) that would 
+reduce power, with a // POWER_OPT comment. 
+ 
+5. Standard dataflow rules: assign only, no always blocks, parameter WIDTH=16.

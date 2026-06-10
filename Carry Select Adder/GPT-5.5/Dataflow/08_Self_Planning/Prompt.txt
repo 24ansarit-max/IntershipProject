@@ -1,0 +1,1 @@
+Produce ASSIGN INVENTORY plan, validate checks, then write final csa16_df Verilog with DELAY_PS=300, AREA_UM2=648, POWER_UW=110.

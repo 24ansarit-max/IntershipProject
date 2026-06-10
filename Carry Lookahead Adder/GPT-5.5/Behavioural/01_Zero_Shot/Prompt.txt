@@ -1,0 +1,11 @@
+Write a 16-bit Carry Lookahead Adder in Verilog BEHAVIORAL style using always @(*) block. 
+ 
+- Use reg arrays for g[15:0], p[15:0], c[16:0] 
+- Compute carries inside always block using CLA formula for 4 groups of 4 bits 
+- Parameter WIDTH=16 
+- Output: sum[15:0], cout, overflow (signed overflow detection) 
+- Include comments: 
+  // Behavioral model — not direct gate mapping 
+  // Power: depends on synthesis tool mapping 
+  // Area: inferred from RTL, tool-dependent 
+  // Delay: ~log(N) carry chain

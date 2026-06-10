@@ -1,0 +1,1 @@
+CONSTRAINTS: DELAY_PS=300, AREA_UM2≤700, POWER_UW≤150, zero latches. Write csa16_beh with default assignments and 4 unrolled blocks.

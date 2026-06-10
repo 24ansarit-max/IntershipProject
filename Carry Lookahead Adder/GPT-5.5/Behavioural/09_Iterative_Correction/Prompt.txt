@@ -1,0 +1,8 @@
+Write a Verilog behavioral model of a Carry Lookahead Adder (CLA) using  
+iterative correction method. Use always blocks with procedural assignments.  
+The module should take two N-bit inputs A, B and a carry-in Cin, and produce  
+an N-bit Sum and Carry-out Cout. Internally, compute generate (G) and  
+propagate (P) signals iteratively using loops inside always blocks,  
+then correct the sum in successive iterations until no carry correction  
+is needed. Parameterize the bit width (default N=8). Include a testbench  
+that verifies corner cases: all zeros, all ones, overflow, and random values.

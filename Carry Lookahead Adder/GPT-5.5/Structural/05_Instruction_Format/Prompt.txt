@@ -1,0 +1,44 @@
+Generate a 16-bit CLA adder in STRUCTURAL Verilog. Every module MUST follow this exact template 
+— no exceptions: 
+ 
+MODULE TEMPLATE: 
+``` 
+//---------------------------------------------------- 
+// Module : <name> 
+// Purpose: <one sentence> 
+// Inputs : <list> 
+// Outputs: <list> 
+// Power  : <gate toggles estimate> 
+// Area   : <gate equivalent count> 
+// Delay  : <critical path gate levels> 
+//---------------------------------------------------- 
+module <name> #(<parameters>) ( 
+  <ports> 
+); 
+  <declarations> 
+  <body — instantiation or assign only> 
+endmodule 
+``` 
+ 
+Generate these modules in this order, each using the template above: 
+ 
+MODULE 1: pg_cell 
+- Computes single-bit G = a&b, P = a^b 
+- No parameters needed 
+ 
+MODULE 2: carry_logic_4 
+- Takes G[3:0], P[3:0], cin; outputs C[4:1] 
+- Pure assign statements for CLA carry equations 
+ 
+MODULE 3: sum_logic_4 
+- Takes P[3:0], C[4:1], cin; outputs sum[3:0] 
+- Pure assign statements 
+ 
+MODULE 4: group_pg 
+- Takes G[3:0], P[3:0], cin; outputs GG (group generate), GP (group propagate) 
+- Pure assign 
+ 
+MODULE 5: cla_16bit_structural (top) 
+- Instantiates 16x pg_cell, 4x carry_logic_4, 4x sum_logic_4, 1x group_pg (4 times for inter-group) 
+- Adds top-level carry lookahead for C4, C8, C12 
+- Ports: a[15:0], b[15:0], cin → sum[15:0], cout, overflow

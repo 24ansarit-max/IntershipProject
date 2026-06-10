@@ -11,10 +11,14 @@ ripple carry adder/
 └── prompts/
     ├── 01_zero_shot.sv … 10_hybrid.sv
 
-carry lookahead adder/
-└── gpt/
-    └── prompts/
-        ├── 01_zero_shot.sv … 10_hybrid.sv
+Carry Lookahead Adder/
+└── GPT-5.5/
+    ├── Behavioural/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    ├── Dataflow/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    └── Structural/
+        ├── 01_Zero_Shot/ … 10_Hybrid/
 
 Booth Multiplier/
 └── GPT-5.5/
@@ -26,6 +30,7 @@ Booth Multiplier/
         ├── 01_Zero_Shot/ … 10_Hybrid/
 
 Sign_adder/
+Carry Select Adder/
 └── GPT-5.5/
     ├── Behavioural/
     │   ├── 01_Zero_Shot/ … 10_Hybrid/
@@ -52,14 +57,15 @@ Sign_adder/
 
 ## Carry Lookahead Adder (16-bit CLA)
 
-From `CARRY_LOOKAHEAD_ADDER.pdf`. Each `.sv` file under `carry lookahead adder/gpt/prompts/` contains:
+Generated from `CARRY_LOOKAHEAD_ADDER.pdf`. Implementations are organized under `Carry Lookahead Adder/GPT-5.5/` by architectural style:
 
 | Section | Description |
 |---------|-------------|
-| Structural | Gate-level hierarchy (`pg_cell`, `cla_carry4`, `sum_cell`, `group_pg`, `inter_carry`) |
-| Dataflow | Pure `assign` carry lookahead equations |
-| Behavioral | `always @(*)` with group lookahead |
-| Testbench | Self-checking `tb_cla_adder_16bit` with directed + 50k random vectors |
+| Structural | Gate-level hierarchy with `pg_cell`, 4-bit CLA blocks, and explicit primitive gates |
+| Dataflow | Pure `assign` carry lookahead equations with expanded inter-group carries |
+| Behavioural | `always @(*)` procedural logic with grouped lookahead and overflow detection |
+
+Each prompting folder contains `Prompt.txt` (the LLM prompt) and `carry_lookahead_adder.v` (the generated RTL).
 
 ## Booth Multiplier (16-bit Signed)
 
@@ -82,6 +88,15 @@ Generated from `Sign_Adder_dataflow_16bit.docx`, `sign_adder_BEHAVIORAL_16bit.pd
 | Behavioural | Procedural block implementations (`always @(*)`) handling two's complement and overflow logic |
 
 
+## Carry Select Adder (16-bit)
+
+Generated from `carry select adder_ structural2.pdf` and `carry_select_head_dataflow_behavioral.pdf`. The implementation is separated into folders based on the architectural style under `Carry Select Adder/GPT-5.5/`:
+
+| Section | Description |
+|---------|-------------|
+| Structural | Gate-level hierarchy with explicit `full_adder`, `rca4`, and `mux2` instantiations |
+| Dataflow | Pure continuous assignments (`assign`) for dual-candidate sums and carry-select mux |
+| Behavioural | Procedural `always @(*)` implementations with if-else carry selection |
 
 ## Simulation
 
@@ -89,8 +104,5 @@ Compile **one file at a time** (module names overlap across strategies).
 
 ```bash
 iverilog -g2012 -o sim "ripple carry adder/prompts/01_zero_shot.sv"
-vvp sim
-
-iverilog -g2012 -o sim "carry lookahead adder/gpt/prompts/01_zero_shot.sv"
 vvp sim
 ```

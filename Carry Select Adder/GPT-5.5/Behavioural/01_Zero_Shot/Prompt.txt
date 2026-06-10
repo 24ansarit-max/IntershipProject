@@ -1,0 +1,2 @@
+Write a 16-bit Carry Select Adder in BEHAVIORAL style (always @(*) blocks).
+Requirements: module csa16_beh, BLOCK_SIZE=4, single always @(*), unroll 4 blocks, dual candidates with if-else select, output reg sum and cout.

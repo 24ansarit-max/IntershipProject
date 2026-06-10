@@ -1,0 +1,29 @@
+I will show you a 4-bit CLA module. Use the same pattern to generate a 16-bit version. 
+ 
+EXAMPLE (4-bit CLA structural): 
+```verilog 
+module cla_4bit(input [3:0] a,b, input cin, 
+  output [3:0] sum, output cout); 
+  wire [3:0] g,p; 
+  wire [4:0] c; 
+  assign c[0]=cin; 
+  genvar i; 
+  generate for(i=0;i<4;i=i+1) begin 
+    assign g[i]=a[i]&b[i]; 
+    assign p[i]=a[i]^b[i]; 
+  end endgenerate 
+  assign c[1]=g[0]|(p[0]&c[0]); 
+  assign c[2]=g[1]|(p[1]&g[0])|(p[1]&p[0]&c[0]); 
+  assign c[3]=g[2]|(p[2]&g[1])|(p[2]&p[1]&g[0])|(p[2]&p[1]&p[0]&c[0]); 
+  assign c[4]=g[3]|(p[3]&g[2])|(p[3]&p[2]&g[1])|(p[3]&p[2]&p[1]&g[0])|(p[3]&p[2]&p[1]&p[0]&c[0]); 
+  assign sum=p^c[3:0]; 
+  assign cout=c[4]; 
+endmodule 
+``` 
+ 
+Now generate a STRUCTURAL 16-bit CLA by instantiating four cla_4bit blocks plus a group-level CLA 
+for carries C4, C8, C12, C16. Include: 
+- Group generate/propagate signals GG[3:0], GP[3:0] 
+- Top-level carry lookahead for inter-group carries 
+- // Power, // Area, // Delay comments on each module 
+- Parameter WIDTH=16

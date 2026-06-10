@@ -1,0 +1,1 @@
+You are a senior synthesis engineer. Implement csa16_df in 100% assign-based dataflow with named wires, PPA parameters, explicit 4-block unroll, carry chain, and specify block.

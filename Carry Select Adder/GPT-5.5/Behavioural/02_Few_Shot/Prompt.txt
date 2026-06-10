@@ -1,0 +1,1 @@
+Write csa16_beh with single always @(*) block, 4 explicitly unrolled blocks, carry chain carry_b0→carry_b1→carry_b2, if-else selection per block.

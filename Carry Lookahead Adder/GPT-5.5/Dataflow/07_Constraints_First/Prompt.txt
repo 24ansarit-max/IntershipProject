@@ -1,0 +1,47 @@
+Write Verilog code for a 16-bit Carry Lookahead Adder (CLA) using DATAFLOW modeling style only. 
+ 
+STRICT CONSTRAINTS: 
+1. Use ONLY assign statements (no always blocks, no behavioral code) 
+2. Define bit-wise Generate (g[i] = a[i] & b[i]) and  
+   Propagate (p[i] = a[i] ^ b[i]) signals FIRST 
+3. Then compute Group Generate (G) and Group Propagate (P) for each 4-bit block 
+4. Then compute all carry signals (c1 to c16) using CLA logic equations 
+5. Finally compute the 16-bit Sum and Cout 
+ 
+MODULE INTERFACE: 
+   input  [15:0] a, b 
+   input         cin 
+   output [15:0] sum 
+   output        cout 
+ 
+ORDER OF DECLARATIONS (constraints first): 
+   Step 1 → Bit-level p[15:0] and g[15:0]  (propagate & generate) 
+   Step 2 → Block-level PG[3:0] and GG[3:0] for each 4-bit group 
+   Step 3 → Carry signals: c[16:0] where c[0] = cin 
+   Step 4 → Sum outputs 
+ 
+CLA LOGIC EQUATIONS TO FOLLOW: 
+   g[i]   = a[i] & b[i] 
+   p[i]   = a[i] ^ b[i] 
+    
+   c[i+1] = g[i] | (p[i] & c[i])       ← per-bit carry 
+    
+   For 4-bit group (bits 0–3): 
+   GG[0]  = g[3] | (p[3]&g[2]) | (p[3]&p[2]&g[1]) | (p[3]&p[2]&p[1]&g[0]) 
+   PG[0]  = p[3] & p[2] & p[1] & p[0] 
+    
+   (similarly for groups 1, 2, 3 covering bits 4–7, 8–11, 12–15) 
+    
+   Inter-group carries: 
+   c[4]   = GG[0] | (PG[0] & c[0]) 
+   c[8]   = GG[1] | (PG[1] & c[4]) 
+   c[12]  = GG[2] | (PG[2] & c[8]) 
+   c[16]  = GG[3] | (PG[3] & c[12]) 
+    
+   sum[i] = p[i] ^ c[i] 
+   cout   = c[16] 
+ 
+OUTPUT REQUIREMENT: 
+   - Pure dataflow Verilog (no always/if/case) 
+   - All signals declared as wire 
+   - Constraints (p, g, PG, GG) declared and assigned BEFORE carry and sum

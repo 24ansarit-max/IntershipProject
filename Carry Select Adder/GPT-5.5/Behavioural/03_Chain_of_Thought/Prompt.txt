@@ -1,0 +1,1 @@
+Enumerate 4 iterations, list all regs needed, derive PPA, then write csa16_beh with all 4 blocks in always @(*) and sequential carry chain.

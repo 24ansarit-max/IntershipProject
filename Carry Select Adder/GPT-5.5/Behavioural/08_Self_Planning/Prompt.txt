@@ -1,0 +1,1 @@
+Produce iteration table and reg declaration plan, validate, then write csa16_beh with DELAY_PS=300, AREA_UM2=648, POWER_UW=110.

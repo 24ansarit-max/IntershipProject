@@ -1,0 +1,31 @@
+Write a 16-bit CLA in DATAFLOW Verilog (assign statements only). 
+ 
+FORBIDDEN PATTERNS — do not use any of these: 
+ 
+1. DO NOT write: assign sum = a + b + cin; 
+   (This infers a ripple adder, not a CLA) 
+ 
+2. DO NOT ripple carries: 
+   assign C1 = G0 | (P0 & cin); 
+   assign C2 = G1 | (P1 & C1);   ← WRONG: C2 depends on C1 
+   (Each carry must depend only on G, P , and cin — not on a previous carry wire) 
+ 
+3. DO NOT use always blocks, reg declarations, or procedural code. 
+ 
+4. DO NOT use ternary chains as a substitute for CLA equations. 
+ 
+5. DO NOT skip the second-level group lookahead. 
+   (C8 must be computed from GG[0], GG[1], GP[0], GP[1], cin — not from C4+carry) 
+ 
+6. DO NOT use signed arithmetic or $signed casts inside carry logic. 
+ 
+7. DO NOT leave any carry wire undeclared. 
+ 
+CORRECT REQUIREMENTS: 
+- Declare wire G[15:0], P[15:0], C[16:0] and all intermediate wires explicitly 
+- Group boundaries: bits 0-3, 4-7, 8-11, 12-15 
+- Inter-group carries C4, C8, C12 from group GG/GP lookahead only 
+- Intra-group carries (C1,C2,C3 within group 0, etc.) from bit-level G/P and group-start carry 
+- sum[i] = P[i] ^ C[i] 
+- overflow = a[15]^sum[15] ^ b[15]^sum[15]  (correct signed overflow formula) 
+- // Power, // Area, // Delay at end

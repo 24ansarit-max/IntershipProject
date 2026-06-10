@@ -1,0 +1,15 @@
+Write a Verilog STRUCTURAL model of a Carry Lookahead Adder (CLA). 
+ 
+Requirements: 
+- Create a primitive gate-level full adder sub-module using AND, OR, XOR gates 
+- Create a 4-bit CLA module by instantiating: 
+    * A Generate-Propagate unit (structural gate instantiation) 
+    * A Carry Lookahead Logic unit (structural gate instantiation) 
+    * Four Full Adder instances for sum computation 
+- Create a top-level N=16 bit CLA by instantiating four 4-bit CLA blocks 
+- All interconnections must use explicit wire declarations 
+- No always blocks or assign statements allowed — gates and module  
+  instantiations only 
+- Name all instances clearly (e.g., FA0, FA1, CLA_block0...) 
+- Include a testbench that applies at least 10 test vectors and uses  
+  $monitor to display A, B, Cin, Sum, Cout

@@ -1,0 +1,5 @@
+Generate 16-bit CSA through 3 iterative rounds:
+ROUND 1 — Skeleton with wire declarations and empty stubs.
+ROUND 2 — Full connectivity for all blocks.
+ROUND 3 — PPA annotation with specify block.
+Produce the final merged file after all 3 rounds.

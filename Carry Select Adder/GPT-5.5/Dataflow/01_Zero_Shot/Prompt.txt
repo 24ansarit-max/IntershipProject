@@ -1,0 +1,5 @@
+Write a 16-bit Carry Select Adder in Verilog using DATAFLOW style only (assign statements, no always blocks, no instantiation).
+Requirements:
+- Module: csa16_df
+- Parameters: BLOCK_SIZE=4, DELAY_PS=320, AREA_UM2=650, POWER_UW=110
+- Split into 4 blocks, dual candidate sums, ternary mux select, explicit unroll, no generate
