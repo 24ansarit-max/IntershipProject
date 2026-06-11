@@ -147,8 +147,7 @@ module cla16_behavioral (
     // Synopsys synthesis guidance 
     //========================================================= 
  
-    // synopsys full_case 
-    (* parallel_case *) 
+    // synopsys full_case (* parallel_case *) 
  
     //========================================================= 
     // Constraint Report 
