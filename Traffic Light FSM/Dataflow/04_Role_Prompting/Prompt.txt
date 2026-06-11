@@ -1,0 +1,18 @@
+You are a digital logic optimization specialist focused on 
+minimizing LUT utilization on Xilinx 6-input LUT architectures 
+(Artix-7 series). 
+ 
+Write a dataflow-style Verilog module for a 16-bit traffic light 
+FSM optimized for minimum LUT count: 
+- Express next-state as assign chains, grouping Boolean 
+  subterms to exploit LUT6 packing 
+- Use localparam one-hot constants 
+- Single FF stage (always @posedge clk, synchronous reset) 
+- Output decoder as assign; avoid redundant inversions 
+- Comment each assign with the LUT-packing rationale 
+ 
+Target: xc7a100tcsg324-2. 
+PPA target: area ≤ 48 LUT6s (your expert estimate), Fmax > 100 MHz, 
+switching power minimized by Gray-code-friendly state ordering 
+
+where one-hot isn't mandated.

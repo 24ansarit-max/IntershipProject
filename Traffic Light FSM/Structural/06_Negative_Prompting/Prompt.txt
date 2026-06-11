@@ -1,0 +1,17 @@
+Write a structural Verilog 16-bit traffic light FSM for 
+xc7a100tcsg324-2. 
+ 
+ANTI-PATTERNS to avoid: 
+✗ Do NOT put any logic (assign or always) in the top-level module 
+✗ Do NOT use positional port connections in instantiations 
+✗ Do NOT create combinational loops between sub-modules 
+
+  (next_state output of tl_ns must NOT feed back into tl_ns input 
+   without going through the FF stage) 
+✗ Do NOT duplicate the state register in multiple sub-modules 
+✗ Do NOT use glue logic between sub-module ports at the top level 
+✗ Do NOT leave floating (unconnected) ports without a // UNUSED comment 
+✗ Do NOT use `defparam` (deprecated); pass parameters via #() instead 
+ 
+REQUIRED MODULES: tl_reg16, tl_ns_logic, tl_outdec, tl_top. 
+Sync reset, 16-bit one-hot, Fmax > 100 MHz, FF=16, LUT < 55.

@@ -1,0 +1,21 @@
+Reference example of a 4-bit FSM using dataflow assign style: 
+ 
+// --- EXAMPLE --- 
+parameter A=2'b00, B=2'b01, C=2'b10, D=2'b11; 
+assign next_state = (state==A) ? B : 
+                    (state==B) ? C : 
+                    (state==C) ? D : A; 
+assign out = (state==B || state==C); 
+// --- END EXAMPLE --- 
+ 
+Using this assign/ternary-chain pattern, write a 16-bit traffic 
+light FSM for xc7a100tcsg324-2 where: 
+- All next-state and output logic is assign (no always for combo) 
+- Single always @(posedge clk) for state register only 
+- 16-bit one-hot state encoding with localparam 
+- 4 intersections, each with R/Y/G outputs 
+- Synchronous reset 
+- Comments explaining Boolean reduction opportunities 
+ 
+PPA: minimize LUT chain depth for timing closure > 100 MHz; 
+area secondary goal < 80 LUTs.

@@ -1,0 +1,28 @@
+TASK: Write a 16-bit traffic light FSM in behavioral Verilog. 
+TARGET: xc7a100tcsg324-2 (Nexys A7 Artix-7) 
+STYLE: Behavioral (always @posedge clk, always @*) 
+ 
+REQUIRED OUTPUT FORMAT — deliver exactly these sections: 
+1. MODULE HEADER 
+   // Module, Author, Target, PPA budget comment block 
+2. PARAMETERS 
+   All localparam/parameter state constants (one-hot 16-bit) 
+3. PORT DECLARATION 
+   Fully annotated port list 
+4. STATE REGISTER BLOCK 
+   always @(posedge clk) — sync reset, state ← next_state 
+
+5. NEXT-STATE LOGIC BLOCK 
+   always @(*) — full casex, default to reset state 
+6. OUTPUT DECODE BLOCK 
+   always @(*) or assign — all outputs fully assigned 
+7. TIMER BLOCK 
+   16-bit countdown; timer_expire pulse generation 
+8. SYNTHESIS ATTRIBUTES 
+   (* fsm_encoding *) and (* use_dsp *) where applicable 
+ 
+PPA CONSTRAINTS (comment in code): 
+- Fmax target: > 100 MHz  → note critical path signal 
+- LUT budget: < 50        → note heaviest mux 
+- FF budget: ≤ 20         → list all registers 
+- Power: < 1.5 mW dynamic → note high-toggle signals

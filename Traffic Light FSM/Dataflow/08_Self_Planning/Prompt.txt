@@ -1,0 +1,17 @@
+Self-plan then implement a 16-bit traffic light FSM in dataflow 
+
+Verilog for xc7a100tcsg324-2. 
+ 
+PLANNING PHASE — output these before any code: 
+1. Write the minimized Boolean expression for next[i] for 
+   i = 0..15 (you may group symmetric directions) 
+2. Write the minimized output equations for all 16 output bits 
+   (4 directions × 4 signals) 
+3. Identify shared subterms and name them as wire aliases 
+4. Estimate LUT count: each 6-input unique equation = 1 LUT6 
+ 
+IMPLEMENTATION PHASE — output after planning: 
+Translate your equations directly into Verilog assign statements. 
+Use `wire` for subterms identified in step 3. 
+One always @(posedge clk) for state FF, synchronous reset. 
+Target: > 100 MHz Fmax, < 60 LUT, < 1 mW power.

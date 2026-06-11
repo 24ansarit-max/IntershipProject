@@ -1,0 +1,14 @@
+Write a synthesizable Verilog module for a 16-bit traffic light 
+FSM using a structural style: instantiate sub-modules for 
+(1) state register, (2) next-state logic, (3) output decoder. 
+ 
+Target FPGA: xc7a100tcsg324-2 (Nexys A7). 
+ 
+- Each sub-module is a separate module definition in the same file 
+- Top-level module only does port wiring (no logic) 
+- Synchronous reset in the state-register sub-module 
+- 16-bit state bus between sub-modules 
+- Comment every port on every instantiation 
+ 
+PPA target: hierarchical area report per sub-module, 
+Fmax > 100 MHz, FF usage ≤ 16 (one per state bit).
