@@ -1,0 +1,22 @@
+Reason through the Boolean equations before writing Verilog: 
+ 
+Step 1 — Express next[i] for each of the 16 one-hot state bits 
+  as a sum-of-products of current state bits and timer_expire. 
+  Simplify using Karnaugh map reasoning. 
+ 
+Step 2 — Express output signals (red_n, yellow_n, green_n, 
+  walk_n for North; repeat for S/E/W) as minterms of state bits. 
+  Show the minimized Boolean expression. 
+ 
+Step 3 — Identify shared subterms across next-state and output 
+  equations that a synthesizer can merge into a single LUT. 
+ 
+Step 4 — Translate each simplified Boolean expression into a 
+  Verilog assign statement (dataflow style). 
+ 
+Step 5 — Write the full module for xc7a100tcsg324-2 using only 
+  assign for combinational logic; one always @(posedge clk) for 
+  the 16-bit state register with synchronous reset. 
+ 
+PPA target: < 5 ns combinational path, < 80 LUTs, < 1 mW. 
+Annotate each assign with the K-map group it came from.

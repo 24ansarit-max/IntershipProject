@@ -1,0 +1,14 @@
+Before writing any Verilog, answer these planning questions (1 line each): 
+  1. What is the always sensitivity list? 
+  2. How many case entries? 
+  3. What is the output expression for shift=7? 
+  4. How do you prevent latches? 
+  5. What is the expected LUT range (and why higher than structural)? 
+  6. Where is the critical timing path in a case-based barrel shifter? 
+
+ 
+Then write the BEHAVIORAL Verilog for a 16-bit left barrel shifter targeting 
+xc7a100tcsg324-2. 
+Fmax > 100 MHz; no FFs; no latches. 
+ 
+End with PPA table: Power (mW) | Area (LUTs) | Delay (ns).

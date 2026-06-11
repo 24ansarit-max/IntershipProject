@@ -1,0 +1,24 @@
+Reference: a simple 2-module structural FSM pattern: 
+ 
+// --- EXAMPLE --- 
+module ff_stage(input clk,rst, input [3:0] d, output reg [3:0] q); 
+
+  always @(posedge clk) q <= rst ? 4'b0001 : d; 
+endmodule 
+module combo(input [3:0] state, output [3:0] next, output out); 
+  assign next = {state[2:0], state[3]}; 
+  assign out = state[1]; 
+endmodule 
+// --- END EXAMPLE --- 
+ 
+Scale this hierarchical pattern to a full 16-bit traffic light FSM 
+for xc7a100tcsg324-2: 
+- Module: tl_state_reg   (16-bit FF with sync reset) 
+- Module: tl_next_state  (combinational next-state logic) 
+- Module: tl_output_dec  (combinational output decoder) 
+- Module: tl_top         (port wiring only) 
+- 16 one-hot states, 4-direction traffic outputs 
+- Comments on every instantiation and port 
+ 
+PPA: flat hierarchy report expected; Fmax > 100 MHz; 
+FF count = 16 (exact); LUT goal < 50.

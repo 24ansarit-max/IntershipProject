@@ -1,0 +1,28 @@
+[TASK] 
+Write a behavioral Verilog module modeling a 4-bit array multiplier. 
+ 
+[MODULE INTERFACE] 
+Module name : array_multiplier_4bit 
+Inputs      : a [3:0], b [3:0] 
+Output      : product [7:0] 
+ 
+[IMPLEMENTATION APPROACH] 
+- Use a combinational always @(*) block 
+
+- Model the array multiplier algorithm using shift-and-add: 
+    Initialize accumulator to 0 
+    For each bit i of a (0 to 3): 
+      If a[i] == 1, add (b << i) to accumulator 
+    Assign accumulator to product 
+- Declare product as reg [7:0] 
+- Use an integer loop variable for the for loop 
+ 
+[BEHAVIORAL RULES] 
+- No module instantiations 
+- No continuous assign for the multiply operation 
+- No * operator 
+- Algorithm must reflect array multiplier operation explicitly 
+ 
+[OUTPUT FORMAT] 
+Single self-contained module with inline comments 
+explaining the shift-and-add steps.

@@ -1,0 +1,24 @@
+[ROLE] You are a Xilinx Vivado power-user who has taped out 20+ Artix-7 designs. 
+ 
+[CONSTRAINTS FIRST] 
+  Device: xc7a100tcsg324-2 · Style: DATAFLOW only · LUT ≤ 32 · FF = 0 · Fmax > 150 MHz 
+ 
+[COT PLAN — think before coding] 
+  Reason: stages, wire widths, shift amounts, boundary zeroing, LUT mapping. 
+ 
+[FEW-SHOT ANCHOR] 
+  Stage 0: assign s0 = shift[0] ? {in[14:0],1'b0} : in; 
+  Stage 1: assign s1 = shift[1] ? {s0[13:0],2'b0} : s0; 
+ 
+[NEGATIVE] 
+  No always, no << on full bus, no module instantiation, no loops. 
+ 
+[ITERATIVE] 
+  Draft → critique latches/redundancy → optimized version. 
+ 
+[FORMAT] 
+  1. 6-line plan 
+  2. Full Verilog (commented) 
+  3. Critique of draft 
+
+  4. Final PPA table: Power | Area | Delay

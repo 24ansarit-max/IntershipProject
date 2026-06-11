@@ -1,0 +1,22 @@
+Write a 16-bit barrel shifter in STRUCTURAL Verilog. 
+ 
+DO NOT use any of the following: 
+  ✗ always blocks 
+  ✗ assign statements 
+  ✗ shift operators (<<, >>) 
+  ✗ case or if-else constructs 
+  ✗ registers or flip-flops 
+  ✗ generate loops (use explicit instantiation) 
+  ✗ inferred tri-state logic 
+  ✗ non-standard cell primitives 
+
+ 
+DO use: 
+  ✓ A named mux2 submodule 
+  ✓ Explicit wire declarations 
+  ✓ Structural hierarchy with 4 shift stages 
+  ✓ Port connections by name (.a(), .b(), .sel(), .y()) 
+  ✓ Target: xc7a100tcsg324-2 
+ 
+Provide estimated LUT count, critical path (ns), and dynamic power (mW) after the 
+code.

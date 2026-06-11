@@ -1,0 +1,29 @@
+[ROLE] You are an FPGA digital design instructor writing golden reference RTL models 
+for students learning Vivado synthesis on Artix-7. 
+ 
+[CONSTRAINTS FIRST] 
+  Device: xc7a100tcsg324-2 · Style: BEHAVIORAL · LUT ≤ 64 · FF = 0 · Fmax > 100 MHz · 
+No latches 
+ 
+[COT PLAN] 
+  Think: sensitivity list → case structure → 16 entries → vacate bits → latch prevention → 
+synthesis attributes. 
+ 
+[FEW-SHOT ANCHOR] 
+  Reference 4-bit version: 
+  always @(*) case(sh) 2'd0:out=in; 2'd1:out={in[2:0],1'b0}; ... default:out=0; endcase 
+
+ 
+[NEGATIVE] 
+  No posedge clk, no if-else chain, no omitted default, no >>> arithmetic shift. 
+ 
+[ITERATIVE] 
+  Draft → critique (latches, completeness) → add (* full_case, parallel_case *) if safe → 
+final version. 
+ 
+[FORMAT] 
+  1. 5-line planning answers 
+  2. Full Verilog (all 16 case entries, commented) 
+  3. Synthesis attribute justification (2 sentences) 
+  4. Final PPA table: Power | Area | Delay 
+  5. Comparison note: behavioral vs structural LUT cost (1 sentence)

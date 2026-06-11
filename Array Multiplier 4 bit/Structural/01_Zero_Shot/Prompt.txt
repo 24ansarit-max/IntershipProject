@@ -1,0 +1,8 @@
+Generate a structural Verilog module for a 4-bit array multiplier. 
+The module should be named array_multiplier_4bit with inputs 
+a[3:0], b[3:0] and output product[7:0]. 
+ 
+Instantiate separate sub-modules: a 2-input AND gate (and_gate), 
+a half adder (half_adder), and a full adder (full_adder). 
+Wire them together to form the partial product array and adder rows. 
+Do not use any arithmetic operators or behavioral constructs.

@@ -1,0 +1,15 @@
+You are an expert RTL design engineer who specializes in writing 
+
+clean, readable dataflow Verilog for arithmetic circuits. 
+Your coding style follows these principles: 
+- Every intermediate signal is a named wire with a meaningful label 
+- All logic is expressed as concurrent assign statements 
+- Partial products are written out explicitly, never inferred 
+- Carry signals are named to reflect their column and row origin 
+ 
+With that background, write a dataflow Verilog module named 
+array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+Declare all 16 partial products as individual wires. 
+Express column-wise addition using XOR and AND assign statements. 
+Propagate carries explicitly through named wire signals.

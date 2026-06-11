@@ -1,0 +1,16 @@
+Pass 1 — Draft: 
+Write a simple 16-bit barrel shifter in DATAFLOW Verilog for xc7a100tcsg324-2. 
+ 
+After the draft, perform a self-critique: 
+  Q1: Are any assigns combinatorially redundant? 
+  Q2: Is the concatenation correct for vacated bits (should be 0, not wrapped)? 
+  Q3: Is the critical path depth 4 MUX levels? 
+ 
+Pass 2 — Optimized: 
+Rewrite fixing all issues from the critique. Add a comment on each assign line explaining 
+the shift logic. 
+ 
+Pass 3 — FPGA-targeted: 
+Add synthesis pragma (* KEEP *) on any wire that Vivado might erroneously optimize 
+away. State final: 
+  Estimated LUTs | Critical path (ns) | Dynamic power (mW)

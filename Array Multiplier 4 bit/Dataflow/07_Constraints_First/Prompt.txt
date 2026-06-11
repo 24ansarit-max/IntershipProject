@@ -1,0 +1,15 @@
+Hardware constraints: 
+- Target device    : Xilinx Artix-7 FPGA 
+- Abstraction      : Dataflow only — assign statements, no instantiation 
+
+- DSP usage        : Zero — do not infer DSP48 blocks 
+- Operator rule    : No * operator — partial products must be explicit 
+- LUT target       : Minimize logic depth for each output bit 
+- Timing target    : Critical path must not exceed 4 LUT levels 
+ 
+Given these constraints, write a dataflow Verilog module named 
+array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+Declare all partial products as individual wires using AND. 
+Express column reductions using XOR and AND assign statements. 
+Structure the carry propagation to minimize cascaded logic depth.

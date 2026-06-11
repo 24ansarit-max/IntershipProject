@@ -1,0 +1,18 @@
+Here are two examples of structural Verilog modules: 
+ 
+Example 1 — AND gate: 
+module and_gate(input a, input b, output y); 
+  assign y = a & b; 
+endmodule 
+ 
+Example 2 — Half Adder: 
+module half_adder(input a, input b, output sum, output carry); 
+  assign sum   = a ^ b; 
+  assign carry = a & b; 
+endmodule 
+ 
+Following the same structural style, now write a full_adder module, 
+and then a 4-bit array_multiplier_4bit module that instantiates 
+and_gate, half_adder, and full_adder sub-modules explicitly. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+Wire partial products through the adder rows using named net signals.

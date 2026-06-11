@@ -1,0 +1,17 @@
+You are an expert RTL design engineer who writes clean, 
+synthesizable behavioral Verilog for arithmetic circuits. 
+Your code always follows these principles: 
+- Outputs driven from always @(*) combinational blocks 
+- All signals assigned in always blocks are declared as reg 
+- Algorithm is written explicitly to reflect the actual 
+  hardware architecture being modeled, not just the end result 
+- Code is readable, well-commented, and lint-clean 
+ 
+With that expertise, write a behavioral Verilog module named 
+array_multiplier_4bit that models an array multiplier. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+
+Implement the partial product accumulation algorithm using a 
+for loop inside an always @(*) block. Declare product as reg. 
+Add inline comments explaining each stage of the computation.

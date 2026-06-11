@@ -1,0 +1,15 @@
+Write a dataflow Verilog module for a 4-bit array multiplier 
+
+named array_multiplier_4bit. Inputs: a[3:0], b[3:0]. 
+Output: product[7:0]. 
+ 
+Express all logic using continuous assign statements and named wires. 
+ 
+Do NOT use the * operator or any built-in multiply. 
+Do NOT use always blocks, initial blocks, or procedural code. 
+Do NOT instantiate any sub-modules. 
+Do NOT use for loops or generate blocks. 
+Do NOT group multiple bits into a single wide assign expression 
+   where individual partial product contributions are hidden. 
+Do NOT leave any intermediate signal unnamed or undeclared. 
+Every partial product must be visible as a separate named wire.

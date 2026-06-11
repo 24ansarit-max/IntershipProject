@@ -1,0 +1,10 @@
+Generate a structural Verilog module for a 4-bit array multiplier 
+named array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+Instantiate and_gate, half_adder, and full_adder sub-modules explicitly. 
+ 
+Do NOT use the * operator or any arithmetic expression. 
+Do NOT use always blocks or initial blocks. 
+Do NOT use behavioral if-else or case statements. 
+Do NOT use for loops or generate statements. 
+Do NOT infer logic implicitly — every gate must be an instantiation. 
+Do NOT leave internal signals unnamed or undeclared.

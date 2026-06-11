@@ -1,0 +1,14 @@
+Hardware constraints: 
+- Target device    : Xilinx Artix-7 FPGA 
+- Abstraction      : Behavioral combinational — always @(*) only 
+- DSP usage        : Zero — do not use * operator which infers DSP48 
+- Synthesis goal   : Let synthesizer map shift-and-add to LUT fabric 
+- Timing target    : Single-cycle combinational, no registered outputs 
+- Reset            : Not required — purely combinational module 
+ 
+Given these constraints, write a behavioral Verilog module named 
+array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+Model the array multiplier using shift-and-add inside an always @(*) 
+block. Use a for loop over bits of a, accumulating shifted versions 
+of b. Declare product as reg [7:0]. Do not use the * operator.

@@ -1,0 +1,8 @@
+Generate a behavioral Verilog module for a 4-bit array multiplier. 
+Module name: array_multiplier_4bit 
+Inputs: a[3:0], b[3:0] 
+Output: product[7:0] 
+ 
+Use a behavioral description style. 
+The module should correctly compute the unsigned multiplication 
+of two 4-bit numbers and produce an 8-bit result.

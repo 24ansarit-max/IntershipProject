@@ -1,0 +1,13 @@
+Before writing Verilog, write a 6-line plan: 
+  1. Stage count and why 
+  2. Wire type and width for each stage 
+  3. Assign expression for stage 0 (shift by 1) 
+  4. Assign expression for stage 3 (shift by 8) 
+
+  5. LUT estimate and reasoning 
+  6. Potential critical path location 
+ 
+Then write the DATAFLOW Verilog (16-bit left barrel shifter, 4-bit shift amount, 
+xc7a100tcsg324-2). 
+ 
+End with a PPA table: Power (mW) | Area (LUTs) | Delay (ns).

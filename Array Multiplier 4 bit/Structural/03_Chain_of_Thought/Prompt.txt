@@ -1,0 +1,16 @@
+Think through the following step by step before writing any code: 
+ 
+Step 1: How many AND gates are needed for a 4-bit multiplier, 
+        and what are their inputs and outputs? 
+Step 2: Which positions require a half adder vs a full adder, 
+        and why? 
+Step 3: How do carries propagate from one column to the next? 
+Step 4: What are the final output bits after all adder rows settle? 
+ 
+
+After completing your reasoning for each step, write a structural 
+Verilog module named array_multiplier_4bit with inputs a[3:0], b[3:0] 
+and output product[7:0]. Instantiate and_gate, half_adder, and 
+full_adder sub-modules. Use wire declarations for all internal signals. 
+ 
+​

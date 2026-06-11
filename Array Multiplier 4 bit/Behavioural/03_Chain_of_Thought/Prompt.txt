@@ -1,0 +1,22 @@
+Think through the following steps before writing any Verilog: 
+ 
+Step 1: How does an array multiplier compute its result 
+        algorithmically? Describe the shift-and-add process 
+        in plain English. 
+ 
+Step 2: How would you express that algorithm in a behavioral 
+        Verilog always block using a loop or accumulator? 
+ 
+Step 3: What output width is needed and why? 
+        (Hint: 4-bit × 4-bit maximum value = ?) 
+
+ 
+Step 4: Should the output register be declared as reg or wire, 
+        and why does that matter in a behavioral always block? 
+ 
+After completing your reasoning, write a behavioral Verilog module 
+named array_multiplier_4bit. Inputs: a[3:0], b[3:0]. 
+Output: product[7:0]. Use an always @(*) block. 
+Implement the shift-and-add algorithm explicitly using a loop 
+rather than the * operator so the array multiplier structure 
+is visible in the behavioral code.

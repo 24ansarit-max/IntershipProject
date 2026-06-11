@@ -1,0 +1,10 @@
+Work through this design problem step by step: 
+1. List all 16 left-shift amounts for a 16-bit bus and write the concatenation expression 
+for each. 
+2. Repeat for right-logical, right-arithmetic, rotate-left, rotate-right. 
+3. Assemble these into a priority-mux assign tree. 
+4. Reason about how the mux depth affects delay and how the number of active nodes 
+affects dynamic power. 
+5. Estimate area in terms of 2:1 mux equivalents. 
+After reasoning, output the complete Dataflow Verilog module with parameter 
+WIDTH=16.

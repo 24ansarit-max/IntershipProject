@@ -1,0 +1,14 @@
+Before writing any Verilog, write a design plan (max 10 lines): 
+
+  - How many modules will you define? 
+  - What are the ports of each? 
+  - How do the 4 shift stages connect? 
+  - Where is the critical path? 
+  - What is your LUT estimate and why? 
+ 
+After your plan, write the STRUCTURAL Verilog code for a 16-bit barrel shifter targeting 
+xc7a100tcsg324-2. 
+ 
+Requirements: purely combinational, 4-bit shift, left shift, Fmax > 100 MHz, ≤ 64 LUTs. 
+ 
+End with: a 3-row table of Power (mW), Area (LUTs), Delay (ns).

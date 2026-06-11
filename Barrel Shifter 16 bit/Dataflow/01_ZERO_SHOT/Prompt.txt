@@ -1,0 +1,6 @@
+Write a 16-bit barrel shifter using pure Dataflow Verilog (assign statements only). 
+Cover: logical left, logical right, arithmetic right, rotate left, rotate right. 
+Use conditional assigns and concatenation for each shift amount (0–15). 
+
+Comment on propagation delay vs. a structural approach and identify any power 
+trade-offs.

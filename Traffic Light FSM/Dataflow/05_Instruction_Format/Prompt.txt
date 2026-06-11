@@ -1,0 +1,21 @@
+TASK: 16-bit traffic light FSM, dataflow Verilog style. 
+TARGET: xc7a100tcsg324-2 
+ 
+OUTPUT FORMAT: 
+┌─────────────────────────────────────────────────────────┐ 
+│ SECTION 1: State encoding table (as code comment)        │ 
+│   State name | 16-bit value | Meaning                   │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 2: Boolean equation table (as code comments)     │ 
+│   Signal | Equation | LUT count estimate                 │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 3: Verilog module (assign-only combinational)    │ 
+│   — one always block for FF stage only                   │ 
+│   — every assign commented with equation reference       │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 4: PPA summary comment block at end of file      │ 
+│   // Estimated LUT: XX   FF: XX   Fmax: XXX MHz          │ 
+└─────────────────────────────────────────────────────────┘ 
+ 
+CONSTRAINTS: sync reset, no latches, Fmax > 100 MHz, 
+LUT < 60, dynamic power < 1 mW.

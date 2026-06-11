@@ -1,0 +1,25 @@
+Here are two examples of behavioral Verilog modules: 
+ 
+Example 1 — Behavioral 2-bit adder: 
+module adder_2bit(input  [1:0] a, 
+                  input  [1:0] b, 
+                  output [2:0] sum); 
+  assign sum = a + b; 
+endmodule 
+ 
+Example 2 — Behavioral 4-bit AND operation: 
+module and_4bit(input  [3:0] a, 
+                input  [3:0] b, 
+                output [3:0] y); 
+  always @(*) begin 
+    y = a & b; 
+  end 
+endmodule 
+
+ 
+Following the same behavioral style, write a module named 
+array_multiplier_4bit that multiplies two 4-bit unsigned 
+integers a[3:0] and b[3:0] and produces an 8-bit product[7:0]. 
+The implementation should reflect array multiplier behavior — 
+compute using shift-and-add of partial products inside an 
+always block or equivalent behavioral construct.

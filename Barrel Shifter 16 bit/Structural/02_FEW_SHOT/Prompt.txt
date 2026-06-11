@@ -1,0 +1,11 @@
+I'll show you a 4-bit barrel left-shifter in Structural Verilog as a reference: 
+ 
+// Stage 0: shift by 1 
+mux2x1 s0_0(.sel(shift[0]),.a(in[0]),.b(in[1]),.y(mid0[0])); 
+
+// …(similar for bits 1–3) 
+ 
+Now extend this pattern to 16 bits with all 4 stages (shifts by 1, 2, 4, 8). 
+Implement left shift, right logical, right arithmetic, rotate-left, rotate-right. 
+For each loop structure, compare power (dynamic switching activity) and area (gate 
+count).

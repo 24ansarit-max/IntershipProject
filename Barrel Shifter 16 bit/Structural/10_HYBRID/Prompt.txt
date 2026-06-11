@@ -1,0 +1,28 @@
+[ROLE] You are a Xilinx Certified FPGA Designer specializing in low-area combinational 
+paths. 
+ 
+[CONSTRAINTS FIRST] 
+  • Device: xc7a100tcsg324-2 (Artix-7, speed grade -2) 
+  • Style: STRUCTURAL Verilog only 
+  • LUT budget: ≤ 48; FF budget: 0; Fmax: > 125 MHz 
+
+ 
+[CHAIN-OF-THOUGHT PLAN] 
+Think through: stage count → bits per stage → mux2 port map → wire naming convention 
+→ synthesis attributes. 
+ 
+[FEW-SHOT ANCHOR] 
+mux2 example: module mux2(input a,b,sel; output y); assign y=sel?b:a; endmodule 
+ 
+[NEGATIVE] 
+No always, no assign (outside mux2 leaf), no shift ops, no generate loops. 
+ 
+[INSTRUCTION + FORMAT] 
+Output sections: 
+  1. ASCII hierarchy 
+  2. Full synthesizable Verilog 
+  3. Iteration 1 critique + refinement 
+  4. Final PPA table: Power | Area (LUT) | Delay (ns) 
+ 
+[SELF-PLANNING] 
+State your plan (5 lines) before coding.

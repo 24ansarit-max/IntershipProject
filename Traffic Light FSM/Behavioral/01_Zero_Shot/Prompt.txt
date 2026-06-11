@@ -1,0 +1,14 @@
+Write synthesizable Verilog RTL for a 16-bit traffic light FSM 
+targeting the Nexys A7 FPGA (xc7a100tcsg324-2). 
+ 
+Requirements: 
+- Behavioral style using always @(posedge clk) 
+- 16-bit state encoding (parameter-based, one-hot or binary) 
+- Synchronous reset (active-high) 
+- No inferred latches (full case coverage in every always block) 
+- Outputs: red[N:0], yellow[N:0], green[N:0] per direction 
+- Timer-based transitions using a 16-bit countdown register 
+- Include inline comments on every state transition 
+ 
+PPA target: minimize flip-flop count (≤ 17 FF), Fmax > 100 MHz, 
+LUT utilization < 40 LUTs on xc7a100tcsg324-2.

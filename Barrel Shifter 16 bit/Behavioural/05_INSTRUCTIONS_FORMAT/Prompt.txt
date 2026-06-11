@@ -1,0 +1,29 @@
+## Task 
+Write a 16-bit barrel shifter in BEHAVIORAL Verilog. 
+ 
+## Device 
+xc7a100tcsg324-2 (Nexys A7, Artix-7) 
+ 
+## Coding Rules 
+- Use always @(*) sensitivity list 
+- Use case(shift[3:0]) with all 16 entries 
+- Declare output as reg [15:0] 
+- Include default case to prevent latches 
+- Left logical shift (vacate with zeros) 
+- No clocked elements 
+ 
+## Performance Targets 
+- LUT count: minimize 
+- Flip-flops: 0 
+- Fmax: > 100 MHz 
+ 
+## Required Output Format 
+Section 1: Module port table (ASCII, 3 columns: name, direction, width) 
+
+Section 2: Verilog code 
+Section 3: 
+| Parameter | Estimate | 
+|-----------|---------| 
+| Dynamic power (mW) | | 
+| LUT count | | 
+| Critical path (ns) | |
