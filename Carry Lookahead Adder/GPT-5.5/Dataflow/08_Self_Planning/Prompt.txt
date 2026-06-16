@@ -1,0 +1,28 @@
+Before writing Verilog, produce a SIGNAL DEPENDENCY GRAPH for a 16-bit dataflow CLA. 
+ 
+For each output signal, list what it depends on. Format: 
+``` 
+SIGNAL DEPENDENCY PLAN 
+====================== 
+P[i]    ← a[i], b[i] 
+G[i]    ← a[i], b[i] 
+C[1]    ← G[0], P[0], cin 
+C[2]    ← G[1], P[1], G[0], P[0], cin       (NOT C[1]) 
+C[3]    ← G[2]..G[0], P[2]..P[0], cin 
+C[4]    ← G[3]..G[0], P[3]..P[0], cin 
+GG[0]   ← G[3]..G[0], P[3]..P[0], cin 
+GP[0]   ← P[3], P[2], P[1], P[0] 
+C[4]    ← GG[0], cin   (from group lookahead — confirm matches above) 
+C[5]    ← G[4], P[4], C[4]                  (NOT C[1..4] except C[4]) 
+...     (continue for all 16 carries and 16 sums) 
+sum[i]  ← P[i], C[i] 
+overflow← a[15], b[15], sum[15] 
+``` 
+ 
+Verify: does any assign form a cycle? (It must not.) 
+Verify: does any carry depend on a later carry? (It must not.) 
+ 
+After the verified plan, write: "=== DATAFLOW VERILOG ===" 
+ 
+Then generate the complete dataflow module. Every assign must trace to your dependency plan. 
+Add // Power, // Area, // Delay at the end.

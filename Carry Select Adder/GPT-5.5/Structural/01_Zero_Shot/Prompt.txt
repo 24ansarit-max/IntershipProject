@@ -1,0 +1,9 @@
+Write synthesizable structural Verilog for a 16-bit Carry Select Adder (CSA).
+Requirements:
+- Use parameterized module: parameter BLOCK_SIZE = 4 (blocks of 4 bits, 4 blocks total)
+- Instantiate one Ripple-Carry Adder (RCA) per block with cin=0 and cin=1
+- Use 2-to-1 mux to select sum/carry based on actual carry-in
+- Implement ALL loop iterations explicitly: blocks 0–3 (bits [3:0], [7:4], [11:8], [15:12])
+- Include parameters: DELAY_PS (propagation delay), AREA_UM2 (gate area), POWER_UW (dynamic power)
+- Add timing assertions using specify blocks
+- No behavioral always blocks — structural instantiation only

@@ -1,0 +1,6 @@
+Implement a 16-bit barrel shifter in Behavioral Verilog using a combinational always 
+block. 
+Include all 5 shift/rotate modes selectable by a 3-bit opcode. 
+Use a case statement iterating over all 16 possible shift amounts. 
+State which synthesis target (ASIC vs FPGA) minimises area and which minimises 
+delay.

@@ -1,0 +1,24 @@
+Here are two examples of dataflow Verilog using assign statements: 
+ 
+Example 1 — 1-bit Half Adder in dataflow: 
+module half_adder(input a, input b, 
+                  output sum, output carry); 
+  assign sum   = a ^ b; 
+  assign carry = a & b; 
+endmodule 
+ 
+Example 2 — 1-bit Full Adder in dataflow: 
+module full_adder(input a, input b, input cin, 
+                  output sum, output cout); 
+  assign sum  = a ^ b ^ cin; 
+  assign cout = (a & b) | (b & cin) | (a & cin); 
+endmodule 
+ 
+Following the same dataflow style, now write a single flat module 
+named array_multiplier_4bit with inputs a[3:0], b[3:0] and 
+
+output product[7:0]. 
+ 
+Do not instantiate sub-modules. Instead, declare all partial 
+products and intermediate carry/sum signals as wires and express 
+every bit of the computation using assign statements only.

@@ -1,0 +1,22 @@
+​
+​
+Design a 16-bit signed Booth Multiplier. 
+ 
+Before generating RTL: 
+ 
+1. Analyze the Booth multiplication algorithm. 
+2. Determine Booth encoding operations. 
+3. Determine the iteration process. 
+4. Determine arithmetic shift operations. 
+5. Determine final product generation. 
+6. Plan the behavioral implementation. 
+ 
+After completing the reasoning process, generate synthesizable Behavioral Verilog. 
+
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Behavioral RTL. 
+- Use procedural constructs. 
+- Target FPGA: xc7a100tcsg324-2. 
+- Output complete code only.

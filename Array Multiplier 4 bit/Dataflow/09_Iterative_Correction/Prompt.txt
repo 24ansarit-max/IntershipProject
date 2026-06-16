@@ -1,0 +1,89 @@
+Write a 4-bit unsigned array multiplier using dataflow modeling through an iterative 
+self-correction process. 
+ABSOLUTE RULE ACROSS ALL ITERATIONS:​
+Use ONLY continuous assignment statements (assign) and wire declarations for 
+combinational logic.​
+No gate primitives.​
+No always blocks.​
+No procedural logic.​
+No behavioral arithmetic multiplication operator (*) inside array_multiplier_4bit. 
+ITERATION 1 — Generate partial products:​
+Declare all partial-product wires. 
+Create the 16 partial products using assign statements: 
+●​ pp_0_0 through pp_3_3 
+
+Review: 
+●​ Are all partial products declared as wires? 
+●​ Is every partial product generated using bitwise AND (&)? 
+●​ Are there exactly 16 partial-product assignments? 
+●​ Fix and finalize. 
+ITERATION 2 — Write half_adder using dataflow modeling:​
+Create a half_adder module. 
+Ports: 
+●​ input a 
+●​ input b 
+●​ output sum 
+●​ output carry 
+Implement using assign statements only: 
+●​ sum = a ^ b 
+●​ carry = a & b 
+Review: 
+●​ Any gate primitives present? Remove. 
+●​ Any always blocks present? Remove. 
+●​ Are outputs driven only by assign statements? 
+●​ Fix and write corrected version. 
+ITERATION 3 — Write full_adder using dataflow modeling:​
+Create a full_adder module. 
+Ports: 
+●​ input a 
+●​ input b 
+●​ input cin 
+●​ output sum 
+●​ output cout 
+Declare: 
+●​ wire s1 
+●​ wire c1 
+
+●​ wire c2 
+Implement using assign statements only. 
+Review: 
+●​ Any gate primitives present? Remove. 
+●​ Any always blocks present? Remove. 
+●​ Are s1, c1, and c2 declared? 
+●​ Is cout generated as c1 | c2? 
+●​ Fix and write corrected version. 
+ITERATION 4 — Write array_multiplier_4bit:​
+Use the 16 partial products generated earlier. 
+Implement the array-adder network using half_adder and full_adder modules. 
+Declare all intermediate wires with descriptive names: 
+●​ s_row1_col1 
+●​ s_row1_col2 
+●​ c_row1_col1 
+●​ c_row1_col2 
+●​ etc. 
+Generate product bits: 
+●​ product[0] through product[7] 
+Review: 
+●​ Any gate primitives present? Remove. 
+●​ Any always blocks present? Remove. 
+●​ Any multiplication operator (*) used? Remove. 
+●​ Are all intermediate wires explicitly declared? 
+●​ Are product bits generated through the adder network? 
+●​ Is product[7] connected to the final carry-out? 
+●​ Fix and write corrected version. 
+FINAL REVIEW: 
+●​ Dataflow modeling used throughout? ✓ 
+●​ Only assign statements and wire declarations for combinational logic? ✓ 
+●​ No gate primitives? ✓ 
+
+●​ No always blocks? ✓ 
+●​ No multiplication operator (*) inside array_multiplier_4bit? ✓ 
+●​ All 16 partial products present? ✓ 
+●​ All intermediate wires explicitly declared? ✓ 
+●​ product[7] driven from final carry-out? ✓ 
+FINAL OUTPUT:​
+Present only the fully corrected complete Verilog containing: 
+1.​ half_adder 
+2.​ full_adder 
+3.​ array_multiplier_4bit 
+Return the code in a single clean Verilog code block.

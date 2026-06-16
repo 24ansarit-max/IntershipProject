@@ -1,0 +1,18 @@
+STRUCTURAL DESIGN BUDGET (establish before writing modules): 
+ 
+Sub-module       | FF  | LUT | Critical path 
+tl_reg16         | 16  |  0  | clk→Q: 0.5 ns 
+tl_timer16       | 16  |  8  | sub-path 4 ns 
+tl_ns_logic      |  0  | 28  | state→next: 3.5 ns 
+tl_outdec        |  0  | 10  | state→out: 2 ns 
+tl_top (wires)   |  0  |  0  | — 
+TOTAL            | 32  | 46  | ≤ 5 ns (Fmax > 200 MHz margin) 
+ 
+Write all four sub-modules + top-level to match this budget. 
+- 16-bit one-hot encoding; synchronous reset in tl_reg16 only 
+- tl_ns_logic: assign-style combinational 
+- tl_outdec: assign-style combinational 
+- tl_top: named port connections, no logic 
+- Target: xc7a100tcsg324-2 
+ 
+Comment each module with its row from the budget table above.

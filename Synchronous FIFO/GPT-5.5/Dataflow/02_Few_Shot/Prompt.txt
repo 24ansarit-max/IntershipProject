@@ -1,0 +1,36 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Use DATAFLOW style: all combinational logic as continuous assign. 
+ 
+/* ── REFERENCE 1: full/empty detection ─────── */ 
+// Use 5-bit binary pointers (MSB = wrap bit): 
+assign full  = (wr_ptr[PTR_WIDTH-1] ^ rd_ptr[PTR_WIDTH-1]) & 
+               (wr_ptr[ADDR_WIDTH-1:0] == rd_ptr[ADDR_WIDTH-1:0]); 
+assign empty = (wr_ptr == rd_ptr); 
+ 
+/* ── REFERENCE 2: derived signals ──────────── */ 
+assign count        = wr_ptr[ADDR_WIDTH-1:0] - rd_ptr[ADDR_WIDTH-1:0]; 
+assign almost_full  = ({1'b0, count} >= (DEPTH - 2)); 
+assign almost_empty = ({1'b0, count} <= 2); 
+assign wr_addr      = wr_ptr[ADDR_WIDTH-1:0]; 
+assign rd_addr      = rd_ptr[ADDR_WIDTH-1:0]; 
+assign wr_en_safe   = wr_en & ~full;   // gate before BRAM port 
+assign rd_en_safe   = rd_en & ~empty; 
+ 
+/* ── REFERENCE 3: pointer FF (ONLY always block for control) */ 
+always @(posedge clk) begin 
+  if (!rst_n) begin 
+    wr_ptr <= {PTR_WIDTH{1'b0}}; 
+    rd_ptr <= {PTR_WIDTH{1'b0}}; 
+  end else begin 
+    if (wr_en_safe) wr_ptr <= wr_ptr + 1'b1;  // binary +1 
+    if (rd_en_safe) rd_ptr <= rd_ptr + 1'b1; 
+  end 
+end 
+ 
+/* ── NOW GENERATE COMPLETE FIFO ─────────────── */ 
+// Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5 
+// Storage: (* ram_style="block" *) BRAM, read-first 
+// Expand with: dout_valid, overflow, underflow flags 
+//              (all as assign — dataflow only) 
+// Add PPA annotation: 
+//   // Power : ...  Area : X LUTs / Y FFs  Delay : Z ns

@@ -1,0 +1,49 @@
+/* ══════════════════════════════════════════════════ 
+   TURN 1 — INITIAL STRUCTURAL GENERATION 
+   ══════════════════════════════════════════════════ */ 
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Structural decomposition: fifo_mem · fifo_ctrl · fifo_flags · fifo_top 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+Constraints: sync rst_n, Fmax>100 MHz, BRAM, no latches. 
+fifo_top must contain only wire declarations + instantiations. 
+ 
+──────────────────────────────────────────────────── 
+[Paste generated RTL here, then send TURN 2 below] 
+──────────────────────────────────────────────────── 
+ 
+/* ══════════════════════════════════════════════════ 
+   TURN 2 — STRUCTURAL CRITIQUE 
+   ══════════════════════════════════════════════════ */ 
+Review the Verilog above. Check every structural rule: 
+ 
+CHECK 1 — TOP-LEVEL PURITY 
+  Does fifo_top contain any always block? [YES/NO + line ref] 
+  Does fifo_top contain any assign other than clk/rst? [YES/NO] 
+  Are all sub-module connections using named ports? [YES/NO] 
+ 
+CHECK 2 — MODULE BOUNDARY INTEGRITY 
+  Is any flag logic inside fifo_ctrl (should be fifo_flags)? [YES/NO] 
+  Is BRAM storage inside fifo_ctrl (should be fifo_mem)? [YES/NO] 
+  Are any two responsibilities merged into one module? [YES/NO] 
+ 
+CHECK 3 — BEHAVIORAL CORRECTNESS (fifo_mem, fifo_ctrl) 
+  Are all clocked always blocks using <= only? [YES/NO] 
+  Is (* ram_style="block" *) applied to the memory array? [YES/NO] 
+  Is read-first mode implemented? [YES/NO] 
+ 
+CHECK 4 — DATAFLOW CORRECTNESS (fifo_flags) 
+  Are all flag outputs driven by assign? [YES/NO + exceptions] 
+  Are flag outputs registered before leaving fifo_top? [YES/NO] 
+ 
+CHECK 5 — LATCH / RESET CHECK 
+  Any always output unassigned in any branch? [YES/NO + location] 
+  Any FF missing synchronous rst_n coverage? [YES/NO + location] 
+ 
+/* ══════════════════════════════════════════════════ 
+   TURN 3 — STRUCTURAL FIX PASS 
+   ══════════════════════════════════════════════════ */ 
+Fix every issue found in Turn 2. 
+Output only corrected modules (skip unchanged ones). 
+For each fix: 
+  // STRUCTURAL FIX: [issue] → [correction made] 
+Add PPA annotation to any module missing it.

@@ -1,0 +1,19 @@
+Design Constraints: 
+ 
+1. Behavioral RTL only. 
+2. Synthesizable on Xilinx Artix-7 xc7a100tcsg324-2. 
+3. Radix-2 Booth algorithm required. 
+4. Signed 16-bit multiplication. 
+5. Output width must be 32 bits. 
+6. Procedural implementation required. 
+7. Arithmetic shift operations required. 
+8. Booth encoding required. 
+9. No multiplication operator (*). 
+10. Synthesizable Verilog only. 
+
+ 
+Task: 
+ 
+Generate a Booth Multiplier satisfying all constraints above. 
+ 
+Output Verilog code only.

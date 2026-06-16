@@ -1,0 +1,20 @@
+You are a chip microarchitect designing reusable IP blocks. 
+You apply strict module boundaries so each block can be 
+independently verified and replaced. 
+ 
+Write a structural Verilog FSM for a 16-bit traffic light controller 
+for xc7a100tcsg324-2: 
+- tl_reg16: 16-bit synchronous register (reusable) 
+- tl_ns_logic: next-state combinational block 
+- tl_timer16: 16-bit synchronous countdown timer 
+- tl_out_dec: output decoder (combinational) 
+- tl_top: wiring only 
+ 
+Each module must have a header comment block: 
+  // Module : <name> 
+  // Function: <one line> 
+  // Inputs  : <list> 
+  // Outputs : <list> 
+  // PPA     : <FF count, LUT estimate, critical path> 
+ 
+Target: Fmax > 100 MHz, total ≤ 60 LUT, ≤ 32 FF.

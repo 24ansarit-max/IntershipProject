@@ -1,0 +1,25 @@
+ITERATION 1: 
+Write a dataflow Verilog 16-bit ripple carry adder using a 
+generate-for loop with genvar for xc7a100tcsg324-2. Use assign 
+for all logic. Do not optimize — just get it functionally 
+correct first. 
+ 
+ITERATION 2 — Equation review: 
+Re-examine the generate-for body. Confirm sum[i] uses a single 
+3-input XOR and carry[i+1] uses the minimal majority-function 
+AND/OR expansion (3 AND terms, 2 ORs). Mark any simplification: 
+// iter2: simplified. 
+ 
+ITERATION 3 — Parameterization: 
+Add parameter WIDTH=16 and use it for both the port widths 
+(a, b, sum) and the generate-for loop bound, replacing all 
+hardcoded 16s and 17s. Mark: // iter3: parameterized. 
+ 
+ITERATION 4 — Power/glitch note: 
+Ripple carry adders have a worst-case glitch path when carry 
+propagates through all 16 stages on certain input transitions. 
+Add a comment noting this and confirming the power budget 
+(< 0.4 mW) still holds at the target switching frequency. 
+Mark: // iter4: power/glitch note. 
+ 
+Final target: > 100 MHz, ≤ 16 LUT, FF=0, < 0.4 mW dynamic power.

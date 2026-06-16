@@ -1,0 +1,17 @@
+DESIGN CONSTRAINTS (apply before writing): 
+
+ 
+[C1] Combinational delay   ≤ 5 ns    (two LUT6 levels max) 
+[C2] LUT utilization       < 48 LUT6 (Artix-7 mapping) 
+[C3] Power                 < 0.8 mW  dynamic at 100 MHz 
+[C4] State encoding        16-bit one-hot (localparam) 
+[C5] Reset                 Synchronous, active-high 
+[C6] No latches            All combinational outputs must 
+                           have a default assignment path 
+[C7] Style                 Dataflow: assign only for combo; 
+                           one always @posedge for state FF 
+ 
+Write the 16-bit traffic light FSM satisfying all constraints. 
+For each assign statement add a comment: 
+  // [C1] depth=1 LUT6    or   // [C2] shared with next[3] 
+referencing which constraint it addresses.

@@ -1,0 +1,32 @@
+TURN 1 — DRAFT STRUCTURAL SKELETON: 
+Write a 16-bit structural CLA with the correct module hierarchy but placeholder bodies. 
+Each module should have correct ports but body can say // TODO: implement. 
+Focus only on getting the hierarchy and signal connections right. 
+ 
+--- 
+[After receiving Turn 1 output, send this as Turn 2:] 
+ 
+TURN 2 — HIERARCHY REVIEW: 
+Review your structural skeleton for these issues: 
+- Are any carries passed as buses where they should be individual wires? 
+- Does any top-level module contain logic (assign/always) that belongs in a sub-module? 
+- Are inter-group carries correctly routed between carry_logic blocks? 
+- Is the group-level lookahead a separate module or inlined? 
+List all issues found as numbered items. 
+ 
+--- 
+[After Turn 2, send this as Turn 3:] 
+ 
+TURN 3 — IMPLEMENT BODIES: 
+Fix all issues from Turn 2. Now implement every // TODO body with real logic. 
+Show only the changed modules, marked: // IMPLEMENTED: <what changed> 
+ 
+--- 
+[After Turn 3, send this as Turn 4:] 
+ 
+TURN 4 — PPA ANNOTATION: 
+Add to every module: 
+// Power : <gate switching estimate> 
+// Area  : <GE count> 
+// Delay : <gate levels on critical path> 
+Also add a top-level summary table comment.

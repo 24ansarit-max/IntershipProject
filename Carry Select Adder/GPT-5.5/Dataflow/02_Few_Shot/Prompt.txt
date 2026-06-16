@@ -1,0 +1,2 @@
+Extend the Block 0 dataflow example to all 4 blocks in module csa16_df.
+Pure assign-based: 8 assign pairs, carry chain, final sum concatenation. No always, no instantiation.

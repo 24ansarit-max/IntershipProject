@@ -1,0 +1,20 @@
+You are about to write a dataflow Verilog implementation of a 
+4-bit array multiplier. Before writing any code, produce a 
+written plan that covers: 
+ 
+1. All 16 partial product expressions listed out 
+   (format: pp_i_j = a[i] & b[j]) 
+ 
+2. Column-by-column breakdown showing which signals 
+   contribute to each of the 8 output bits 
+ 
+
+3. The carry propagation plan — which carry feeds into which 
+   column expression 
+ 
+4. Wire naming convention you will follow throughout 
+ 
+Once your plan is complete, implement the full dataflow Verilog. 
+Module name: array_multiplier_4bit. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+Use only assign statements and wire declarations.

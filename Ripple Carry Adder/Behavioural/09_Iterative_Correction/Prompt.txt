@@ -1,0 +1,30 @@
+ITERATION 1 — Initial implementation: 
+Write a behavioral Verilog 16-bit ripple carry adder using a 
+for loop for xc7a100tcsg324-2. Pure combinational, FF=0. 
+Do not worry about perfection yet — just get it functionally 
+correct with a working for loop inside always @(*). 
+ 
+--- 
+[After you write Iteration 1, apply these corrections:] 
+ 
+ITERATION 2 — Latch elimination pass: 
+Review the always @(*) block. Confirm sum[i] and carry[i+1] 
+are assigned unconditionally on every loop pass (no missing 
+else branch). If carry is declared as reg but not fully driven 
+for all 17 bits, fix it. Annotate fixed lines with // fix: latch 
+eliminated. 
+ 
+ITERATION 3 — Parameterization pass: 
+Replace the hardcoded loop bound 16 with a parameter WIDTH=16 
+and update the carry array size to [WIDTH:0]. Annotate with 
+// fix: parameterized for reuse. 
+ 
+ITERATION 4 — Timing/area review pass: 
+Add a comment confirming Vivado will map the carry chain to 
+CARRY4 hard primitives (4 bits per CARRY4, so 4 CARRY4 blocks 
+for 16 bits), and that no further LUT reduction is meaningful 
+since the carry chain is already minimal. Annotate 
+// fix: confirmed CARRY4 inference. 
+
+ 
+Final target: xc7a100tcsg324-2, Fmax > 100 MHz, LUT ≤ 18, FF=0.

@@ -1,0 +1,25 @@
+ITERATION 1 — Initial implementation: 
+Write a behavioral Verilog 16-bit traffic light FSM for 
+xc7a100tcsg324-2. Use one-hot state encoding with localparam, 
+synchronous reset, 16-bit timer. Do not worry about perfection yet. 
+ 
+--- 
+[After you write Iteration 1, apply these corrections:] 
+ 
+ITERATION 2 — Latch elimination pass: 
+Review every always @(*) block. For any signal not assigned in 
+every branch, add a default at the top of the block. Annotate 
+each fixed line with // fix: latch eliminated. 
+ 
+ITERATION 3 — Timing optimization pass: 
+Find the critical path (state → next_state mux → state_reg). 
+If any case branch has > 2 LUT levels, restructure using 
+pipeline-friendly one-hot priority encoding. Annotate with 
+// fix: timing - reduced to 1 LUT level. 
+ 
+ITERATION 4 — Area optimization pass: 
+Identify any two output signals that are identical Boolean 
+functions of state bits and merge them. Annotate // fix: shared LUT. 
+
+ 
+Final target: xc7a100tcsg324-2, Fmax > 100 MHz, LUT < 45, FF ≤ 17.

@@ -1,0 +1,7 @@
+Design a 16-bit barrel shifter in Structural Verilog. 
+Use hierarchical instantiation of mux2x1 primitives to build 4 stages (shift by 1, 2, 4, 
+8). 
+Implement all loop variants: left shift, right shift (logical), right shift (arithmetic), and 
+rotate left / rotate right. 
+For each variant discuss expected power consumption, gate-level area (in 
+equivalent gate count), and critical-path delay (in gate delays).

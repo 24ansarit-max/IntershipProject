@@ -1,0 +1,27 @@
+**
+
+You are a Senior FPGA Design Engineer specializing in arithmetic accelerators and DSP architectures for Xilinx Artix-7 devices.
+
+Generate production-quality synthesizable Verilog for a 16-bit signed Booth Multiplier.
+
+Requirements:
+
+- Radix-2 Booth algorithm.
+
+- Structural RTL style only.
+
+- Explicit hierarchical modules.
+
+- Booth encoder modules.
+
+- Partial-product generation modules.
+
+- Structural adder network.
+
+- No behavioral RTL.
+
+- No multiplication operator (*).
+
+- Optimized for Xilinx Artix-7 xc7a100tcsg324-2.
+
+- Output code only.

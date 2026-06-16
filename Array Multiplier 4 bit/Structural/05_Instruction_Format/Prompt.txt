@@ -1,0 +1,23 @@
+[TASK] 
+Write a structural Verilog module for a 4-bit array multiplier. 
+ 
+[MODULE INTERFACE] 
+Module name : array_multiplier_4bit 
+Inputs      : a [3:0], b [3:0] 
+Output      : product [7:0] 
+ 
+[REQUIRED SUB-MODULES] 
+- and_gate    : inputs (a, b), output (y) 
+- half_adder  : inputs (a, b), outputs (sum, carry) 
+- full_adder  : inputs (a, b, cin), outputs (sum, cout) 
+ 
+[STRUCTURAL RULES] 
+- Use only module instantiation and wire declarations 
+- No always blocks, no assign with arithmetic, no * operator 
+- Declare all intermediate signals as named wires 
+
+- Follow the partial product array pattern row by row 
+ 
+[OUTPUT FORMAT] 
+First define all three sub-modules, then the top-level module. 
+Add a one-line comment above each instantiation group.

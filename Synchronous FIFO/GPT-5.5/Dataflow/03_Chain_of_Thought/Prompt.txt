@@ -1,0 +1,40 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Think through each dataflow expression step by step, then write RTL. 
+ 
+/* ── STEP 1: POINTER ALGEBRA ─────────────────── */ 
+// Derive the assign expression for full using 5-bit pointers. 
+// Show your working: 
+//   - Why does MSB encode wrap-around? 
+//   - Write the Boolean equation for full in terms of 
+//     wr_ptr[4], rd_ptr[4], wr_ptr[3:0], rd_ptr[3:0] 
+//   - Can this expression be written as a single assign 
+//     without any always block? Prove it. 
+//   - Identify operator precedence risks (& vs ==) 
+ 
+/* ── STEP 2: COUNT EXPRESSION ────────────────── */ 
+// Derive assign count = ? using modular arithmetic. 
+// Explain: why does count = wr_ptr[3:0] - rd_ptr[3:0] work 
+//          even across wrap-around? (two's complement property) 
+// Derive almost_full and almost_empty thresholds. 
+// Write as assign using only {}, >=, <=, - operators. 
+ 
+/* ── STEP 3: GATE THE BRAM ENABLES ──────────── */ 
+// Why must wr_en_safe and rd_en_safe be assign (not inside always)? 
+// Derive: assign wr_en_safe = wr_en & ~full; 
+// Explain: what happens to dynamic power if BRAM sees spurious 
+//          write enables? (BRAM input toggle = dynamic power) 
+ 
+/* ── STEP 4: IDENTIFY EVERY assign IN DESIGN ── */ 
+// List all continuous assign statements the design needs. 
+// For each: output signal | expression | LUT cost | timing depth 
+ 
+/* ── STEP 5: IDENTIFY EVERY always IN DESIGN ── */ 
+// List all always @(posedge clk) blocks needed. 
+// For each: which FFs? synchronous reset value? CE signal? 
+// RULE: no always @(*) or always_comb anywhere. 
+ 
+/* ── STEP 6: WRITE THE RTL ───────────────────── */ 
+// Produce complete synthesizable Verilog. 
+// Every combinational output = assign (dataflow). 
+// Sequential elements only in always @(posedge clk). 
+// Annotate: Power / Area / Delay per assign cluster.

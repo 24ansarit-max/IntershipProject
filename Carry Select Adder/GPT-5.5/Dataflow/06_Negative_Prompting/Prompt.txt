@@ -1,0 +1,1 @@
+Write csa16_df in dataflow Verilog. DO NOT: always, single-line full adder, generate loops, omit cin=1 candidates. MUST: 8 assign pairs, 4 sum mux, 4 carry mux, parameters with units.

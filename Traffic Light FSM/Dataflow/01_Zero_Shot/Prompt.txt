@@ -1,0 +1,16 @@
+Write a synthesizable Verilog module for a 16-bit traffic light 
+FSM using a pure dataflow style (assign statements only, no always blocks). 
+ 
+
+Target FPGA: xc7a100tcsg324-2 (Nexys A7 Artix-7). 
+ 
+- Use assign and conditional operators (? :) for next-state logic 
+- Use parameter for all state constants 
+- 16-bit state register declared as reg; driven only from a single 
+  always @(posedge clk) for the FF stage — all combinational logic 
+  in assign 
+- Synchronous reset 
+- Comment each assign explaining the Boolean function 
+ 
+PPA target: minimize LUT depth (combinational delay < 5 ns), 
+area < 50 LUTs, power < 1 mW dynamic on Artix-7.

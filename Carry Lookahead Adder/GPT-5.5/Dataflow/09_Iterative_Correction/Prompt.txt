@@ -1,0 +1,30 @@
+TURN 1 — FIRST DATAFLOW DRAFT: 
+Write a 16-bit CLA in dataflow Verilog. Speed is not the priority — get the structure right. 
+All 16 carries, all 16 sums, cout, overflow. assign only. No time pressure on correctness yet. 
+ 
+--- 
+[After Turn 1, send this as Turn 2:] 
+ 
+TURN 2 — CARRY INDEPENDENCE AUDIT: 
+For each of these carries in your code, trace its RHS and answer YES/NO: 
+Does C4 depend on C1, C2, or C3? (Answer should be NO for true CLA) 
+Does C8 depend on C4 via a non-group-level path? (Should be NO) 
+Does C12 depend on C8 via a non-group-level path? (Should be NO) 
+Does C5 depend only on G[4],P[4] and C4 (not on G[0..3] directly)? (Should be YES) 
+ 
+For any YES that should be NO or vice versa: mark it // BUG: <reason>. 
+ 
+--- 
+[After Turn 2, send this as Turn 3:] 
+ 
+TURN 3 — FIX ALL BUGS: 
+Correct every // BUG you found. Show only changed lines marked // FIXED: <reason>. 
+After fixing, re-verify: confirm all inter-group carries are ripple-free. 
+ 
+--- 
+[After Turn 3, send this as Turn 4:] 
+ 
+TURN 4 — PARAMETERIZE & ANNOTATE: 
+1. Add parameter WIDTH=16 and use genvar generate blocks for P/G and sum assigns 
+2. Add // Power, // Area, // Delay comments 
+3. Add a final // VERIFIED: carry independence confirmed comment

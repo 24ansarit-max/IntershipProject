@@ -1,0 +1,54 @@
+/* ════════════════════════════════════════════════ 
+   TURN 1 — INITIAL DATAFLOW GENERATION 
+   ════════════════════════════════════════════════ */ 
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+All combinational logic as continuous assign (dataflow style). 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5. 
+Sync rst_n, Fmax>100 MHz, BRAM storage, no always_comb. 
+Include: full, empty, count, almost_full, almost_empty, 
+         wr_en_safe, rd_en_safe, overflow, underflow. 
+ 
+───────────────────────────────────────────────── 
+[Paste generated RTL here, then send TURN 2] 
+───────────────────────────────────────────────── 
+ 
+/* ════════════════════════════════════════════════ 
+   TURN 2 — DATAFLOW CRITIQUE PASS 
+   ════════════════════════════════════════════════ */ 
+Review the Verilog. Check every dataflow rule: 
+ 
+ASSIGN CHECK 1 — COMPLETENESS 
+  Is full driven by assign? [YES/NO + line ref] 
+  Is empty driven by assign? [YES/NO] 
+  Is count driven by assign? [YES/NO] 
+  Is almost_full driven by assign? [YES/NO] 
+  Is almost_empty driven by assign? [YES/NO] 
+  Is wr_en_safe driven by assign? [YES/NO] 
+  Is rd_en_safe driven by assign? [YES/NO] 
+ 
+ASSIGN CHECK 2 — CORRECTNESS 
+  full expression: does it use 5-bit XOR + 4-bit equality? 
+  empty expression: wr_ptr == rd_ptr exactly? 
+  count: modular 4-bit subtraction (not 5-bit)? 
+  Operator precedence: parentheses around & and == groups? 
+ 
+ASSIGN CHECK 3 — CONTAMINATION 
+  Any always_comb present? [YES/NO — must be NO] 
+  Any combinational if/case in always? [YES/NO — must be NO] 
+  Any flag signal on LHS of both assign and <=? [YES/NO] 
+ 
+ASSIGN CHECK 4 — POWER GATES 
+  wr_en_safe = wr_en & ~full present? [YES/NO] 
+  rd_en_safe = rd_en & ~empty present? [YES/NO] 
+  Are these assigns used as the FF CE condition? [YES/NO] 
+ 
+ASSIGN CHECK 5 — PPA ANNOTATION 
+  Each assign cluster annotated with Power/Area/Delay? [YES/NO] 
+ 
+/* ════════════════════════════════════════════════ 
+   TURN 3 — DATAFLOW FIX PASS 
+   ════════════════════════════════════════════════ */ 
+Fix every issue found in Turn 2. 
+Output only corrected assign lines and any surrounding context. 
+For each fix: 
+  // DATAFLOW FIX: [issue] → [correction]

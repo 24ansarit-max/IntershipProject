@@ -1,0 +1,33 @@
+Design a 16-bit signed Booth Multiplier.
+
+Before generating the RTL:
+
+1. Analyze the Booth multiplication algorithm.
+
+2. Determine the Booth encoding logic.
+
+3. Determine the partial-product generation structure.
+
+4. Determine the adder hierarchy required.
+
+5. Plan the structural datapath.
+
+6. Plan the module hierarchy.
+
+After completing the reasoning process, generate synthesizable Verilog.
+
+Requirements:
+
+- Radix-2 Booth multiplication.
+
+- Structural RTL only.
+
+- Explicit module instantiations.
+
+- No behavioral blocks.
+
+- No multiplication operator (*).
+
+- Target FPGA: xc7a100tcsg324-2.
+
+- Output complete code only.

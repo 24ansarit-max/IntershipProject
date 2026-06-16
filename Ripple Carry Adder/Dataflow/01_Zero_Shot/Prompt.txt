@@ -1,0 +1,17 @@
+Write a synthesizable Verilog module for a 16-bit ripple carry 
+adder using dataflow style with a generate-for loop driving 
+assign statements (no always blocks for logic). 
+ 
+Target FPGA: xc7a100tcsg324-2. 
+ 
+- genvar i; generate for (i=0; i<16; i=i+1) ... endgenerate 
+- Inside the loop: assign sum[i] = a[i] ^ b[i] ^ carry[i]; 
+                    assign carry[i+1] = (a[i] & b[i]) | 
+                                         (b[i] & carry[i]) | 
+                                         (a[i] & carry[i]); 
+- carry[0] = cin; cout = carry[16] 
+- Pure combinational, no clock required for the adder itself 
+- Comment each generated instance index 
+ 
+PPA target: LUT < 16 (one LUT per bit using carry-chain 
+primitives), combinational delay < 5 ns, Fmax > 100 MHz.

@@ -1,0 +1,18 @@
+Think through the following before writing any Verilog: 
+ 
+Step 1: Write out all 16 partial products as boolean expressions. 
+        e.g. pp00 = a[0] & b[0], pp01 = a[0] & b[1], ... 
+ 
+Step 2: For each output bit column (0 through 7), list which 
+        partial products and carry signals contribute to that column. 
+ 
+Step 3: For each column, determine the XOR and carry expressions 
+        needed to reduce the bits down to one sum bit and one carry. 
+ 
+Step 4: Trace how the carry from each column feeds into the next. 
+ 
+
+After completing all four steps, write a flat dataflow Verilog module 
+named array_multiplier_4bit. Inputs: a[3:0], b[3:0]. 
+Output: product[7:0]. Use only wire declarations and assign statements. 
+No sub-module instantiations. No always blocks. No * operator.

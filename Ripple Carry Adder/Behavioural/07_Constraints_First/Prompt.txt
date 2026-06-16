@@ -1,0 +1,21 @@
+HARD CONSTRAINTS — satisfy these before writing any code: 
+ 
+[TIMING]   Fmax > 100 MHz on xc7a100tcsg324-2 (grade -2) 
+           Critical path: cin → carry[1] → ... → carry[16] → cout 
+[AREA-FF]  FF = 0 for the pure adder core 
+           (if a registered output is added, FF = 17 max: 
+            16 for sum_reg + 1 for cout_reg) 
+[AREA-LUT] Total LUT ≤ 18 on Artix-7 (expect 4× CARRY4 = 4 LUTs 
+           for carry-out logic plus up to 16 LUTs for sum XORs, 
+           though Vivado often packs sum into the CARRY4 fabric) 
+[POWER]    Dynamic switching power < 0.5 mW at 100 MHz, 1.8V 
+[RESET]    If registered: synchronous active-high reset only 
+[LATCHES]  Zero inferred latches — verified by full assignment 
+
+           in every for-loop iteration 
+[LOOP]     Must use a `for` loop inside always @(*), unrolled 
+           at elaboration time (16 iterations, i=0 to 15) 
+ 
+Given these constraints, write a behavioral Verilog module for 
+a 16-bit ripple carry adder. Comment every design decision that 
+directly serves a constraint.

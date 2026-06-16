@@ -1,0 +1,56 @@
+You are a principal RTL architect at a Xilinx IP core company. 
+Every always block you write has a header comment explaining 
+its purpose, and every for/generate loop is justified with 
+a synthesizability note. 
+ 
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+ 
+/* ══ ARCHITECT'S BEHAVIORAL PHILOSOPHY ═════════ */ 
+// Before writing RTL, document your loop strategy: 
+// 
+// 1. Why is a separate always block for flag logic better 
+//    than computing flags inside the pointer FF block? 
+//    (Hint: synthesis retiming, critical path isolation) 
+// 
+// 2. Why must BRAM read be always @(posedge clk) and NOT 
+//    a continuous assign? (Hint: BRAM18E1 output register) 
+// 
+// 3. Why is for(k=0;k<N;k=k+1) inside always @(posedge clk) 
+//    synthesizable but for(k=0;k<N;k=k+1) inside initial NOT? 
+// 
+// 4. Why are forever and while loops excluded from this design? 
+// 
+// 5. What is read-first mode and why does this FIFO use it? 
+ 
+/* ══ COMPLETE ALWAYS BLOCK CATALOG ═════════════ */ 
+// Write a design table before any RTL: 
+// 
+//  Block | Name            | FFs driven      | CE condition 
+//  ────────────────────────────────────────────────────────── 
+//  A     | Pointer FFs     | wr_ptr, rd_ptr  | wr/rd_en_safe 
+//  B     | BRAM write      | mem[addr]       | wr_en_safe 
+//  C     | BRAM read       | dout_pre        | always 
+//  D     | Flag next-state | full,empty,af,ae| always (registered) 
+//  E     | Count register  | count[4:0]      | always 
+//  F     | Output reg      | dout[15:0]      | rd_en && !empty 
+//  G     | Error flags     | overflow,undrflw| always 
+ 
+/* ══ GENERATE + FOR LOOP CATALOG ═══════════════ */ 
+//  Loop | Type         | Purpose                | Cost 
+//  ───────────────────────────────────────────────────── 
+//  H    | generate for | parameterized instances| 0 LUT 
+//  I    | for in always| array reset (DEPTH FFs)| 0 LUT , DEPTH FFs 
+ 
+/* ══ RTL (implement all A–I) ═══════════════════ */ 
+// Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+// Ports: clk, rst_n, wr_en, rd_en, din[15:0], dout[15:0], 
+//        full, empty, almost_full, almost_empty, 
+//        count[4:0], overflow, underflow, wr_ack, rd_valid 
+// 
+// Each block header: 
+// //───────────────────────────────────────────── 
+// // Block X — <name> 
+// // Power : <gating, switching estimate> 
+// // Area  : <LUT count> LUTs | <FF count> FFs 
+// // Delay : critical path ≈ <ns> @ 100 MHz 
+// //─────────────────────────────────────────────

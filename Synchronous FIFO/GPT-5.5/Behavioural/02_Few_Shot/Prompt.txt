@@ -1,0 +1,85 @@
+Generate a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Use BEHAVIORAL style: all logic inside always @(posedge clk) blocks. 
+Mirror the reference snippets below for every loop type. 
+ 
+/* ─── REFERENCE: Loop A — Pointer FFs ──────── */ 
+// Power: low — CE on wr/rd prevents idle switching 
+// Area : 2 LUTs (mux) | 10 FFs (2×5-bit pointers) 
+// Delay: ptr increment on crit path ≈ 1.2 ns 
+always @(posedge clk) begin 
+  if (!rst_n) begin 
+    wr_ptr <= {PTR_WIDTH{1'b0}}; 
+    rd_ptr <= {PTR_WIDTH{1'b0}}; 
+  end else begin 
+    if (wr_en && !full)  wr_ptr <= wr_ptr + 1'b1; 
+    if (rd_en && !empty) rd_ptr <= rd_ptr + 1'b1; 
+  end 
+end 
+ 
+/* ─── REFERENCE: Loop B — BRAM write ────────── */ 
+// Power: moderate — gated by wr_en && !full 
+// Area : 0 LUTs | 0 FFs (BRAM18E1 primitive) 
+// Delay: BRAM write latency 1 cycle 
+(* ram_style = "block" *) 
+reg [DATA_WIDTH-1:0] mem [0:DEPTH-1]; 
+always @(posedge clk) 
+  if (wr_en && !full) 
+    mem[wr_ptr[ADDR_WIDTH-1:0]] <= din; 
+ 
+/* ─── REFERENCE: Loop C — BRAM read-first ───── */ 
+// Power: low — always reading (BRAM power model) 
+// Area : 0 LUTs | DATA_WIDTH FFs (output register) 
+// Delay: read latency 1 cycle — accounted in dout path 
+always @(posedge clk) 
+  dout_pre <= mem[rd_ptr[ADDR_WIDTH-1:0]]; 
+ 
+/* ─── REFERENCE: Loop D — Registered flags ──── */ 
+// Power: very low — toggles only on wr/rd events 
+// Area : 4 LUTs (comparators) | 4 FFs (flag registers) 
+// Delay: removes flags from critical path entirely 
+always @(posedge clk) begin 
+  if (!rst_n) begin 
+    full <= 1'b0; empty <= 1'b1; 
+    almost_full <= 1'b0; almost_empty <= 1'b1; 
+  end else begin 
+    full  <= (wr_ptr_next[PTR_WIDTH-1] != rd_ptr[PTR_WIDTH-1]) && 
+             (wr_ptr_next[ADDR_WIDTH-1:0] == rd_ptr[ADDR_WIDTH-1:0]); 
+    empty <= (wr_ptr == rd_ptr_next); 
+    almost_full  <= (count_next >= DEPTH - 2); 
+    almost_empty <= (count_next <= 2); 
+  end 
+end 
+ 
+/* ─── REFERENCE: Loop E — Output register ───── */ 
+// Power: very low — CE on rd_en && !empty 
+// Area : 0 LUTs | DATA_WIDTH FFs 
+// Delay: adds 1 cycle latency; closes dout timing 
+always @(posedge clk) begin 
+  if (!rst_n) dout <= {DATA_WIDTH{1'b0}}; 
+  else if (rd_en && !empty) dout <= dout_pre; 
+end 
+ 
+/* ─── REFERENCE: Loop F — Generate-for ──────── */ 
+// Parameterized instance replication (structural hook) 
+// Power/Area/Delay: 0 — elaboration only 
+genvar gi; 
+generate 
+  for (gi=0; gi<PTR_WIDTH; gi=gi+1) begin : gen_ptr 
+    // per-bit tie-off or debug probe here 
+  end 
+endgenerate 
+ 
+/* ─── REFERENCE: Loop G — For inside always ─── */ 
+// Synchronous reset of memory-mapped status array 
+// Power: low | Area: DEPTH FFs | Delay: parallel reset 
+integer k; 
+always @(posedge clk) 
+  if (!rst_n) 
+    for (k = 0; k < DEPTH; k = k+1) 
+      overflow_log[k] <= 1'b0; 
+ 
+/* ═══ NOW GENERATE COMPLETE FIFO ════════════════ */ 
+// Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+// Include all 7 loop types (A–G) in the complete design. 
+// Add overflow, underflow, wr_count[4:0] output signals. 
+// Every always block: header comment with Power/Area/Delay.

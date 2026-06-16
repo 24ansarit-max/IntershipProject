@@ -1,0 +1,9 @@
+7. Constraints-First Prompt  
+Prompt- 
+CONSTRAINTS — read all before writing a single line of code: 
+ 
+[C1] STRUCTURAL ONLY: adder16_struct must contain EXCLUSIVELY wire declarations 
+and 
+     module instantiations. No assign, no always, no arithmetic operators inside it. 
+ 
+[C2] MODULE HIERARCHY: Three

@@ -1,0 +1,1 @@
+You are a senior verification engineer. Write csa16_beh reference model: module-level reg declarations, single always @(*), block headers, if-else (no ternary), PPA parameters.

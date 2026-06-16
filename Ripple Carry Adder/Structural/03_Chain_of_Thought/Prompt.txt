@@ -1,0 +1,23 @@
+Plan the module hierarchy before writing code: 
+ 
+Step 1 — Define the atomic building block: a 1-bit full_adder 
+  module with ports a, b, cin, sum, cout. 
+ 
+Step 2 — Decide the replication mechanism: a generate-for loop 
+  with genvar to instantiate full_adder 16 times, connecting 
+  carry[i] to carry[i+1] in a chain (ripple topology). 
+
+ 
+Step 3 — Confirm the critical path: cin → fa[0].cout → 
+  fa[1].cout → ... → fa[15].cout → cout. Estimate 16 stages of 
+  carry-chain delay. 
+ 
+Step 4 — Write the full_adder sub-module with full comments. 
+ 
+Step 5 — Write the top-level rca16 module using generate-for to 
+  instantiate full_adder, with named port connections. 
+ 
+Target: xc7a100tcsg324-2, pure combinational (FF=0), Fmax > 100 MHz. 
+ 
+PPA: annotate full_adder with 1-LUT6 estimate; annotate the 
+generate loop with total instance count and chain depth.

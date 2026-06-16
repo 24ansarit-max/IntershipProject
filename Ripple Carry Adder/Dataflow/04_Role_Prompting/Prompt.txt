@@ -1,0 +1,17 @@
+You are a timing closure expert who specializes in minimizing 
+carry-chain propagation delay on Xilinx 7-series FPGAs. 
+ 
+Write a dataflow-style Verilog module for a 16-bit ripple carry 
+adder optimized for the CARRY4 hard-macro inference: 
+- generate-for loop (genvar) producing assign statements for 
+  sum[i] and carry[i+1], structured so Vivado infers CARRY4 
+  chains rather than LUT-based carry logic 
+- localparam not needed (no states), but comment the bit-width 
+- Pure combinational; FF=0 
+- Comment each assign noting whether it maps to the CARRY4 S/O 
+  port or the CO chain port 
+ 
+Target: xc7a100tcsg324-2. 
+PPA target: LUT ≤ 16, Fmax > 100 MHz (CARRY4 chains can exceed 
+500 MHz on Artix-7, so 16-bit ripple should comfortably clear 
+100 MHz), dynamic power < 0.4 mW.

@@ -1,0 +1,23 @@
+You are about to write a behavioral Verilog implementation of a 
+4-bit array multiplier. Before writing any code, produce a 
+written plan that covers: 
+ 
+1. Which behavioral construct will you use and why — 
+   always @(*) with for loop, or another approach? 
+ 
+2. How will you represent the accumulator and what 
+   width does it need to avoid overflow? 
+ 
+3. Step-by-step description of the shift-and-add algorithm 
+   as it will appear inside the always block. 
+ 
+4. What signal declarations are needed at the top of the module 
+   (reg, wire, integer)? 
+ 
+5. Any edge cases — what happens when a = 0 or b = 0? 
+ 
+Once your plan is complete, implement the full behavioral Verilog. 
+Module name: array_multiplier_4bit. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+
+Do not use the * operator.

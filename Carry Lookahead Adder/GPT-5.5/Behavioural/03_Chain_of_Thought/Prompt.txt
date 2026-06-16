@@ -1,0 +1,16 @@
+Think step by step before writing any Verilog code. 
+ 
+Step 1 — THEORY: Explain why ripple carry is slow. Define G[i]=A[i].B[i], P[i]=A[i] XOR B[i]. 
+Step 2 — CARRY EQUATIONS: Write out the full CLA equations for C1 through C4 in terms of G and P 
+only (no previous carries). Then generalize for groups. 
+Step 3 — GROUP LOOKAHEAD: Define Group Generate GG[k] and Group Propagate GP[k] for a 4-bit 
+block k. Write C4, C8, C12, C16 in terms of GG/GP . 
+Step 4 — DELAY ANALYSIS: Count gate levels for carry generation. Compare to ripple. Note // Delay: 
+O(log N). 
+Step 5 — AREA NOTE: Estimate gate count. Note // Area: ~2x RCA but justified by speed. 
+Step 6 — POWER NOTE: Note // Power: more gates toggle simultaneously — dynamic power higher 
+than RCA. 
+Step 7 — CODE: Now write the BEHAVIORAL Verilog module for 16-bit CLA using always @(*), reg 
+arrays g[15:0], p[15:0], c[16:0]. Include signed overflow detection. 
+ 
+Output each step clearly labeled.

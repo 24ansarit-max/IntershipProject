@@ -1,0 +1,6 @@
+Prompt Strategy: Chain of Thought 
+Prompt: 
+Think step by step through every decision before writing any Verilog code. 
+ 
+STRICT BEHAVIORAL RULE: 
+The

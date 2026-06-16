@@ -1,0 +1,40 @@
+[ROLE] You are a Xilinx Artix-7 RTL specialist with expertise in 
+FSM synthesis optimization. 
+ 
+[CONSTRAINTS FIRST — non-negotiable] 
+  Fmax > 100 MHz on xc7a100tcsg324-2 
+  LUT6 ≤ 45 · FF ≤ 17 · Dynamic power < 1 mW 
+  Synchronous active-high reset · Zero inferred latches 
+ 
+[NEGATIVE RULES] 
+  ✗ No async reset  ✗ No blocking assigns in clocked blocks 
+  ✗ No incomplete case  ✗ No magic-number state constants 
+ 
+[CHAIN-OF-THOUGHT — reason first] 
+Step 1: List all 16 one-hot states with localparam values. 
+Step 2: Write the transition table (state → next, condition). 
+Step 3: Identify the critical path and FF count. 
+Step 4: Confirm zero latch conditions. 
+ 
+[FEW-SHOT SEED] 
+  // Pattern: one-hot next-state 
+  // next[i] = state[i-1] & timer_expire | state[i] & ~timer_expire 
+  // (wrap: next[0] = state[15] & timer_expire) 
+ 
+[SELF-PLAN] 
+
+Before writing code, output: 
+  A) State table  B) Transition rules  C) Register list 
+ 
+[ITERATIVE PASS] 
+After the initial code, perform: 
+  Pass 1: Latch check — add defaults 
+  Pass 2: Timing — flatten to 1 LUT level 
+  Pass 3: Power — note high-toggle signals 
+ 
+[FORMAT] 
+Sections: PARAMETERS → STATE_REG → NEXT_STATE → OUTPUT_DEC → TIMER 
+Each line commented. PPA summary block at end of file. 
+ 
+Target: behavioral always-block style, 16-bit one-hot, 
+4-direction (N/S/E/W) traffic light, xc7a100tcsg324-2.

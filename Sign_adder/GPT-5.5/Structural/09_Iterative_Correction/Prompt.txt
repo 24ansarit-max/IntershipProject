@@ -1,0 +1,56 @@
+9. Iterative Correction Prompt  
+Prompt- 
+Write a 16-bit signed adder using structural modeling through an iterative self-correction 
+process. 
+ABSOLUTE RULE ACROSS ALL ITERATIONS: adder16_struct must contain ONLY wire 
+declarations 
+and module instantiations. No assign, no always, no arithmetic operators — ever. 
+ 
+ITERATION 1 — Write half_adder primitive: 
+Write a half_adder module using only xor and and gate primitives. 
+Review: Are there any assign statements? If yes, replace with gate primitives. Fix and 
+finalize. 
+ 
+ITERATION 2 — Write full_adder: 
+Build full_adder by instantiating two half_adder modules and one or gate. 
+Review for: 
+  - Any assign or always inside? Remove immediately. 
+  - Are all internal wires declared (s1, c1, c2)? 
+  - Are named port connections used? 
+Fix and write corrected version. 
+ 
+ITERATION 3 — Write adder16_struct: 
+Instantiate 16 full_adder modules (fa0 through fa15). Declare wire [16:0] c. 
+Tie c[0] to 1'b0. Connect carry chain through c[1]–c[16]. Map sum[16] = c[16]. 
+Review for: 
+  - Any assign (other than the c[0] tie)? Remove. 
+  - Any always or arithmetic operators? Remove. 
+  - Are all 16 instances named fa0–fa15? 
+  - Is sum[16] correctly connected to c[16]? 
+  - Is signed on input and output ports? 
+Fix and write corrected version. 
+ 
+ITERATION 4 — Write basic testbench: 
+Write tb_adder16 instantiating adder16_struct. Add only a for loop with 20 corner case pairs. 
+Review for: 
+  - reg signed [15:0] A, B declared? 
+  - wire signed [16:0] sum declared? 
+  - #10 delay before $display? 
+  - PASS/FAIL computed as expected = $signed(A) + $signed(B)? 
+Fix and write corrected version. 
+ 
+ITERATION 5 — Add all remaining loops and finalize: 
+Add: while loop (100 iterations, $signed($random), error tracking), 
+     repeat loop (50 iterations, display each), 
+     forever loop (5ns clk toggle, $finish at 1000ns). 
+Final review of entire code: 
+  - adder16_struct has ONLY wires and instantiations? ✓ 
+  - signed on all ports and regs? ✓ 
+  - 17-bit output sum[16:0]? ✓ 
+  - c[0] tied to 1'b0? ✓ 
+  - All 16 fa instances present? ✓ 
+  - All 4 loop types in testbench? ✓ 
+  - $finish present? ✓ 
+Fix any remaining issues. 
+ 
+FINAL OUTPUT: Present only the fully corrected complete Verilog from Iteration 5.

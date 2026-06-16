@@ -1,0 +1,5 @@
+7. Constraints-First Prompt
+Prompt-
+CONSTRAINTS — read all before writing a single line of code:
+
+[C1] DATAFLOW ONLY: The

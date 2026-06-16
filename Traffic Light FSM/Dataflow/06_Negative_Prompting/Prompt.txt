@@ -1,0 +1,19 @@
+Write a dataflow Verilog 16-bit traffic light FSM for 
+xc7a100tcsg324-2 using assign statements. 
+ 
+FORBIDDEN patterns — if you use any of these the code is wrong: 
+✗ No blocking assignment (=) inside always blocks 
+✗ No non-blocking assignment (<=) on combinational signals 
+✗ No assign driven from a reg that is also driven by always 
+  (avoid multiple drivers) 
+✗ No casez or casex in a pure dataflow module (use ternary) 
+✗ No $display, $monitor, or any simulation-only constructs 
+✗ No use of Z (high-impedance) on internal signals 
+✗ No implicit wire declarations (declare all wires explicitly) 
+
+ 
+REQUIRED: 
+- assign-only combinational next-state and output logic 
+- Single always @(posedge clk) for the 16-bit state FF 
+- localparam one-hot constants 
+- Synchronous reset; Fmax > 100 MHz; LUT < 60.

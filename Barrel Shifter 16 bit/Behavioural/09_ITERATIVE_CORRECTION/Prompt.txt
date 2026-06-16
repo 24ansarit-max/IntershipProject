@@ -1,0 +1,17 @@
+Iteration 0 — Draft behavioral: 
+Write a 16-bit left logical barrel shifter in BEHAVIORAL Verilog for xc7a100tcsg324-2. 
+ 
+Self-critique after draft: 
+
+  - Are there latches? (Check: does every output get assigned in every branch?) 
+  - Is the case statement complete (all 16 values)? 
+  - Are there any synthesis warnings Vivado would raise? 
+ 
+Iteration 1 — Fix all issues. 
+ 
+Iteration 2 — Optimization pass: 
+  - Can Vivado's case synthesis attribute (* full_case, parallel_case *) help? 
+  - Add them if appropriate and explain why. 
+  - Note: (* parallel_case *) removes priority encoder overhead. 
+ 
+Final: PPA table — Power (mW) | Area (LUTs) | Delay (ns).

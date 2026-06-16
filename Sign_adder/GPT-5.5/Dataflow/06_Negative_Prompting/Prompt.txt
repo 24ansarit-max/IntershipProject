@@ -1,0 +1,6 @@
+6. Negative Prompting
+Prompt-Write a 16-bit signed adder in Verilog using dataflow modeling only, along with a comprehensive testbench.
+
+STRICT DATAFLOW ENFORCEMENT — DO NOT violate any of these:
+
+DO NOT use always blocks anywhere in the

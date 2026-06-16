@@ -1,0 +1,1 @@
+Write csa16_beh. DO NOT: latches, for-loops, wire outputs, single candidate per block, nested always. MUST: defaults at top, 4 iterations, both candidates per block.

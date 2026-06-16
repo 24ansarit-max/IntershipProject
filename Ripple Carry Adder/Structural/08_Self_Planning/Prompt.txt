@@ -1,0 +1,18 @@
+Plan the module hierarchy, then implement it. 
+ 
+HIERARCHY PLAN (output first): 
+□ List the single sub-module needed: full_adder (1-bit cell) 
+□ Draw the port connection chain (text ASCII art): 
+  cin → fa[0] → fa[1] → ... → fa[15] → cout 
+□ Confirm the replication mechanism: generate-for with genvar, 
+  16 iterations, named generate block label 
+□ Allocate FF and LUT budget (FF=0, LUT ≤ 16 total) 
+□ Confirm no combinational loop exists in the carry chain 
+  (strictly index-increasing connections only) 
+ 
+IMPLEMENTATION (output after plan): 
+Write the full_adder module and the rca16 top module exactly as 
+planned, using the generate-for loop for instantiation and named 
+port connections. Add a // matches Plan line referencing the plan. 
+ 
+Target device: xc7a100tcsg324-2, Fmax > 100 MHz, FF=0, LUT ≤ 16.

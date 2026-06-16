@@ -1,0 +1,20 @@
+Write a behavioral Verilog 16-bit traffic light FSM for 
+xc7a100tcsg324-2. 
+ 
+DO NOT do any of the following: 
+- Do NOT use asynchronous reset (posedge rst or negedge clk) 
+- Do NOT infer latches (every branch in always @(*) must assign 
+  ALL outputs; use default assignments at the top of the block) 
+- Do NOT use initial blocks (not synthesizable for FPGA FF init) 
+- Do NOT leave incomplete case statements (always include default) 
+- Do NOT use integer loop variables that imply a ROM 
+- Do NOT use `#delay` statements 
+- Do NOT hardcode state values as magic numbers; use localparam 
+- Do NOT use blocking assignments (=) in clocked always blocks 
+ 
+DO: 
+- Use synchronous reset 
+- One-hot 16-bit state encoding with localparam 
+- Full comment coverage on every state 
+ 
+PPA: Fmax > 100 MHz, LUT < 50, FF ≤ 17, power < 1 mW.

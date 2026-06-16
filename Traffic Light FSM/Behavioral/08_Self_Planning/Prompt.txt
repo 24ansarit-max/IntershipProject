@@ -1,0 +1,18 @@
+Before writing any Verilog, produce a written plan covering: 
+ 
+PLAN SECTION (output this first): 
+A) State list: enumerate all 16 states with names and 16-bit 
+   one-hot values 
+B) Transition rules: state_i → state_j on condition C_ij 
+C) Output table: for each state, list {red,yellow,green,walk} 
+   per direction 
+D) Register list: every reg, its width, and its purpose 
+E) Timing estimate: identify the longest combinational path 
+F) Latch check: confirm every signal has a default value 
+
+ 
+CODE SECTION (output after the plan): 
+Implement the plan as behavioral Verilog for xc7a100tcsg324-2. 
+Each code section must reference its plan item (e.g., // Plan-A). 
+Synchronous reset, no latches, Fmax > 100 MHz, 
+LUT < 50, FF ≤ 20.

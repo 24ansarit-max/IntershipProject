@@ -1,0 +1,23 @@
+Generate a 16-bit signed Booth Multiplier. 
+ 
+
+First create an implementation plan. 
+ 
+The plan should identify: 
+- Booth encoding strategy 
+- Partial-product generation strategy 
+- Dataflow expression structure 
+- Summation strategy 
+- Output generation method 
+ 
+After creating the plan, implement the design according to the plan. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Dataflow RTL only. 
+- Synthesizable Verilog. 
+- No procedural blocks. 
+- No always statements. 
+- Target FPGA: xc7a100tcsg324-2. 
+ 
+Output complete code.

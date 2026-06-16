@@ -1,0 +1,1 @@
+Generate module csa16_df following EXACT format: header, parameters, wire declarations, blocks 0-3, output assembly, specify block.

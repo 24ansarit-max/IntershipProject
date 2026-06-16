@@ -1,0 +1,1 @@
+CONSTRAINTS: DELAY_PS≤350, AREA_UM2≤700, POWER_UW≤150. Write module csa16_df with DELAY_PS=300, AREA_UM2=648, POWER_UW=110, pure dataflow, specify block.

@@ -1,0 +1,36 @@
+You are a Senior FPGA Design Engineer specializing in FPGA arithmetic accelerators. 
+ 
+TASK: 
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier. 
+ 
+Before coding: 
+ 
+1. Analyze the Booth multiplication algorithm. 
+2. Create an implementation plan. 
+3. Determine Booth encoding strategy. 
+4. Determine arithmetic shift strategy. 
+5. Determine register organization. 
+6. Determine final product generation. 
+ 
+CONSTRAINTS: 
+ 
+- Behavioral RTL only. 
+- Radix-2 Booth multiplication. 
+- Signed 16-bit operands. 
+- 32-bit product output. 
+- No multiplication operator (*). 
+- Synthesizable Verilog. 
+- Target FPGA: Xilinx Artix-7 xc7a100tcsg324-2. 
+ 
+SELF-CHECK: 
+
+ 
+- Verify Booth algorithm correctness. 
+- Verify signed arithmetic. 
+- Verify arithmetic shift operations. 
+- Verify synthesizability. 
+- Verify correct output width. 
+ 
+OUTPUT: 
+ 
+Verilog code only.

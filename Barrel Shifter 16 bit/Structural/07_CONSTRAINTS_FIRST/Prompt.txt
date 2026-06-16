@@ -1,0 +1,16 @@
+HARD CONSTRAINTS (must be met before writing any code): 
+  1. Target device: xc7a100tcsg324-2 (Artix-7) 
+  2. LUT budget: ≤ 48 LUTs 
+  3. Flip-flop budget: 0 (fully combinational) 
+  4. Critical path budget: < 8 ns (Fmax > 125 MHz) 
+  5. Dynamic power budget: < 1 mW 
+  6. Coding style: STRUCTURAL Verilog only 
+ 
+DESIGN APPROACH: 
+
+  Given the above constraints, design a 16-bit 4-bit-shift-amount barrel shifter using a 4-
+level binary MUX tree. Each level halves the remaining selection. Instantiate a mux2 
+primitive module. Support left logical shift. 
+ 
+CODE: Write the complete synthesizable Verilog. 
+VERIFICATION: State which constraint, if any, is most at risk and why.

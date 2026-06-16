@@ -1,0 +1,30 @@
+5. Instruction + Format Prompt - 
+Prompt- 
+ 
+TASK: Write a 16-bit signed adder in Verilog using STRICTLY STRUCTURAL MODELING 
+ONLY. 
+ 
+ABSOLUTE RULE: The top-level structural module adder16_struct must contain ONLY: 
+  - wire declarations 
+  - module instantiations with named port connections 
+  NO assign statements (except grounding c[0] = 1'b0 via tie-off instantiation or wire 
+assignment for carry init) 
+  NO always blocks 
+  NO arithmetic operators (+, -, &, |, etc.) inside the top-level module 
+  ALL logic must be inside primitive sub-modules 
+ 
+OUTPUT FORMAT — deliver in exactly this structure: 
+ 
+--- SECTION 1: HALF ADDER PRIMITIVE --- 
+Module: half_adder 
+Ports: input a, b | output sum, cout 
+Implementation: gate primitives only (xor, and) 
+[Write Verilog here] 
+ 
+--- SECTION 2: FULL ADDER MODULE --- 
+Module: full_adder 
+Ports: input a, b, cin | output sum, cout 
+Implementation: two half_adder instances + one or gate 
+[Write Verilog here] 
+ 
+--- SECTION 3: 16-BIT STRUCTURAL ADDER ---

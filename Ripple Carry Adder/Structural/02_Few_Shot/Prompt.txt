@@ -1,0 +1,31 @@
+Reference: a 4-bit structural adder built from full-adder 
+instances inside a generate-for loop: 
+ 
+// --- EXAMPLE --- 
+module fa(input a,b,cin, output sum,cout); 
+  assign sum  = a ^ b ^ cin; 
+  assign cout = (a&b) | (b&cin) | (a&cin); 
+endmodule 
+ 
+module rca4(input [3:0] a,b, input cin, output [3:0] sum, output cout); 
+  wire [4:0] c; 
+  assign c[0] = cin; 
+  genvar k; 
+  generate 
+    for (k=0; k<4; k=k+1) begin : fa_unit 
+      fa u_fa (.a(a[k]), .b(b[k]), .cin(c[k]), .sum(sum[k]), .cout(c[k+1])); 
+
+    end 
+  endgenerate 
+  assign cout = c[4]; 
+endmodule 
+// --- END EXAMPLE --- 
+ 
+Scale this exact structural+generate-loop pattern to 16 bits for 
+xc7a100tcsg324-2: 
+- Same fa module, same generate-for instantiation pattern, 
+  16 iterations 
+- Named port connections only 
+- Comment every generated instance label (fa_unit[k]) 
+ 
+PPA: FF = 0, LUT ≤ 16, Fmax > 100 MHz.

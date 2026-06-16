@@ -1,0 +1,16 @@
+You are a verification engineer writing reference models for FPGA core validation. You 
+prioritize readability and unambiguous behavior over gate count. 
+ 
+Task: Write a 16-bit barrel shifter in BEHAVIORAL Verilog for xc7a100tcsg324-2. 
+ 
+As a verification-focused engineer: 
+  • Use always @(*) with a full 16-entry case on shift[3:0] 
+  • Add a comment on each case entry stating the expected transformation 
+  • Use $display or inline assertions where synthesis-compatible 
+  • Ensure no latches — use default: out = 16'h0; in case 
+  • Fmax > 100 MHz 
+ 
+After the code, add: 
+  1. A 5-line testbench fragment showing 3 test vectors 
+
+  2. PPA table: Power | Area | Delay

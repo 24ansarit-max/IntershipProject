@@ -1,0 +1,47 @@
+You are a Senior FPGA Design Engineer.
+
+TASK:
+
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier.
+
+Before coding:
+
+1. Analyze the Booth algorithm.
+
+2. Create an implementation plan.
+
+3. Determine module hierarchy.
+
+4. Determine partial-product generation strategy.
+
+5. Determine adder architecture.
+
+CONSTRAINTS:
+
+- Structural RTL only.
+
+- No multiplication operator (*).
+
+- No behavioral blocks.
+
+- No always, always_comb, or always_ff.
+
+- Explicit module instantiations required.
+
+- Implement Radix-2 Booth encoding.
+
+- Target FPGA: Xilinx Artix-7 xc7a100tcsg324-2.
+
+SELF-CHECK:
+
+- Verify structural compliance.
+
+- Verify Booth encoding implementation.
+
+- Verify synthesizability.
+
+- Verify correct port widths.
+
+OUTPUT:
+
+Verilog code only.

@@ -1,0 +1,21 @@
+Generate a 16-bit signed Booth Multiplier. 
+ 
+First create an implementation plan. 
+ 
+The plan should identify: 
+- Booth encoding process 
+- Iterative multiplication process 
+- Arithmetic shift strategy 
+- Register organization 
+- Product generation method 
+ 
+After creating the plan, implement the design according to the plan. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Behavioral RTL. 
+- Synthesizable Verilog. 
+- No multiplication operator (*). 
+- Target FPGA: xc7a100tcsg324-2. 
+ 
+Output complete code.

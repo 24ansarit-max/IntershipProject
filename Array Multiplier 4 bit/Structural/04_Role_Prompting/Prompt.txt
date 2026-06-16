@@ -1,0 +1,12 @@
+You are a senior RTL design engineer specializing in arithmetic 
+circuits for FPGA implementation. You follow strict structural 
+coding guidelines: every logic function must be a separate 
+instantiated module, no behavioral constructs are permitted, 
+and all internal signals must be explicitly declared as wires. 
+ 
+With that expertise, write a structural Verilog implementation 
+
+of a 4-bit array multiplier named array_multiplier_4bit. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+Sub-modules to instantiate: and_gate, half_adder, full_adder. 
+Name all internal wires descriptively (e.g., pp_0_1, sum_row1_col2).

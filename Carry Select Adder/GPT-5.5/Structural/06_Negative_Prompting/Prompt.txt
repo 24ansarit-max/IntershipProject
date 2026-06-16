@@ -1,0 +1,3 @@
+Write a complete 16-bit Carry Select Adder in structural Verilog.
+DO NOT: always blocks, assign for arithmetic, generate/genvar, implicit ports, collapse blocks, omit cin=1 RCAs, skip mux stages, hard-code carry chain.
+YOU MUST: 8 rca4 modules, 3 mux2_4b modules, parameters BLOCK_SIZE/DELAY_PS/AREA_UM2/POWER_UW, named wires, specify block.

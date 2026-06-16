@@ -1,0 +1,24 @@
+Generate 16-bit CLA Verilog in DATAFLOW style. Follow this EXACT output format: 
+ 
+=== SECTION 1: MODULE DECLARATION === 
+[module header with parameters] 
+ 
+=== SECTION 2: GENERATE/PROPAGATE === 
+[assign G[i] and P[i] for all 16 bits using genvar] 
+ 
+=== SECTION 3: INTRA-GROUP CARRIES === 
+[C1–C4 (group 0), C5–C8 (group 1), C9–C12 (group 2), C13–C16 (group 3)] 
+ 
+=== SECTION 4: GROUP-LEVEL LOOKAHEAD === 
+[GG[0:3] and GP[0:3] assigns] 
+[C4, C8, C12 from group lookahead] 
+ 
+=== SECTION 5: SUM AND FLAGS === 
+[sum, cout, overflow assigns] 
+ 
+=== SECTION 6: PPA SUMMARY === 
+// Power  : [estimate in mW at 100MHz, 1.2V] 
+// Area   : [gate equivalent count] 
+// Delay  : [critical path in gate levels and ns at 250MHz] 
+ 
+No deviations from this format. Use only assign statements in sections 2–5.

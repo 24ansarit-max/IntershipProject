@@ -1,0 +1,9 @@
+6. Negative Prompting  
+Prompt- 
+Write a 16-bit signed adder in Verilog using structural modeling only, with a comprehensive 
+testbench. 
+ 
+STRICT STRUCTURAL ENFORCEMENT — DO NOT violate any of these: 
+ 
+DO NOT use assign statements inside the top-level adder16_struct module. 
+DO NOT use always blocks anywhere in the

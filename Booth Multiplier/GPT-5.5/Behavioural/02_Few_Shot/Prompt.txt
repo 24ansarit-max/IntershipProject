@@ -1,0 +1,24 @@
+Example of Behavioral RTL coding style: 
+ 
+module adder( 
+    input [7:0] a, 
+    input [7:0] b, 
+    output logic [8:0] sum 
+); 
+ 
+always_comb begin 
+    sum = a + b; 
+end 
+ 
+endmodule 
+ 
+Using the same Behavioral RTL style shown above, generate synthesizable Verilog code for 
+a 16-bit signed Booth Multiplier. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Behavioral RTL. 
+- Use procedural logic. 
+
+- Target FPGA: xc7a100tcsg324-2. 
+- Output code only.

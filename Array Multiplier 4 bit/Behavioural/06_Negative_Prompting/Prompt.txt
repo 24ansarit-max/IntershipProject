@@ -1,0 +1,16 @@
+Write a behavioral Verilog module for a 4-bit array multiplier 
+named array_multiplier_4bit. Inputs: a[3:0], b[3:0]. 
+Output: product[7:0]. 
+ 
+Use a combinational always @(*) block to implement 
+the shift-and-add algorithm of an array multiplier. 
+ 
+Do NOT use the * operator — implement partial product 
+accumulation explicitly. 
+Do NOT use assign statements for the multiply logic. 
+Do NOT use sequential always @(posedge clk) blocks — 
+this is a purely combinational circuit. 
+Do NOT instantiate any sub-modules. 
+Do NOT write a single-line shortcut that hides the 
+array multiplier structure from the reader. 
+Do NOT forget to declare product as reg [7:0].

@@ -1,0 +1,19 @@
+DESIGN CONSTRAINTS (apply before writing): 
+ 
+[C1] Combinational delay   ≤ 5 ns (carry-chain optimized, 
+                            ideally mapped to CARRY4 primitives) 
+[C2] LUT utilization       ≤ 16 LUT6 (Artix-7 mapping, 4 per 
+                            CARRY4 block × 4 blocks for 16 bits) 
+[C3] Power                 < 0.4 mW dynamic at 100 MHz 
+[C4] Loop construct        generate-for with genvar (mandatory) 
+[C5] Output stage          Pure combinational; FF=0 
+[C6] No latches            N/A for pure dataflow (no always 
+                            block at all for the adder logic) 
+[C7] Style                 Dataflow: assign only, inside a 
+
+                            generate-for block 
+ 
+Write the 16-bit ripple carry adder satisfying all constraints. 
+For each generated assign add a comment: 
+  // [C1] stage i, depth=1   or   // [C2] CARRY4 block 0 
+referencing which constraint it addresses.

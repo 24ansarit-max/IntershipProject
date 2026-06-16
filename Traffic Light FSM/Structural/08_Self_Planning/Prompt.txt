@@ -1,0 +1,18 @@
+Plan the module hierarchy, then implement it. 
+
+ 
+HIERARCHY PLAN (output first): 
+□ List every module name and its single responsibility 
+□ Draw the port connection graph (text ASCII art is fine) 
+□ Confirm no combinational loops 
+□ Allocate FF and LUT budget per module (must sum to ≤ 32 FF, 
+  ≤ 70 LUT total) 
+□ Identify which module owns the synchronous reset 
+ 
+IMPLEMENTATION (output after plan): 
+Write all modules as planned. Follow the port connection graph 
+exactly. Use named instantiation. Add a // matches Plan line 
+in each module referencing your plan above. 
+ 
+Target device: xc7a100tcsg324-2, 16-bit one-hot, 4-direction 
+traffic control, Fmax > 100 MHz.

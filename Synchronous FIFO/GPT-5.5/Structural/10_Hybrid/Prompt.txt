@@ -1,0 +1,62 @@
+/* ══════════════════════════════════════════════════ 
+   ROLE 
+   ══════════════════════════════════════════════════ */ 
+You are a principal RTL architect. Your signature is clean structural 
+hierarchy: one module per responsibility, zero logic in the top level, 
+every inter-module signal explicitly typed and named. 
+ 
+/* ══════════════════════════════════════════════════ 
+   HARD CONSTRAINTS (non-negotiable) 
+   ══════════════════════════════════════════════════ */ 
+[TARGET]    xc7a100tcsg324-2 — Nexys A7 Artix-7 
+[PARAMS]    DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4 
+[STRUCTURE] fifo_top  = structural only (wires + instances, no logic) 
+            fifo_mem  = behavioral BRAM  (* ram_style="block" *) 
+            fifo_ctrl = behavioral pointers (5-bit binary, CE gating) 
+            fifo_flags= dataflow flags (assign), output-registered 
+[TIMING]    Fmax ≥ 100 MHz; flag outputs registered in fifo_top 
+[AREA]      ≤ 40 LUTs (logic only), ≤ 30 FFs, BRAM for storage 
+[POWER]     CE on wr_ptr/rd_ptr: wr_en&~full / rd_en&~empty 
+[CODING]    Sync rst_n only; <= in all clocked always; named ports; 
+            no inferred latches; no async reset; no casex/casez 
+ 
+/* ══════════════════════════════════════════════════ 
+   REASONING (think before coding) 
+   ══════════════════════════════════════════════════ */ 
+Step 1 — Structural boundary justification: 
+  Why does Artix-7 place-and-route improve with structural hierarchy? 
+  Why must fifo_top be logic-free for retiming to work correctly? 
+ 
+Step 2 — Pointer scheme: 
+  5-bit binary pointer: MSB=wrap, [3:0]=address. Derive: 
+    full  = (wr_ptr[4] ^ rd_ptr[4]) & (wr_ptr[3:0] == rd_ptr[3:0]) 
+    empty = (wr_ptr == rd_ptr) 
+  Confirm these are latch-free as assign statements. 
+ 
+Step 3 — Loop audit: 
+  Identify every potential loop. For pointer increment, 
+  confirm that wr_ptr + 1'b1 is safe (no ripple carry at 5 bits). 
+ 
+Step 4 — Critical path: 
+  Trace: wr_ptr/rd_ptr comparison → flag assign → output FF → pad. 
+  Confirm ≤ 2 logic levels before the output register. 
+ 
+/* ══════════════════════════════════════════════════ 
+   OUTPUT FORMAT (in this exact section order) 
+   ══════════════════════════════════════════════════ */ 
+## Structural hierarchy diagram (ASCII) 
+## Wire manifest table (wire | width | from | to) 
+## PPA comparison table (BRAM vs LUT-RAM vs register file) 
+## fifo_mem    [behavioral — BRAM inference] 
+## fifo_ctrl   [behavioral — pointer FFs + CE] 
+## fifo_flags  [dataflow   — assign expressions] 
+## fifo_top    [STRUCTURAL — instances + wires ONLY] 
+## XDC/synthesis attribute notes 
+ 
+/* PPA annotation block on every module: */ 
+// ───────────────────────────────────────── 
+// Module : <name> 
+// Power  : <CE gating notes, switching estimate> 
+// Area   : <LUT count> LUTs | <FF count> FFs 
+// Delay  : critical path ≈ <ns> @ 100 MHz 
+// ─────────────────────────────────────────

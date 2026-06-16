@@ -1,0 +1,2 @@
+CONSTRAINTS: TIMING 2GHz/400ps max, AREA ≤700μm², POWER ≤500μW.
+NOW generate structural Verilog for csa16: DELAY_PS=320, AREA_UM2=648, POWER_UW=104, all 4 blocks, 8 RCA4 + 3 MUX2_4b, specify block.

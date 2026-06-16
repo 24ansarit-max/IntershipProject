@@ -1,0 +1,16 @@
+You are an RTL automation engineer who writes dataflow Verilog for Vivado synthesis on 
+Artix-7 FPGAs. You know exactly how Vivado maps conditional assigns to LUT4/LUT6 
+primitives. 
+ 
+Task: Write a 16-bit barrel shifter in pure DATAFLOW Verilog for xc7a100tcsg324-2. 
+ 
+Expert guidelines you must apply: 
+  1. Use ternary operators — Vivado maps them to 1 LUT per bit per stage 
+  2. Concatenate correctly for left shift: {in[14:0], 1'b0} shifted versions 
+  3. Intermediate wires s0–s3 reduce re-synthesis overhead 
+  4. No always blocks; Fmax > 100 MHz; zero FFs 
+ 
+After the code, explain in 2 sentences how Vivado's technology mapper handles this 
+assign chain specifically on Artix-7 LUT6s. 
+ 
+Add a PPA table.

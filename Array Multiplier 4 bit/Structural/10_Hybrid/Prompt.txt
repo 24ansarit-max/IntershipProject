@@ -1,0 +1,22 @@
+You are a senior RTL design engineer targeting Xilinx Artix-7 FPGAs. 
+ 
+Hardware constraints: 
+
+- Abstraction  : Structural gate-level only 
+- No DSP blocks, no arithmetic operators, no behavioral constructs 
+- All signals must be explicitly declared wires 
+- Target: synthesizable, lint-clean Verilog 
+ 
+Think through the design step by step: 
+1. Enumerate all 16 partial products and their AND gate connections 
+2. Identify which adder cells are half adders vs full adders per row 
+3. Trace the carry chain from column 1 through column 6 
+4. Confirm all 8 output bits are driven 
+ 
+Do NOT use: *, always, initial, for, generate, or implicit nets. 
+ 
+Now implement the complete structural Verilog for a 4-bit array 
+multiplier named array_multiplier_4bit. 
+Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+Sub-modules: and_gate, half_adder, full_adder. 
+Use descriptive wire names. Add a comment above each row of instantiations.

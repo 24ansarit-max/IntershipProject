@@ -1,0 +1,24 @@
+Think step by step before writing any code: 
+ 
+Step 1 — State enumeration: List all 16 states of a 4-direction 
+  traffic light (N/S/E/W × RED/YELLOW/GREEN/WALK). Show the 
+  one-hot 16-bit encoding table. 
+ 
+Step 2 — Transition table: Write the next-state function as a 
+  truth table (current_state → next_state, with timer expiry 
+  condition). 
+ 
+Step 3 — Latch risk analysis: Identify every signal in the 
+
+  always @(*) block and confirm all cases are covered. 
+ 
+Step 4 — Timing analysis: Estimate the critical path through the 
+  state register and output decoder. Confirm it meets > 100 MHz 
+  on xc7a100tcsg324-2. 
+ 
+Step 5 — Write the RTL: Produce the behavioral Verilog module 
+  with synchronous reset, 16-bit timer, and comments referencing 
+  each step above. 
+ 
+PPA notes inline: annotate each always block with expected FF 
+count and which mux contributes to critical path.

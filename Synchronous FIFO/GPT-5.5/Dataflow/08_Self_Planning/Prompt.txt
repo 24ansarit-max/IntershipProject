@@ -1,0 +1,49 @@
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Before coding, build a dataflow signal plan, review it, then implement. 
+ 
+/* ── PLAN: SIGNAL INVENTORY ──────────────────── */ 
+// For every signal in the design, classify it as: 
+//   A) assign (combinational — driven by continuous assign) 
+//   B) always @(posedge clk) (sequential — FF or BRAM) 
+// 
+// Fill this table: 
+//   Signal         | Type | Expression / source 
+//   wr_ptr[4:0]    |  B   | FF, increments on wr_en_safe 
+//   rd_ptr[4:0]    |  B   | FF, increments on rd_en_safe 
+//   wr_addr[3:0]   |  A   | assign = wr_ptr[3:0] 
+//   rd_addr[3:0]   |  A   | assign = rd_ptr[3:0] 
+//   full           |  A   | assign = ? 
+//   empty          |  A   | assign = ? 
+//   count[4:0]     |  A   | assign = ? 
+//   almost_full    |  A   | assign = ? 
+//   almost_empty   |  A   | assign = ? 
+//   wr_en_safe     |  A   | assign = ? 
+//   rd_en_safe     |  A   | assign = ? 
+//   overflow       |  A   | assign = ? 
+//   underflow      |  A   | assign = ? 
+//   dout[15:0]     |  B   | BRAM read port 
+//   full_reg       |  B   | FF registered output 
+//   empty_reg      |  B   | FF registered output 
+ 
+/* ── PLAN: DERIVE EACH EXPRESSION ───────────── */ 
+// For each Type-A signal, write the assign expression 
+// BEFORE writing any module code. Show derivation. 
+ 
+/* ── SELF-REVIEW ─────────────────────────────── */ 
+// Check your plan: 
+// 1. Any signal with no driver? (dangling wire) → fix 
+// 2. Any signal driven by both assign and always? → illegal 
+// 3. Any assign with missing parentheses around & vs ==? → add 
+// 4. Any flag that depends on count — does count exist? → verify 
+// 5. Are wr_en_safe/rd_en_safe used by ALL pointer FFs? → check 
+ 
+/* ── IMPLEMENTATION ──────────────────────────── */ 
+// Implement the reviewed plan as complete synthesizable Verilog. 
+// Group assigns into labeled comment clusters: 
+//   // ── Pointer address extractions ───────── 
+//   // ── Full / empty detection ─────────────── 
+//   // ── Occupancy count ────────────────────── 
+//   // ── Threshold flags ────────────────────── 
+//   // ── Gated enables (power optimization) ─── 
+//   // ── Error / status flags ───────────────── 
+// Each cluster: Power / Area / Delay annotation.

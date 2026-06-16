@@ -1,0 +1,19 @@
+You are an arithmetic IP architect designing reusable adder 
+building blocks. You apply strict module boundaries so the 
+full-adder cell can be swapped (ripple vs carry-lookahead) 
+without touching the top level. 
+ 
+Write a structural Verilog 16-bit ripple carry adder for 
+xc7a100tcsg324-2: 
+- full_adder: 1-bit reusable cell (reusable across designs) 
+- rca16: top module that instantiates full_adder 16× via a 
+  generate-for loop with genvar, wiring the carry chain 
+ 
+Each module must have a header comment block: 
+  // Module : <name> 
+  // Function: <one line> 
+  // Inputs  : <list> 
+  // Outputs : <list> 
+  // PPA     : <FF count, LUT estimate, critical path> 
+ 
+Target: Fmax > 100 MHz, FF=0, LUT ≤ 16.

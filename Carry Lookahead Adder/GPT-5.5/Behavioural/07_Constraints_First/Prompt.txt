@@ -1,0 +1,30 @@
+CONSTRAINTS FOR THIS DESIGN: 
+ 
+Target clock   : 500 MHz (2.0 ns period) 
+Process node   : 28nm (assume ~0.5ns per logic level) 
+Max area       : 200 GE 
+Max power      : 1.0 mW at 250 MHz 
+Overflow detect: signed 2's complement 
+Synthesis tool : Synopsys Design Compiler (use synthesis pragmas where helpful) 
+ 
+Given these constraints, write a BEHAVIORAL 16-bit CLA in Verilog that: 
+ 
+1. Meets 500 MHz — this requires the carry chain to be ≤4 gate levels. 
+   State the achieved gate depth in a // TIMING_ACHIEVED comment. 
+ 
+2. Embeds synthesis-friendly pragmas: 
+   (* keep = "true" *) for carry signals that must not be optimized away 
+   (* parallel_case *) where applicable 
+ 
+3. Uses always @(*) with reg arrays for g, p, c, gg, gp 
+ 
+4. After each major computation block, adds: 
+   // SYNTH NOTE: This block maps to [AND/OR/XOR] tree, ~X levels 
+ 
+5. Ends with a CONSTRAINT SATISFACTION REPORT: 
+   // ======================== 
+   // Constraint Report 
+   // Timing : estimated X.X ns — PASS/FAIL 
+   // Area   : estimated XX GE — PASS/FAIL 
+   // Power  : estimated X.X mW — PASS/FAIL 
+   // ========================

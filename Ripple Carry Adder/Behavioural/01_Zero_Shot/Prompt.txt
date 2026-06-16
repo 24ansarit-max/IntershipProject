@@ -1,0 +1,19 @@
+Write synthesizable Verilog RTL for a 16-bit ripple carry adder 
+using a behavioral style with a `for` loop inside an 
+always @(*) block to generate the carry chain. 
+ 
+Target FPGA: xc7a100tcsg324-2 (Nexys A7 Artix-7). 
+ 
+Requirements: 
+- Inputs: a[15:0], b[15:0], cin; Outputs: sum[15:0], cout 
+- Use a for loop (i = 0 to 15) inside always @(*) to compute 
+  sum[i] and carry[i+1] from a[i], b[i], carry[i] 
+- Pure combinational logic — no clock, no flip-flops 
+- If a registered output version is requested, add a separate 
+  always @(posedge clk) block with synchronous active-high reset 
+- No inferred latches — fully assign sum and cout in every 
+  loop iteration and every branch 
+- Comment each loop iteration's full-adder equation 
+ 
+PPA target: FF = 0 (combinational) or FF = 17 if registered, 
+LUT < 20 (carry-chain optimized), Fmax > 100 MHz.

@@ -1,0 +1,15 @@
+Iteration 0 (draft): Write a 16-bit barrel shifter in STRUCTURAL Verilog for 
+xc7a100tcsg324-2. Keep it simple. 
+ 
+After the draft, critique it: 
+  - Are there any latches implied? 
+  - Is the mux tree depth minimal? 
+  - Are there redundant wires? 
+ 
+Iteration 1 (refined): Rewrite addressing every issue found. 
+ 
+Iteration 2 (optimized): Apply Vivado-specific optimizations: 
+
+  - Add (* keep *) attributes if needed 
+  - Explicitly partition stages to help place-and-route 
+  - State final estimated LUT count, Fmax (MHz), power (mW)

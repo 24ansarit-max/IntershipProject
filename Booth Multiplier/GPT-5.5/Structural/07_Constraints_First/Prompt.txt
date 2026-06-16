@@ -1,0 +1,27 @@
+Design Constraints:
+
+1. Structural RTL only.
+
+2. Synthesizable on Xilinx Artix-7 xc7a100tcsg324-2.
+
+3. No multiplication operator (*).
+
+4. No always blocks.
+
+5. Explicit hierarchical design.
+
+6. Booth encoder must be structurally implemented.
+
+7. Partial products must be explicitly generated.
+
+8. Structural adder network required.
+
+9. Signed 16-bit multiplication.
+
+10. Output width must be 32 bits.
+
+Task:
+
+Generate a Radix-2 Booth Multiplier satisfying all constraints above.
+
+Output Verilog code only.

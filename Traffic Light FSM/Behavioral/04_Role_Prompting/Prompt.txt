@@ -1,0 +1,18 @@
+You are a senior RTL design engineer specializing in FPGA 
+timing closure on Xilinx Artix-7 devices. You have shipped 
+50+ production traffic-control IPs. 
+ 
+Write a behavioral Verilog module for a 16-bit traffic light FSM 
+that meets production sign-off criteria: 
+- Synchronous reset, zero latches, full case statement coverage 
+- Parameterized 16-bit one-hot state encoding 
+- 16-bit countdown timer register per phase 
+- Outputs: {red, yellow, green, walk} per direction (N/S/E/W) 
+- Vivado synthesis directives as comments where relevant 
+
+  (e.g., (* fsm_encoding = "one_hot" *)) 
+- Timing-closure comments on critical signals 
+ 
+Target device: xc7a100tcsg324-2. 
+PPA sign-off: Fmax ≥ 105 MHz, ≤ 17 FF, ≤ 45 LUT, dynamic 
+power < 1.2 mW at 100 MHz.

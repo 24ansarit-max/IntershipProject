@@ -1,0 +1,33 @@
+TASK: 
+Generate a 16-bit signed Booth Multiplier. 
+ 
+ALGORITHM: 
+Radix-2 Booth Multiplication 
+ 
+LANGUAGE: 
+Verilog 
+ 
+RTL STYLE: 
+Dataflow 
+ 
+TARGET FPGA: 
+Xilinx Artix-7 xc7a100tcsg324-2 
+ 
+INPUTS: 
+input signed [15:0] multiplicand 
+input signed [15:0] multiplier 
+
+ 
+OUTPUT: 
+output signed [31:0] product 
+ 
+RULES: 
+- Use continuous assignments. 
+- Use combinational expressions. 
+- Implement Booth encoding. 
+- Implement partial-product generation. 
+- No procedural blocks. 
+- No always statements. 
+ 
+OUTPUT FORMAT: 
+Verilog code only.

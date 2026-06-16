@@ -1,0 +1,25 @@
+Reference example of a 4-bit adder using generate-for + assign: 
+ 
+// --- EXAMPLE --- 
+genvar j; 
+wire [4:0] c; 
+assign c[0] = cin; 
+generate 
+  for (j = 0; j < 4; j = j + 1) begin : stage 
+    assign sum[j]  = a[j] ^ b[j] ^ c[j]; 
+    assign c[j+1]  = (a[j] & b[j]) | (c[j] & (a[j] | b[j])); 
+
+  end 
+endgenerate 
+assign cout = c[4]; 
+// --- END EXAMPLE --- 
+ 
+Using this exact generate-for + assign pattern, write the 16-bit 
+version for xc7a100tcsg324-2: 
+- 16 generated stages, genvar j from 0 to 15 
+- 17-bit internal carry wire 
+- Pure dataflow, no always blocks for combinational logic 
+- Comment each generated stage block name (stage[j]) 
+ 
+PPA: minimize LUT chain depth for Fmax > 100 MHz; 
+LUT < 16, power < 0.5 mW dynamic.

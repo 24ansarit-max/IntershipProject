@@ -1,0 +1,1 @@
+Think through architecture, delay, area, and power analysis before writing module csa16_df with all assign pairs, mux assigns, carry chain, and output assembly.
