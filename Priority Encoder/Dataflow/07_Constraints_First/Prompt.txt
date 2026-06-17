@@ -1,0 +1,6 @@
+Implement a 16-bit priority encoder using dataflow modeling.
+
+PPA TARGET CONSTRAINTS:
+- Minimize critical path delay (Fmax > 250 MHz on Artix-7).
+- Minimize gate count/LUT utilization.
+Optimize structural representation or loop constructs to achieve these targets.

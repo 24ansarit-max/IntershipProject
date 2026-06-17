@@ -1,0 +1,6 @@
+Implement a 16-bit priority encoder in Verilog using structural modeling.
+
+PROHIBITIONS:
+- DO NOT use any always blocks in dataflow/structural modeling.
+- DO NOT use assign statements inside behavioral always blocks.
+- DO NOT leave any bit indices hardcoded or outputs undriven.

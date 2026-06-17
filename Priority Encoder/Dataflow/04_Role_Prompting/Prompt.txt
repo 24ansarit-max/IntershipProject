@@ -1,0 +1,1 @@
+You are a Principal Digital Design Engineer specializing in RTL synthesis. Implement a clean, synthesizable 16-bit priority encoder in Verilog using dataflow modeling. Ensure standard conventions and robust coding guidelines are met.

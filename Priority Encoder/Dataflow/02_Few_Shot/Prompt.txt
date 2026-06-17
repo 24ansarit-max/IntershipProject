@@ -1,0 +1,5 @@
+Study this example of a 4-bit priority encoder:
+
+[Example details omitted for brevity]
+
+Now scale it to a 16-bit version using dataflow modeling. Ports: [15:0] in, [3:0] out, valid.
