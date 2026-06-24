@@ -1,0 +1,25 @@
+You are a senior RTL design engineer at a low-power FPGA IP company. Your specialty is 
+clock-gating strategies and switching-activity minimisation on Xilinx Artix-7 devices. 
+ 
+Design a 16-bit universal shift register (shift_reg_16) for Nexys A7 (xc7a100tcsg324-2) 
+with these power constraints: 
+- Eliminate unnecessary flip-flop toggling: only shift when shift_en is asserted 
+- Use enable inference (CE pin of FDRE) — comment where this occurs 
+- Add a clock-enable wrapper that prevents the shift chain from toggling during parallel-
+load hold cycles 
+ 
+Ports: clk, rst (sync active-high), shift_en, dir (0=right,1=left), serial_in, parallel_load, 
+data_in[15:0], q[15:0] 
+ 
+Loop requirements — demonstrate all three loop constructs: 
+1. for loop: implement bit-by-bit assignment in the shift path 
+
+2. repeat loop: use inside an initial block comment (or simulation-only section clearly 
+marked) to show conceptual unrolling — mark // SIM ONLY 
+3. forever loop: use inside a simulation clock generator in comments only — mark // SIM 
+ONLY; do NOT synthesise 
+ 
+For synthesisable logic use only the for loop. 
+Add // POWER: annotation wherever a design decision reduces switching activity. 
+Add // AREA: wherever shared logic reduces LUT count. 
+Target: <5 mW dynamic power in Vivado Power Analyser at 100 MHz, 12.5% toggle rate.

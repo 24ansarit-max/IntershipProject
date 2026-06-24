@@ -1,0 +1,22 @@
+HARD CONSTRAINTS — read before writing any code: 
+ 
+[DEVICE]       xc7a100tcsg324-2 (Nexys A7, Artix-7, speed grade -2) 
+[FMAX]         Must exceed 100 MHz in Vivado post-synthesis timing report 
+[LUT BUDGET]   ≤ 30 LUTs total for this module 
+[FF BUDGET]    Exactly 16 FFs (one per bit of shift register) 
+[POWER]        Dynamic power < 5 mW @ 100 MHz, toggle rate 12.5% 
+[RESET]        Synchronous, active-high only; no asynchronous reset allowed 
+[LATCHES]      Zero — synthesis must pass with "-latch_check strict" 
+[LOOPS]        Must demonstrate: for loop (shift path), while loop (reset clear), generate 
+(flop instantiation) 
+[ASSIGNMENTS]  Non-blocking (<=) exclusively in clocked always; blocking (=) only in 
+for/while headers 
+[WIDTH]        Parameterised: parameter WIDTH = 16; no hardcoded 16 elsewhere 
+[COMMENTS]     Every line; PPA annotation: // POWER: // AREA: // TIMING: 
+ 
+Now implement shift_reg_16 satisfying every constraint above. 
+
+Ports: clk, rst, mode[1:0] (00=hold,01=right,10=left,11=load), serial_in, data_in[WIDTH-
+1:0], q[WIDTH-1:0]. 
+After the module, add a comment block: // CONSTRAINT CHECK listing each constraint 
+and PASS/EXPECTED.

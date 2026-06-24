@@ -1,0 +1,36 @@
+You are shown two small reference examples, then generate a 16-bit shift register. 
+ 
+--- Example 1: 4-bit right-shift (for loop, area-optimised) --- 
+module sr4_right(input clk, rst, en, sin, output reg [3:0] q); 
+  integer i; 
+  always @(posedge clk) 
+    if (rst) q <= 4'b0; 
+    else if (en) begin 
+      for (i = 0; i < 3; i = i+1) q[i] <= q[i+1]; // shift right 
+      q[3] <= sin; 
+    end 
+endmodule 
+ 
+--- Example 2: 4-bit left-shift (generate, area-optimised) --- 
+module sr4_left(input clk, rst, en, sin, output reg [3:0] q); 
+
+  genvar j; 
+  generate 
+    for (j = 3; j > 0; j = j-1) begin : sl 
+      always @(posedge clk) 
+        if (rst) q[j] <= 1'b0; 
+        else if (en) q[j] <= q[j-1]; 
+    end 
+  endgenerate 
+  always @(posedge clk) if (rst) q[0] <= 0; else if (en) q[0] <= sin; 
+endmodule 
+ 
+--- Now generate --- 
+Create a 16-bit universal shift register (shift_reg_16) for xc7a100tcsg324-2 that: 
+- Supports left/right shift, parallel load, and hold modes via mode[1:0] 
+(00=hold,01=right,10=left,11=load) 
+- Uses for loops inside always blocks AND generate blocks for the flop array 
+- Optimises for minimum LUT count (area); add // AREA: comment where saves occur 
+- Synchronous active-high reset 
+- Fmax target: >100 MHz; include // TIMING: comments near critical path 
+- Full inline comments

@@ -1,0 +1,35 @@
+Generate synthesizable behavioral Verilog for a 16-bit shift register. Follow this exact 
+output format: 
+ 
+[SECTION 1: MODULE HEADER] 
+// Module: shift_reg_16 
+// Target: xc7a100tcsg324-2 (Nexys A7) 
+// PPA: Area-optimised (<30 LUTs), Fmax >100 MHz 
+// Loop constructs: generate (flop array), for (shift logic) 
+// Reset: synchronous active-high 
+// Author: <your_name> 
+// Date: <date> 
+ 
+[SECTION 2: PORT DECLARATION] 
+(list all ports with direction, width, and one-line description comment) 
+ 
+[SECTION 3: PARAMETERS] 
+(WIDTH=16, RESET_VAL=16'b0) 
+ 
+
+[SECTION 4: GENERATE BLOCK — FLOP ARRAY] 
+(use genvar + generate/for to instantiate 16 D flip-flops) 
+(comment each flop line with its bit index and expected Vivado primitive: FDRE) 
+ 
+[SECTION 5: ALWAYS BLOCK — SHIFT LOGIC] 
+(synchronous always block; use integer i + for loop for shift operation) 
+(comment every mux select and shift direction with // MUX: or // SHIFT:) 
+ 
+[SECTION 6: AREA ANNOTATIONS] 
+// AREA SUMMARY: 
+// - Expected LUT count: XX 
+// - Expected FF count: XX 
+// - SRL inference: YES/NO — explain 
+ 
+Implement modes: mode[1:0]: 00=hold, 01=right-shift, 10=left-shift, 11=parallel-load. 
+Zero inferred latches. Vivado synthesis target: Fmax > 100 MHz on -2 speed grade.

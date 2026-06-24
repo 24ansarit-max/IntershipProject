@@ -1,0 +1,23 @@
+Write synthesizable behavioral Verilog for a 16-bit shift register (shift_reg_16) for Nexys 
+A7 (xc7a100tcsg324-2). 
+ 
+--- DO NOT do the following --- 
+- Do NOT use blocking assignments (=) inside clocked always blocks 
+- Do NOT infer latches (no if without else in combinational always) 
+- Do NOT use asynchronous reset 
+- Do NOT use initial blocks for synthesis logic 
+- Do NOT create a combinational always block for shift logic (use clocked only) 
+- Do NOT use repeat or forever loops in synthesisable code 
+- Do NOT use system tasks ($display, $monitor) in the synthesis module 
+- Do NOT leave intermediate signals undriven 
+- Do NOT use tri-state buses or z logic 
+- Do NOT hardcode bit widths — use the parameter WIDTH=16 everywhere 
+- Do NOT add extra pipeline stages that increase latency beyond 1 clock cycle 
+ 
+--- DO the following --- 
+- Use ONLY non-blocking assignments (<=) in the clocked always block 
+- Use a single for loop (integer i, 0 to WIDTH-2) for the shift chain 
+- Support: right-shift, left-shift, parallel-load, hold via mode[1:0] 
+- Synchronous active-high reset to 16'b0 
+- Fmax > 100 MHz; LUT count < 35; no unnecessary toggling (power) 
+- Full inline comments; every line commented

@@ -1,0 +1,49 @@
+// FPGA: Nexys A7 (xc7a100tcsg324-2) | STYLE: STRUCTURAL (ALL) 
+// LOOP: every structural loop type | STRATEGY: HYBRID — all strategies 
+// ───────────────────────────────────────────────────────────── 
+ 
+[ROLE]        You are a senior Xilinx RTL architect. All code is STRUCTURAL only. 
+[CONSTRAINTS] xc7a100tcsg324-2 | WIDTH=16 | Fmax≥200MHz | Power<12mW | 0 
+latches 
+[NEGATIVE]    No behavioral always in top. No integer genvar. No blocking assigns. 
+[FORMAT]      One complete module per loop variant. Label each clearly. 
+[COT]         Think before each variant: which Artix-7 primitive does it map to? 
+ 
+DELIVER ALL 6 STRUCTURAL VARIANTS for a 16-bit shift register: 
+ 
+━━ VARIANT 1: generate-for (LEFT shift, FDCE, no CE) ━━━━━━━━━━━━━
+━ 
+  genvar i; generate for(i=0;i<WIDTH;i++) dff u(...); endgenerate 
+  (* shreg_extract="no" *) 
+  // [PRIM] FDCE x16 | [LUT] 0 | [FF] 16 | [PWR] ~8mW | [FMAX] >300MHz 
+ 
+━━ VARIANT 2: generate-for (LEFT shift, SRL16E, low area) ━━━━━━━━━ 
+  Same loop, but (* shreg_extract="yes" *) 
+  // [PRIM] SRL16E x1 | [LUT] 1 | [FF] 0 | [PWR] ~5mW | [FMAX] ~250MHz 
+ 
+━━ VARIANT 3: generate-for + CE (power-gated FDCE chain) ━━━━━━━━━━ 
+
+  dff_ce submodule; all 16 share one 'ce' input 
+  // [PRIM] FDCE x16 | [LUT] 0 | [FF] 16 | [PWR] ~6mW gated 
+ 
+━━ VARIANT 4: generate-for + MUX submodule (bidirectional) ━━━━━━━━ 
+  mux2 + dff_ce pair per stage; dir selects L/R source 
+  // [PRIM] LUT1 x16 + FDCE x16 | [LUT] 16 | [FF] 16 | [PWR] ~9mW 
+ 
+━━ VARIANT 5: generate-if selecting DFF type (conditional) ━━━━━━━━ 
+  generate if(ASYNC_RST) instantiate dff_async; else dff_sync; 
+  Outer generate-for wraps this conditional per stage 
+  // Shows generate-if INSIDE generate-for — legal in Verilog-2001 
+ 
+━━ VARIANT 6: generate-for (universal: load+bidir+CE) ━━━━━━━━━━━━ 
+  dff_universal submodule with {rst_n, ce, load, dir, d_ser, d_par, q} 
+  Full-featured; represents production shift register IP 
+  // [PRIM] LUT2 x16 + FDCE x16 | [LUT] ~20 | [FF] 16 | [PWR] ~10mW 
+ 
+After all 6 variants, write: 
+  // ── STRUCTURAL COMPARISON TABLE ────────────────────────────── 
+  // Variant | Primitive    | LUT | FF | Power | Fmax  | Best for 
+  // ─────────|──────────────|─────|----|-------|-------|───────── 
+  // V1       | FDCE x16    |  0  | 16 | 8mW   |>300MHz| Timing 
+  // V2       | SRL16E x1   |  1  |  0 | 5mW   | 250MHz| Density 
+  // ...

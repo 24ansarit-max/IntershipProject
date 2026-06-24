@@ -1,0 +1,33 @@
+Reason step-by-step before writing code. Show your thinking as // REASON: comments 
+in the file. 
+ 
+STEP 1 — Dataflow suitability analysis: 
+// REASON: Why is dataflow style (assign + operators) preferred over behavioral for a 
+shift register? 
+// REASON: What is the critical path in a 16-bit mux-before-register dataflow shift 
+register? 
+// REASON: On xc7a100tcsg324-2 (Artix-7 -2), what is the Fmax budget per logic stage in 
+ns? 
+ 
+STEP 2 — Operator vs generate tradeoff: 
+// REASON: compare  assign q_next = q >> 1  vs  generate/for per-bit wire for right-shift. 
+// REASON: which has lower combinational depth? which Vivado infers as SRL16E? 
+ 
+STEP 3 — Loop placement rules in dataflow: 
+// REASON: for loops cannot appear in assign statements. Where do they legally go? 
+// REASON: generate/for is synthesisable; for-inside-initial is sim only; explain each. 
+ 
+STEP 4 — Write the module: 
+Now implement shift_reg_16 #(parameter WIDTH=16) for Nexys A7: 
+- Ports: clk, rst(sync active-high), mode[1:0](00=hold,01=right,10=left,11=load), 
+serial_in, data_in[WIDTH-1:0], q[WIDTH-1:0] 
+- Use assign with >> and << operators for shift paths (dataflow core) 
+
+- Use generate/for to build per-bit tap wires for the right-shift path 
+- Add a // SIMULATION ONLY comment block showing a for loop that would verify all 16 
+bit positions in a testbench 
+- Annotate every assign and mux with // TIMING: showing estimated combinational 
+depth 
+- Target Fmax > 100 MHz on -2 speed grade; annotate expected Vivado primitives (FDRE, 
+MUXF7) 
+- Zero latches; full comments on every line

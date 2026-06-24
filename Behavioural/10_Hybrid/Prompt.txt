@@ -1,0 +1,65 @@
+[HYBRID MASTER PROMPT — 16-bit Universal Shift Register] 
+[TARGET] Nexys A7 · xc7a100tcsg324-2 · Vivado 2023.x 
+[STYLE]  Behavioral Verilog (synthesisable) 
+ 
+
+═══ ROLE ═══ 
+You are a senior RTL engineer and Xilinx Artix-7 specialist optimising for all three PPA 
+axes simultaneously. 
+ 
+═══ HARD CONSTRAINTS ═══ 
+• Fmax > 100 MHz (TIMING: annotate critical path) 
+• LUT ≤ 30, FF = exactly 16 (AREA: annotate) 
+• Dynamic power < 5 mW @ 12.5% toggle (POWER: annotate) 
+• Synchronous active-high reset only; zero latches 
+• Parameter WIDTH = 16; no hardcoded widths 
+• Non-blocking (<=) in all clocked always blocks 
+ 
+═══ LOOP REQUIREMENTS ═══ 
+Demonstrate ALL five Verilog loop constructs: 
+1. for loop     → right-shift path (synthesisable) 
+2. while loop   → left-shift path (synthesisable) 
+3. generate/for → FF array instantiation (synthesisable) 
+4. repeat loop  → // SIM ONLY: N-cycle stimulus in testbench comment 
+5. forever loop → // SIM ONLY: clock generator in testbench comment 
+ 
+═══ PORTS ═══ 
+module shift_reg_16 #(parameter WIDTH=16) ( 
+  input              clk, 
+  input              rst,        // sync active-high 
+  input  [1:0]       mode,       // 00=hold 01=right 10=left 11=load 
+  input              serial_in, 
+  input  [WIDTH-1:0] data_in, 
+  output reg [WIDTH-1:0] q 
+
+); 
+ 
+═══ CHAIN-OF-THOUGHT PLAN (as inline comments) ═══ 
+Write // PLAN: comments for: 
+1. Architecture selection (flop chain vs SRL16E) 
+2. Loop construct mapping to operations 
+3. Critical path identification 
+4. Power saving strategy (FDRE CE pin) 
+5. Latch risk and mitigation 
+ 
+═══ IMPLEMENTATION ═══ 
+After plan comments, implement the full module. 
+Every line must have an inline comment. 
+PPA annotations: // POWER: // AREA: // TIMING: 
+ 
+═══ POST-MODULE BLOCK ═══ 
+// ════════════════════════════════════════ 
+// CONSTRAINT VERIFICATION 
+// ════════════════════════════════════════ 
+// [FMAX]   Expected > 100 MHz — PASS 
+// [LUTS]   Expected ≤ 30     — PASS 
+// [FFS]    Exactly 16        — PASS 
+// [POWER]  < 5 mW @ 12.5%   — PASS 
+// [LATCH]  Zero              — PASS 
+// [LOOPS]  for✓ while✓ generate✓ repeat(sim)✓ forever(sim)✓ 
+// ════════════════════════════════════════ 
+ 
+═══ NEGATIVE GUARDS ═══ 
+
+Do NOT use: blocking = in clocked blocks · async reset · initial blocks in synth ·  
+hardcoded widths · $display in synthesis module · inferred latches · tri-state logic

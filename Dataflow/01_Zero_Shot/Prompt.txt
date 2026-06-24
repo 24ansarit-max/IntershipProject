@@ -1,0 +1,31 @@
+Write synthesisable DATAFLOW-style Verilog for a 16-bit universal shift register targeting 
+Nexys A7 (xc7a100tcsg324-2). 
+ 
+DATAFLOW RULES (strict): 
+- Use ONLY continuous assign statements for all logic 
+- Use Verilog shift operators (>>, <<, >>>, <<<) and concatenation {} for shift paths 
+- Use conditional operator (?:) for mode selection — no always blocks in the core logic 
+- Use generate/for (genvar) to instantiate per-bit assign chains where structural 
+repetition occurs 
+ 
+Module: shift_reg_16 
+Parameters: WIDTH = 16 
+
+Ports: 
+  input              clk           // clock (for registered output only) 
+  input              rst           // synchronous active-high reset 
+  input  [1:0]       mode          // 00=hold 01=right 10=left 11=parallel-load 
+  input              serial_in     // serial data in 
+  input  [WIDTH-1:0] data_in       // parallel data in 
+  output [WIDTH-1:0] q             // registered output 
+ 
+Architecture: 
+- Compute next_q combinationally via assign using shift operators and mux (?:) 
+- Register next_q in ONE always @(posedge clk) block (this is the only allowed always 
+block) 
+- Use generate/for to build per-bit assign wires for any repeated sub-logic 
+- Annotate: // POWER: (toggle minimisation), // AREA: (LUT savings), // TIMING: (critical 
+path) 
+- Target: Fmax > 100 MHz; LUT ≤ 30; dynamic power < 5 mW at 12.5% toggle rate 
+- Zero inferred latches; synchronous reset; every line commented 
+- PPA summary comment block at end of module

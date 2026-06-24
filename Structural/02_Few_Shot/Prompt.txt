@@ -1,0 +1,37 @@
+// Target: Nexys A7 (xc7a100tcsg324-2) | Style: STRUCTURAL 
+// Loop: generate-for | Strategy: Few-shot 
+ 
+Below are two example shift register snippets. Learn the pattern, then 
+generate a complete 16-bit version for xc7a100tcsg324-2. 
+ 
+--- EXAMPLE 1 (4-bit, LEFT shift, structural) --- 
+module sr4 #(parameter W=4)(input clk, rst_n, si, output so); 
+  wire [W:0] chain; 
+  assign chain[0] = si; 
+  genvar i; 
+  generate 
+    for(i=0;i<W;i=i+1) begin: dff_inst 
+      dff u(.clk(clk),.rst_n(rst_n),.d(chain[i]),.q(chain[i+1])); 
+    end 
+  endgenerate 
+  assign so = chain[W]; 
+endmodule 
+ 
+--- EXAMPLE 2 (8-bit, RIGHT shift, structural) --- 
+module sr8 #(parameter W=8)(input clk,rst_n,si, output so, 
+
+  output [W-1:0] po); 
+  wire [W:0] c; assign c[W]=si; 
+  genvar j; 
+  generate 
+    for(j=W-1;j>=0;j=j-1) begin: dff_r 
+      dff u(.clk(clk),.rst_n(rst_n),.d(c[j+1]),.q(c[j])); 
+    end 
+  endgenerate 
+  assign so=c[0]; assign po=c[W-1:0]; 
+endmodule 
+ 
+--- YOUR TASK --- 
+Now write a complete 16-bit bidirectional shift register (LEFT/RIGHT 
+selected by 'dir' input) using structural generate-for on Artix-7. 
+Add: parallel load, power parameters, full comments.

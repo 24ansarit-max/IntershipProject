@@ -1,0 +1,39 @@
+// FPGA: Nexys A7 (xc7a100tcsg324-2) | STYLE: STRUCTURAL 
+// LOOP: generate-for | STRATEGY: Negative prompting 
+// ───────────────────────────────────────────────────────────── 
+ 
+Write a 16-bit STRUCTURAL shift register for xc7a100tcsg324-2 
+using genvar + generate for-loop to instantiate 16 dff_ce submodules. 
+ 
+STRUCTURAL ANTI-PATTERNS — DO NOT use any of these: 
+ 
+[1] NO behavioral always block in the top module 
+    WRONG: always @(posedge clk) q <= {q[14:0], si}; 
+    RIGHT: genvar i; generate for(i=0;i<W;i=i+1) begin dff_ce u... end 
+ 
+[2] NO integer loop variables in generate blocks 
+    WRONG: integer i; for(i=0;i<16;i=i+1) begin... 
+    RIGHT: genvar i; generate for(i=0;i<W;i=i+1) begin... 
+ 
+[3] NO unconnected ports in submodule instantiation 
+    WRONG: dff_ce u(.clk(clk), .d(chain[i]));  // ce,rst_n missing 
+    RIGHT: dff_ce u(.clk(clk),.rst_n(rst_n),.ce(ce),.d(c[i]),.q(c[i+1])); 
+ 
+[4] NO latches — every if in combinational logic must have else 
+    WRONG: if(load) q <= pi[i];  // latch on ce missing 
+    RIGHT: if(load) q <= pi[i]; else if(ce) q <= d; 
+ 
+[5] NO blocking assignments in clocked always (inside dff_ce) 
+    WRONG: always @(posedge clk) q = d; 
+
+    RIGHT: always @(posedge clk) q <= d; 
+ 
+[6] NO hardcoded width — use parameter WIDTH=16 everywhere 
+    WRONG: wire [15:0] chain; 
+    RIGHT: wire [WIDTH:0] chain; 
+ 
+[7] NO missing generate/endgenerate wrapper around for-loop 
+    WRONG: genvar i; for(i=0;i<W;i=i+1) begin... 
+    RIGHT: genvar i; generate for(i=0;i<W;i=i+1) begin... end endgenerate 
+ 
+Produce the complete correct structural code obeying all rules above.

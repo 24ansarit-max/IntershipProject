@@ -1,0 +1,34 @@
+Before writing Verilog, produce a written design plan as comment blocks, then 
+implement it. 
+ 
+═══ PHASE 1: PLAN (write as // PLAN: comments at top of file) ═══ 
+ 
+// PLAN-1: Justify dataflow over behavioral for a 16-bit shift register on Artix-7 
+// PLAN-2: Choose between  assign q_next = q>>1  (operator) vs  generate/for tap wires 
+— justify area impact 
+// PLAN-3: Map generate/for (ascending) to right-shift and generate/for (descending) to 
+left-shift — show index equations 
+// PLAN-4: Identify the critical path: combinational mux depth → FDRE D-pin → Fmax on -
+2 speed grade 
+// PLAN-5: Identify latch risk in dataflow: when can an assign create implicit state? 
+mitigation? 
+// PLAN-6: Estimate LUT count per operation: right mux, left mux, load mux, hold — sum 
+to verify ≤28 
+// PLAN-7: CE inference strategy: how does mode==00 prevent toggling without an 
+explicit gate? 
+ 
+═══ PHASE 2: IMPLEMENT ═══ 
+
+After all PLAN comments, write the full module shift_reg_16 #(parameter WIDTH=16): 
+Target: xc7a100tcsg324-2 
+ 
+Map each plan item to the code with // IMPL-N: cross-reference comment. 
+ 
+Architecture: 
+- generate/for ascending (genvar i, i=0 to WIDTH-2): right-shift tap wires 
+- generate/for descending (genvar j, j=WIDTH-1 downto 1): left-shift tap wires 
+- assign next_q: 4-way ternary mux 
+- One always @(posedge clk): rst → q=0; else q <= next_q (CE implied by synthesis) 
+- // AREA: on every wire-only assign 
+- // TIMING: on every mux level 
+- Fmax > 100 MHz; LUT ≤ 28; zero latches; every line commented

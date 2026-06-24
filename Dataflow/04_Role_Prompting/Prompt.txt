@@ -1,0 +1,35 @@
+You are a principal RTL architect at a Xilinx-certified FPGA IP company. Your focus is 
+ultra-low-power continuous assignment architectures for Artix-7 consumer products. 
+You have deep expertise in CE-pin inference, toggle-rate analysis, and SRL16E induction 
+in Vivado. 
+ 
+Design shift_reg_16 #(parameter WIDTH=16) for Nexys A7 (xc7a100tcsg324-2): 
+ 
+POWER MANDATE: 
+- Dynamic power budget: < 4 mW at 100 MHz, 12.5% toggle rate 
+
+- Minimise switching: use CE (clock enable) on the output register; do not toggle when 
+mode==hold 
+- All data paths are combinational assigns — no unnecessary registered intermediates 
+- Annotate every design decision with // POWER: and quantify expected toggle savings 
+ 
+DATAFLOW STYLE: 
+- Core logic: assign next_q using (?:) chain over shift operators >>, <<, and concat 
+- Use generate/for (genvar i) to create per-bit tap wires — avoids wide combinational 
+mux trees 
+- One always @(posedge clk) with CE guard: if (rst) q<=0; else if (|mode || mode==2'b11) 
+q<=next_q; 
+ 
+LOOP MAPPING (document all five Verilog loop types): 
+1. generate/for   — synthesisable per-bit assign wires           // SYNTH 
+2. generate/while — show alternative descending generate (sim comment only) // 
+DISCUSSION 
+3. repeat         — // SIM ONLY: testbench repeats 16 shift cycles to fill register 
+4. for            — // SIM ONLY: testbench for loop checks each bit position 
+5. forever        — // SIM ONLY: testbench clock generator 
+ 
+Mark every non-synthesisable loop clearly: // ===== SIM ONLY — DO NOT SYNTHESISE 
+===== 
+ 
+// AREA: annotate where generate wires eliminate LUTs 
+// TIMING: annotate critical path and Fmax projection on -2 speed grade

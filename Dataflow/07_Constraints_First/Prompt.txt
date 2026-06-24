@@ -1,0 +1,46 @@
+READ ALL CONSTRAINTS BEFORE WRITING A SINGLE LINE OF VERILOG: 
+ 
+╔══════════════════════════════════════════╗ 
+║  HARD CONSTRAINTS — xc7a100tcsg324-2    ║ 
+
+╠══════════════════════════════════════════╣ 
+║ [STYLE]   Dataflow ONLY — assign + ops  ║ 
+║ [FMAX]    > 100 MHz post-synthesis      ║ 
+║ [LUT]     ≤ 28 LUTs total              ║ 
+║ [FF]      Exactly 16 FFs               ║ 
+║ [POWER]   < 4 mW @ 12.5% toggle        ║ 
+║ [RESET]   Synchronous active-high ONLY  ║ 
+║ [LATCHES] Zero — strict check          ║ 
+║ [ALWAYS]  One block maximum            ║ 
+║ [WIDTH]   parameter WIDTH=16 enforced  ║ 
+║ [COMMENTS]Every line; PPA tags required ║ 
+╚══════════════════════════════════════════╝ 
+ 
+LOOP CONSTRAINT TABLE: 
+┌──────────────────┬──────────────┬──────────────────────────────┐ 
+│ Loop construct   │ Context      │ Required use                 │ 
+├──────────────────┼──────────────┼──────────────────────────────┤ 
+│ generate/for     │ SYNTH        │ Right-shift per-bit wires    │ 
+│ generate/for ↓   │ SYNTH        │ Left-shift descending wires  │ 
+│ repeat(N)        │ SIM ONLY     │ TB: clock N cycles           │ 
+│ for (integer)    │ SIM ONLY     │ TB: check all 16 bit taps    │ 
+│ forever          │ SIM ONLY     │ TB: clock generator          │ 
+└──────────────────┴──────────────┴──────────────────────────────┘ 
+ 
+PPA ANNOTATION MANDATE: 
+Every synthesisable assign must carry at least one of: 
+  // POWER: <reason>   // AREA: <reason>   // TIMING: <depth in levels> 
+ 
+
+Now implement shift_reg_16 satisfying ALL constraints. 
+Ports: clk, rst, mode[1:0](00=hold,01=right,10=left,11=load), serial_in, data_in[WIDTH-
+1:0], q[WIDTH-1:0] 
+ 
+End module with: 
+// ══ CONSTRAINT VERIFICATION ══ 
+// [STYLE]  Dataflow assign only       — PASS 
+// [FMAX]   Expected >100 MHz          — PASS 
+// [LUT]    Expected ≤28               — PASS 
+// [FF]     16 FDRE                    — PASS 
+// [POWER]  CE gating on hold          — PASS 
+// [LOOPS]  gen/for✓ gen/↓for✓ repeat(sim)✓ for(sim)✓ forever(sim)✓
