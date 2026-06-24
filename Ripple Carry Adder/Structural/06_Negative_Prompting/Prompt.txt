@@ -1,0 +1,21 @@
+Write a structural Verilog 16-bit ripple carry adder using a 
+generate-for instantiation loop for xc7a100tcsg324-2. 
+ 
+ANTI-PATTERNS to avoid: 
+
+✗ Do NOT put any assign or always logic in the top-level 
+  rca16 module outside the generate block 
+✗ Do NOT use positional port connections in the full_adder 
+  instantiation — always use named .port(signal) connections 
+✗ Do NOT create a combinational loop (carry[i+1] must never 
+  feed back into carry[i] or earlier — strictly increasing index) 
+✗ Do NOT instantiate full_adder 16 separate times by hand; 
+  use the generate-for loop with genvar as required 
+✗ Do NOT use `defparam` for any parameterization — use #() instead 
+✗ Do NOT leave the generate block unlabeled — always use 
+  begin : <label> ... end 
+✗ Do NOT forget to size the carry wire as [16:0] (17 bits for 
+  16 stages plus cin/cout) 
+ 
+REQUIRED: full_adder sub-module, rca16 top with generate-for, 
+FF=0, Fmax > 100 MHz, LUT ≤ 16.

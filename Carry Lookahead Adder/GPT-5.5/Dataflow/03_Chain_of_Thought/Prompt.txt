@@ -1,0 +1,27 @@
+Reason step by step before writing code. 
+ 
+TASK: Write a 16-bit CLA in dataflow Verilog where every carry assign is FULLY EXPANDED 
+(no intermediate signals except G[i] and P[i]). 
+ 
+Step 1 — Explain why C5 (carry into bit 5) cannot simply be written as 
+  C5 = G[4] | (P[4] & C4) 
+  without knowing C4 independently first. What would that create? 
+ 
+Step 2 — Write the fully-expanded equation for C4 in terms of 
+  G[0..3], P[0..3], cin only (no C1, C2, C3 on the RHS). 
+ 
+Step 3 — Write the fully-expanded equation for C8 in terms of 
+  G[4..7], P[4..7], G[0..3], P[0..3], cin only. 
+  (Hint: substitute C4's expansion into the C8 equation.) 
+ 
+Step 4 — Confirm the pattern. Do the same for C12 and C16. 
+ 
+Step 5 — For intra-group carries (e.g., C1 within group 0, C5 within group 1): 
+  write C5, C6, C7 using G[4..7], P[4..7], and C4 (which is now known). 
+ 
+Step 6 — Now write the complete dataflow Verilog. Use: 
+  - genvar generate blocks for the 16 P/G assigns and 16 sum assigns 
+  - Explicit 4-line blocks for intra-group carries in each group 
+  - Explicit 4-line block for C4, C8, C12, C16 
+  - parameter N=16 
+  - // Power / // Area / // Delay at end

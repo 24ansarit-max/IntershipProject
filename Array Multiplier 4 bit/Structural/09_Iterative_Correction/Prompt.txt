@@ -1,0 +1,91 @@
+Write a 4-bit unsigned array multiplier using structural modeling through an iterative 
+self-correction process. 
+ 
+ABSOLUTE RULE ACROSS ALL ITERATIONS: 
+array_multiplier_4bit must contain ONLY wire declarations and module instantiations. 
+No assign, no always, no arithmetic operators — ever. 
+ 
+
+ITERATION 1 — Write and_gate primitive: 
+Write an and_gate module using only the Verilog and gate primitive. 
+Ports: input a, input b, output y. 
+ 
+Review: 
+ 
+* Is there any assign statement? If yes, replace with gate primitive. 
+* Fix and finalize. 
+ 
+ITERATION 2 — Write half_adder: 
+Build half_adder by instantiating one xor gate and one and gate primitive. 
+Ports: input a, input b, output sum, output carry. 
+ 
+Review for: 
+ 
+* Any assign or always inside? Remove immediately. 
+* Are both internal gate primitives correctly named? 
+* Are all port connections explicit? 
+* Fix and write corrected version. 
+ 
+ITERATION 3 — Write full_adder: 
+Build full_adder by instantiating two half_adder modules and one or gate primitive. 
+Ports: input a, input b, input cin, output sum, output cout. 
+ 
+Declare internal wires: 
+ 
+
+* s1 
+* c1 
+* c2 
+ 
+Review for: 
+ 
+* Any assign or always inside? Remove immediately. 
+* Are all three internal wires declared (s1, c1, c2)? 
+* Are named port connections used for both half_adder instances? 
+* Is the or gate correctly combining c1 and c2 into cout? 
+* Fix and write corrected version. 
+ 
+ITERATION 4 — Write array_multiplier_4bit: 
+Instantiate 16 and_gate modules to generate all partial products 
+pp[0][0] through pp[3][3]. 
+ 
+Instantiate half_adder and full_adder modules for all adder rows. 
+ 
+Declare all internal wires with descriptive names 
+(e.g., pp_0_0, s_row1_col2, c_row1_col2). 
+ 
+Tie product[0] directly to pp_0_0 via wire connection. 
+ 
+Connect carry chain through all rows up to product[7]. 
+ 
+Review for: 
+
+ 
+* Any assign other than wire ties? Remove. 
+* Any always or arithmetic operators? Remove. 
+* Are all 16 and_gate instances named pp_inst_i_j? 
+* Are all half_adder and full_adder instances named descriptively? 
+* Are all internal wires explicitly declared? 
+* Is product[7] correctly connected to the final carry out? 
+* Are signed input and output ports declared? 
+* Fix and write corrected version. 
+ 
+FINAL REVIEW: 
+ 
+* array_multiplier_4bit has ONLY wires and instantiations? ✓ 
+* All 16 and_gate instances present? ✓ 
+* All half_adder and full_adder instances named correctly? ✓ 
+* All internal wires explicitly declared? ✓ 
+* product[0] tied to pp_0_0 wire? ✓ 
+* product[7] driven from final carry out? ✓ 
+ 
+FINAL OUTPUT: 
+Present only the fully corrected complete Verilog containing: 
+ 
+1. and_gate 
+2. half_adder 
+3. full_adder 
+4. array_multiplier_4bit 
+
+ 
+Return the code in a single clean Verilog code block.

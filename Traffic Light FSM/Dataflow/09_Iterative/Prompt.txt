@@ -1,0 +1,22 @@
+ITERATION 1: 
+Write a dataflow Verilog 16-bit traffic light FSM for 
+xc7a100tcsg324-2. Use assign for all combinational logic. 
+Do not optimize — just get it functionally correct first. 
+ 
+ITERATION 2 — Equation simplification: 
+Re-examine every assign. For one-hot encoding, next[i] is 
+simply state[i-1] (with wraparound + timer condition). Rewrite 
+any unnecessarily complex expressions to this direct mapping. 
+Mark changed lines: // iter2: simplified. 
+ 
+ITERATION 3 — Subterm extraction: 
+Find any Boolean subterm appearing in ≥ 3 assign statements. 
+Extract it to a named wire. This reduces LUT duplication. 
+Mark: // iter3: extracted subterm. 
+ 
+ITERATION 4 — Power reduction: 
+Add (* keep = "false" *) on wires that toggle every cycle 
+to allow the synthesizer to restructure for lower switching. 
+Mark: // iter4: power hint. 
+ 
+Final target: > 100 MHz, < 48 LUT, < 0.8 mW dynamic power.

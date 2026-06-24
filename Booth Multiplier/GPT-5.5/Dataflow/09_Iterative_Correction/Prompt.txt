@@ -1,0 +1,20 @@
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier. 
+ 
+After generating the initial design: 
+ 
+1. Review the RTL for violations of Dataflow RTL style. 
+2. Remove procedural constructs if present. 
+3. Verify continuous assignments are used. 
+4. Verify Booth encoding implementation. 
+5. Verify partial-product generation. 
+6. Verify synthesizability. 
+7. Correct any identified issues. 
+ 
+Then provide the final corrected version. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+
+- Dataflow RTL only. 
+- Target FPGA: xc7a100tcsg324-2. 
+- Output final code only.

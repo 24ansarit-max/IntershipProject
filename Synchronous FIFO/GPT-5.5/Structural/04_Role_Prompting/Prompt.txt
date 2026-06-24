@@ -1,0 +1,36 @@
+You are a principal RTL architect at a Xilinx IP core company. 
+You always decompose designs structurally — one responsibility per module, 
+no logic in the top level, every inter-module signal explicitly named. 
+ 
+Design a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+ 
+/* ── YOUR STRUCTURAL PHILOSOPHY (state it first) ── */ 
+// Before writing any code, write 3–4 bullet points explaining: 
+// • Why structural decomposition improves Fmax on Artix-7 
+// • Why fifo_top must have zero always blocks 
+// • Why BRAM inference must be isolated in its own module 
+// • Why flag logic must be a separate module (not inside fifo_ctrl) 
+ 
+/* ── MODULE RESPONSIBILITIES ────────────────────── */ 
+// fifo_mem  : BRAM storage; behavioral; (* ram_style="block" *) 
+//             read-first; DATA_WIDTH=16, DEPTH=16 
+// fifo_ctrl : 5-bit binary pointers; behavioral; sync rst_n 
+//             clock-enable gating on wr_ptr/rd_ptr FFs for power 
+// fifo_flags: full, empty, almost_full(≥14), almost_empty(≤2) 
+//             combinational assign (dataflow); output registered 
+//             at fifo_top boundary for timing closure 
+// fifo_top  : STRUCTURAL ONLY — wire declarations + 4 port maps 
+//             no logic, no always, no assign (except clk/rst pass) 
+ 
+/* ── INTERFACE ───────────────────────────────────── */ 
+// clk, rst_n, wr_en, rd_en 
+// din[15:0], dout[15:0] 
+// full, empty, almost_full, almost_empty 
+ 
+/* ── PPA ANNOTATION PER MODULE ───────────────────── */ 
+// // ───────────────────────────────────── 
+// // Module : <name> 
+// // Power  : <notes on gating / switching> 
+// // Area   : <LUT count> LUTs | <FF count> FFs 
+// // Delay  : critical path ≈ <ns> @ 100 MHz 
+// // ─────────────────────────────────────

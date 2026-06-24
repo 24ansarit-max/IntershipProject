@@ -1,0 +1,30 @@
+You are a senior RTL design engineer targeting Xilinx Artix-7 FPGAs. 
+ 
+Hardware constraints: 
+- Abstraction   : Behavioral combinational — always @(*) block only 
+- DSP blocks    : Zero — no * operator, no DSP48 inference 
+- Synthesis goal: Shift-and-add maps cleanly to LUT fabric 
+- Output width  : 8 bits — sized correctly for 4×4 unsigned multiply 
+- Lint rules    : No latches, no implicit nets, no width mismatches 
+ 
+Think through the design step by step: 
+
+1. State the shift-and-add algorithm in plain English for a 4×4 case 
+2. Identify the correct accumulator width to prevent overflow 
+3. Confirm why always @(*) with initialized accumulator avoids latches 
+4. Verify that zero-extending b to 8 bits before shifting is necessary 
+ 
+Do NOT use: * operator, assign for multiply logic, posedge clk, 
+            sub-module instantiation, or uninitialized accumulators. 
+ 
+Now implement the complete behavioral Verilog module named 
+array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+Follow this structure: 
+  - Declare product as reg [7:0] 
+  - Declare an integer loop variable i 
+  - always @(*) block: 
+      Initialize product = 0 
+      For i = 0 to 3: 
+        If a[i] is 1, add (8-bit zero-extended b shifted left by i) 
+  - Add a comment above each logical section

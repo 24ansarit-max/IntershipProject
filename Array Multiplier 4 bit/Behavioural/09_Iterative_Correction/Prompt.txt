@@ -1,0 +1,87 @@
+Write a 4-bit unsigned array multiplier using behavioral modeling through an iterative 
+self-correction process. 
+ 
+ABSOLUTE RULE ACROSS ALL ITERATIONS: 
+Use behavioral modeling. 
+Combinational logic must be implemented using always @(*) blocks. 
+No gate primitives. 
+No half_adder or full_adder modules. 
+No structural instantiations. 
+No clocked logic. 
+No latches. 
+ 
+ITERATION 1 — Create module declaration: 
+Write the module declaration for array_multiplier_4bit. 
+ 
+Ports: 
+ 
+
+* input [3:0] A 
+* input [3:0] B 
+* output reg [7:0] product 
+ 
+Review: 
+ 
+* Are inputs declared as 4-bit vectors? 
+* Is product declared as reg [7:0]? 
+* Are there any unnecessary ports? 
+* Fix and finalize. 
+ 
+ITERATION 2 — Create combinational block: 
+Add an always @(*) block. 
+ 
+Review: 
+ 
+* Is always @(*) used? 
+* Is there any posedge or negedge sensitivity? 
+* Is there any clock signal? 
+* Fix and write corrected version. 
+ 
+ITERATION 3 — Implement multiplication logic: 
+Inside the always @(*) block, compute the multiplication result. 
+ 
+
+Use: 
+ 
+* product = A * B; 
+ 
+Review: 
+ 
+* Is multiplication performed only inside the combinational always block? 
+* Are there any gate primitives? 
+* Are there any structural module instantiations? 
+* Are there any incomplete assignments that could infer latches? 
+* Fix and write corrected version. 
+ 
+ITERATION 4 — Verify behavioral style: 
+Review the complete module for behavioral modeling compliance. 
+ 
+Review: 
+ 
+* Any gate primitives present? Remove. 
+* Any half_adder or full_adder modules present? Remove. 
+* Any structural instantiations present? Remove. 
+* Any continuous assign statements used for multiplication? Remove. 
+* Any sequential logic present? Remove. 
+* Is the implementation purely combinational? 
+* Fix and write corrected version. 
+
+ 
+FINAL REVIEW: 
+ 
+* Behavioral modeling used throughout? ✓ 
+* always @(*) block present? ✓ 
+* No gate primitives? ✓ 
+* No structural instantiations? ✓ 
+* No half_adder/full_adder modules? ✓ 
+* No clocked logic? ✓ 
+* No latch inference? ✓ 
+* product computed as A * B inside always @(*)? ✓ 
+* Output declared as reg [7:0]? ✓ 
+ 
+FINAL OUTPUT: 
+Present only the fully corrected Verilog code for: 
+ 
+1. array_multiplier_4bit 
+ 
+Return the code in a single clean Verilog code block.

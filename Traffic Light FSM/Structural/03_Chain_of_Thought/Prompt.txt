@@ -1,0 +1,22 @@
+Plan the module hierarchy before writing code: 
+ 
+Step 1 — Draw a block diagram (describe in text) of sub-modules 
+  needed: FF stage, next-state logic, output decode, timer. 
+ 
+Step 2 — Define every port of every sub-module with direction 
+  and width. Confirm no combinational loops between modules. 
+ 
+Step 3 — Confirm the critical path: clk→FF_out→combo_in→ 
+  combo_out→FF_in. Estimate gate count per sub-module. 
+ 
+Step 4 — Write each sub-module independently with full comments. 
+ 
+Step 5 — Write the top-level structural module connecting them 
+  with named port connections only (no positional). 
+ 
+Target: xc7a100tcsg324-2, 16-bit one-hot FSM, 4 traffic 
+directions, synchronous reset, Fmax > 100 MHz. 
+
+ 
+PPA: annotate each sub-module with expected LUT and FF budget 
+from Vivado resource estimator heuristics.

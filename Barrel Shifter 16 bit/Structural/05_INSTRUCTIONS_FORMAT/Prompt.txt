@@ -1,0 +1,25 @@
+## Instructions 
+Write a 16-bit barrel shifter in STRUCTURAL Verilog. 
+ 
+## Target 
+Device: xc7a100tcsg324-2 (Nexys A7, Artix-7) 
+ 
+## Requirements 
+- Coding style: structural only (module instantiation, no assign/always) 
+- Shift direction: left logical shift 
+- Shift amount: 4-bit (supports 0–15) 
+- Combinational only: no clocked elements 
+- Fmax target: > 100 MHz 
+ 
+## Output Format 
+Deliver your response in exactly this structure: 
+ 
+### 1. Module hierarchy diagram (ASCII) 
+### 2. Verilog code (complete, synthesizable) 
+### 3. Performance table 
+| Metric | Estimated | 
+|--------|-----------| 
+| LUT count | | 
+| Critical path (ns) | | 
+| Dynamic power (mW) | | 
+### 4. One-sentence synthesis note

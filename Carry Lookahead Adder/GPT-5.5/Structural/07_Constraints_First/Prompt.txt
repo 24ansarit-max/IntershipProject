@@ -1,0 +1,24 @@
+READ THESE CONSTRAINTS BEFORE WRITING ANY CODE: 
+ 
+TIMING CONSTRAINT  : 4.0 ns period (250 MHz, typical, tt 25°C 1.2V) 
+AREA CONSTRAINT    : ≤ 300 gate equivalents (1 GE = NAND2) 
+POWER CONSTRAINT   : ≤ 1.5 mW dynamic at 250 MHz, α=0.5 
+WIDTH              : 16 bits, parameterizable 
+STYLE              : Structural — explicit module hierarchy required 
+REQUIRED FLAGS     : cout, overflow (signed), zero 
+ 
+HIERARCHY DECISION: 
+Given these constraints, choose the optimal module split. Options: 
+  A) 4-bit CLA groups (standard)        → ~280 GE, ~4 levels 
+  B) 8-bit CLA groups (less hierarchy)  → ~260 GE, ~5 levels   
+  C) 4-bit groups + ripple between groups → ~200 GE, ~8 levels (violates timing?) 
+ 
+State which option meets all constraints, then implement it. 
+ 
+For each module, add a constraint-check comment block: 
+  // CONSTRAINT CHECK: 
+  // Area  : XX GE — [PASS/FAIL vs budget] 
+  // Delay : X.X ns — [PASS/FAIL vs 4.0ns] 
+  // Power : X.X mW — [PASS/FAIL vs 1.5mW] 
+ 
+If any module fails a constraint, flag it and suggest a fix.

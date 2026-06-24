@@ -1,0 +1,1 @@
+Create a detailed design and verification plan for a 16-bit priority encoder. Answer planning questions regarding port directions, sensitivity list, and logic structure. Then, write the implementation in synthesizable dataflow Verilog.

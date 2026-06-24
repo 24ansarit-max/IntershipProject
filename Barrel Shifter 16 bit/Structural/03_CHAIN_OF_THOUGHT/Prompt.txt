@@ -1,0 +1,10 @@
+Think step-by-step before writing any code: 
+Step 1 — Identify the 4 shift stages needed for a 16-bit barrel shifter (1,2,4,8 bits). 
+Step 2 — Choose a mux2x1 primitive and show its truth table. 
+Step 3 — Wire Stage 0 (shift-by-1) for all 16 bits. 
+Step 4 — Cascade Stages 1–3 similarly. 
+Step 5 — Add mode control for LSL, LSR, ASR, ROL, ROR. 
+Step 6 — For each stage, reason about: power (switching factor), area (mux count), 
+delay (stage count × gate delay). 
+Now produce the complete Structural Verilog and a table summarising power / area / 
+delay.

@@ -1,0 +1,9 @@
+Prompt Strategy:Hybrid Prompt (All Strategies 
+Combined)  
+Prompt: 
+[ROLE] 
+You are a senior RTL design engineer and Verilog instructor producing a golden  
+behavioral reference implementation for an FPGA design course. Your lab enforces  
+a strict standard: ALL combinational design logic must be written inside always @(*)  
+blocks with blocking assignments (=) ONLY. No assign statements, no structural  
+instantiation, no gate primitives are permitted in any

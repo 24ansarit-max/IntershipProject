@@ -1,0 +1,32 @@
+Write a 16-bit CLA in BEHAVIORAL Verilog following this EXACT 8-section structure. 
+Each section has a line budget — do not exceed it. 
+ 
+// ===== SECTION 1: MODULE HEADER & PARAMETERS (5 lines max) ===== 
+[module declaration, timescale, parameters WIDTH=16, GROUP=4] 
+ 
+// ===== SECTION 2: PORT DECLARATION (8 lines max) ===== 
+[input a,b,cin; output sum,cout,overflow,zero,negative] 
+ 
+// ===== SECTION 3: INTERNAL SIGNAL DECLARATIONS (6 lines max) ===== 
+[reg arrays: g[15:0], p[15:0], c[16:0], gg[3:0], gp[3:0]] 
+ 
+// ===== SECTION 4: GENERATE & PROPAGATE (always block, 6 lines max) ===== 
+[for loop: g[i]=a[i]&b[i], p[i]=a[i]^b[i]] 
+ 
+// ===== SECTION 5: INTRA-GROUP CARRIES (16 lines — 4 per group) ===== 
+[c[1]..c[4] for group0, c[5]..c[8] for group1, etc. 
+ Each carry uses only G,P ,c[group_start] — not previous carry] 
+ 
+// ===== SECTION 6: GROUP LOOKAHEAD (12 lines max) ===== 
+[gg[0..3] and gp[0..3] assigns, then c[4],c[8],c[12],c[16] from group CLA] 
+ 
+// ===== SECTION 7: OUTPUT FLAGS (5 lines max) ===== 
+[sum, cout, overflow (signed), zero, negative] 
+ 
+// ===== SECTION 8: PPA SUMMARY COMMENT BLOCK ===== 
+// Power  : <estimate> 
+// Area   : <estimate> 
+// Delay  : <gate levels> 
+// Delay vs RCA: <comparison> 
+ 
+Deliver all 8 sections. If a section needs more lines, compress logic — do not skip the header.

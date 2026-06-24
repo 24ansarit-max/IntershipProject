@@ -1,0 +1,24 @@
+Reason through the Boolean equations before writing Verilog: 
+ 
+Step 1 — Express sum[i] as XOR3(a[i], b[i], carry[i]) for 
+  i = 0..15. Confirm this is already minimal (no K-map 
+  simplification possible for 3-input XOR). 
+ 
+Step 2 — Express carry[i+1] as the majority function 
+
+  MAJ(a[i], b[i], carry[i]) = a[i]b[i] + b[i]carry[i] + 
+  a[i]carry[i]. Confirm this maps to one LUT6 (or one bit of a 
+  dedicated CARRY4 chain on Xilinx). 
+ 
+Step 3 — Decide the generate-for loop bounds: genvar i from 0 
+  to 15, with carry[0] tied to cin and cout tied to carry[16]. 
+ 
+Step 4 — Translate each stage into Verilog assign statements 
+  inside the generate-for block. 
+ 
+Step 5 — Write the full module for xc7a100tcsg324-2 using 
+  generate-for + assign only; pure combinational, FF = 0. 
+ 
+PPA target: LUT ≤ 16 (ideally synthesizer infers CARRY4 chain, 
+using ~4 LUT + 4 carry-chain elements per 4 bits), Fmax > 100 MHz, 
+power < 0.5 mW. Annotate each assign with its equation source.

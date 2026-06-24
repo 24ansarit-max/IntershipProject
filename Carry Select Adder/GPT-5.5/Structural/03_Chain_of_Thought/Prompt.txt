@@ -1,0 +1,5 @@
+Think step by step before writing any Verilog.
+STEP 1 — Architecture analysis: enumerate all 4 blocks, 8 RCA instances, carry propagation.
+STEP 2 — Delay analysis: RCA 4-bit worst case, CSA critical path, speedup vs ripple-carry.
+STEP 3 — Area/power tradeoff expressions.
+STEP 4 — Write complete structural Verilog with all 8 RCA instantiations, 4 mux instantiations, specify block.

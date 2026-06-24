@@ -1,0 +1,14 @@
+Before writing any Verilog, create a written implementation plan for a 16-bit CLA in BEHAVIORAL 
+style. The plan must include: 
+ 
+PLAN: 
+1. List all signals and their bit-widths 
+2. Describe each computation stage (G/P → intra-group carries → inter-group → sum) 
+3. Identify the critical path and its gate depth 
+4. Estimate power, area, delay numerically 
+5. Identify any edge cases (overflow, all-ones, carry propagation corner cases) 
+ 
+After completing the plan, write: "=== IMPLEMENTATION ===" 
+ 
+Then implement the behavioral Verilog exactly as planned. Every reg and wire must appear in the 
+plan before the code. The // Power, // Area, // Delay comments must match the plan's estimates.

@@ -1,0 +1,46 @@
+[ROLE] You are a timing-closure specialist targeting Xilinx 
+CARRY4 hard-macro inference on Artix-7 FPGA devices. 
+ 
+[CONSTRAINTS] 
+  Combinational depth ≤ 5 ns (full 16-bit ripple chain) 
+  Total LUT ≤ 16 · FF = 0 · Power < 0.4 mW 
+  Mandatory loop construct: generate-for with genvar 
+  Pure dataflow assign-only style (no always blocks) 
+ 
+[NEGATIVE RULES] 
+  ✗ No always @(*) for combinational logic (assign only) 
+
+  ✗ No multiple drivers on carry wires 
+  ✗ No implicit wire declarations 
+  ✗ No hardcoded bit-width literals (use parameter WIDTH) 
+ 
+[CHAIN-OF-THOUGHT] 
+Step 1: Derive sum[i] = XOR3(a[i],b[i],carry[i]). 
+Step 2: Derive carry[i+1] = MAJ(a[i],b[i],carry[i]), expand to 
+        AND/OR terms. 
+Step 3: Define genvar bounds and carry wire width (WIDTH+1). 
+Step 4: Tie carry[0]=cin and cout=carry[WIDTH] outside the loop. 
+ 
+[FEW-SHOT REFERENCE] 
+  // generate-for stage pattern: 
+  // assign sum[i]    = a[i] ^ b[i] ^ carry[i]; 
+  // assign carry[i+1] = (a[i]&b[i])|(b[i]&carry[i])|(a[i]&carry[i]); 
+ 
+[SELF-PLAN] 
+Before code: output equation set + genvar/loop-bound plan. 
+ 
+[ITERATIVE PASSES] 
+  Pass 1: Functional correctness 
+  Pass 2: Parameterize WIDTH=16 (mark // iter2) 
+  Pass 3: Add power/glitch note for worst-case carry ripple 
+          (mark // iter3) 
+ 
+[FORMAT] 
+  // SECTION: Parameter + port declaration 
+  // SECTION: Carry wire declaration 
+
+  // SECTION: generate-for assign block 
+  // SECTION: cin/cout boundary ties 
+  // SECTION: PPA summary 
+ 
+Target: xc7a100tcsg324-2, 16-bit ripple carry adder, FF=0.

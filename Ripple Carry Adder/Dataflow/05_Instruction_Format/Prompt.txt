@@ -1,0 +1,23 @@
+TASK: 16-bit ripple carry adder, dataflow Verilog with 
+generate-for loop. 
+TARGET: xc7a100tcsg324-2 
+ 
+
+OUTPUT FORMAT: 
+┌─────────────────────────────────────────────────────────┐ 
+│ SECTION 1: Bit-stage equation table (as code comment)     │ 
+│   Bit i | sum[i] equation | carry[i+1] equation           │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 2: Generate-loop structure description (comment)  │ 
+│   genvar bounds | carry wire width | cin/cout mapping     │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 3: Verilog module (generate-for + assign)         │ 
+│   — genvar i; generate for(...) assign sum/carry endgen   │ 
+│   — every assign commented with bit index                 │ 
+├─────────────────────────────────────────────────────────┤ 
+│ SECTION 4: PPA summary comment block at end of file       │ 
+│   // Estimated LUT: XX   FF: 0   Fmax: XXX MHz             │ 
+└─────────────────────────────────────────────────────────┘ 
+ 
+CONSTRAINTS: pure combinational (FF=0), no latches, 
+Fmax > 100 MHz, LUT ≤ 16, dynamic power < 0.5 mW.

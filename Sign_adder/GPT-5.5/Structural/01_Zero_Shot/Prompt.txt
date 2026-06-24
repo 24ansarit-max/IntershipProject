@@ -1,0 +1,26 @@
+1. Zero-Shot Prompt  
+prompt- 
+Write synthesizable Verilog code for a 16-bit signed adder using STRICTLY STRUCTURAL 
+MODELING ONLY. 
+ 
+STRICT RULE: The top-level adder module must be built EXCLUSIVELY by instantiating 
+sub-modules and connecting them with wires. No assign statements, no always blocks, 
+no arithmetic operators (+, -, etc.) are allowed inside the top-level structural module. 
+All logic must live inside primitive sub-modules (full_adder, half_adder, etc.) 
+which are then wired together in the top-level module. 
+ 
+The design must: 
+- Define a 1-bit full_adder module using gate primitives (and, or, xor) or assign inside it 
+- Instantiate exactly 16 full_adder modules to form a 16-bit ripple carry adder 
+- Accept two 16-bit signed inputs: A and B 
+- Produce a 17-bit signed output: sum[16:0] where sum[16] captures the final carry out 
+- Wire the carry chain explicitly: cout of bit N connects to cin of bit N+1 
+- Handle signed two's complement correctly 
+ 
+Also write a testbench that: 
+- Tests ALL corner cases using a for loop over 20 boundary value pairs 
+- Uses a while loop with $signed($random) for 100 iterations 
+- Uses a repeat loop for 50 random iterations 
+- Uses a forever loop for clock toggling stopped by $finish at 1000ns 
+- Checks results using $display with signed decimal format 
+- Prints PASS or FAIL per test

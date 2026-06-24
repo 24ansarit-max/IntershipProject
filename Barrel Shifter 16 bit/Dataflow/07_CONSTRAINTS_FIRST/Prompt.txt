@@ -1,0 +1,15 @@
+HARD BUDGET — verify before any design decision: 
+  LUT budget: ≤ 32 LUTs 
+  FF budget: 0 
+  Fmax target: > 150 MHz (critical path < 6.7 ns) 
+  Power budget: < 0.5 mW dynamic 
+  Device: xc7a100tcsg324-2 
+ 
+DESIGN: 
+Given the tight budget, implement a 16-bit left logical barrel shifter using DATAFLOW 
+Verilog. Use ternary-assign stages. Concatenation-based shifts (e.g., {s[14:0],1'b0}) 
+require zero extra LUTs and should be preferred. 
+ 
+CODE: Write complete synthesizable Verilog. 
+ 
+VALIDATION: For each hard constraint above, state whether it is met or at risk, and why.

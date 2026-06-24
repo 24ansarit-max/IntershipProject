@@ -1,0 +1,18 @@
+STRUCTURAL DESIGN BUDGET (establish before writing modules): 
+ 
+Sub-module       | FF  | LUT | Critical path 
+full_adder (×16) |  0  | ≤16 | a/b/cin→cout: 0.3 ns per stage 
+
+rca16 (wiring)   |  0  |  0  | — 
+TOTAL            |  0  | ≤16 | ≤ 5 ns full chain (Fmax > 200 MHz 
+                                margin before adding routing) 
+ 
+Write the full_adder sub-module and rca16 top-level module 
+(using generate-for with genvar to instantiate 16 copies) 
+to match this budget. 
+- Pure combinational full_adder (assign-style internals) 
+- rca16: generate-for loop, named port connections, no logic 
+  outside the loop 
+- Target: xc7a100tcsg324-2 
+ 
+Comment each module with its row from the budget table above.

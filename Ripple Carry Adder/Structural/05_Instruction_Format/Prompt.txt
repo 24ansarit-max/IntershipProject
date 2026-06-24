@@ -1,0 +1,19 @@
+TASK: 16-bit ripple carry adder, structural Verilog with 
+generate-for instantiation loop. 
+TARGET: xc7a100tcsg324-2 
+ 
+
+DELIVER IN THIS EXACT ORDER: 
+1. Sub-module: full_adder  — 1-bit FA, dataflow assign internals 
+2. Top module: rca16       — generate-for loop instantiating 
+   full_adder 16 times, named port connections, carry chain wiring 
+ 
+FORMAT RULES: 
+- Every module starts with a // ===== MODULE NAME ===== banner 
+- Every port commented inline: input cin, // carry-in from LSB 
+- generate block must use a named label: begin : fa_gen 
+- Instance uses named port connections: .a(a[i]) 
+- No logic in top-level module outside the generate loop 
+- End of file: PPA comment // LUT=XX FF=0 Fmax=XXXMHz 
+ 
+CONSTRAINTS: Fmax > 100 MHz, FF=0, LUT ≤ 16.

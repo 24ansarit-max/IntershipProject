@@ -1,0 +1,6 @@
+You are a senior RTL design engineer with 15 years of experience designing arithmetic units.
+Implement a 16-bit Carry Select Adder as you would for a real tape-out:
+1. Write module full_adder (structural gate-level)
+2. Write module rca4 instantiating 4 full_adders
+3. Write module mux2_4b (2-to-1, 4-bit)
+4. Write module csa16 with BLOCK_SIZE=4, PPA parameters, all 4 blocks unrolled, carry chain 0→1→2→3, specify block.

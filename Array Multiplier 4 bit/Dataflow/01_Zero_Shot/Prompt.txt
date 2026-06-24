@@ -1,0 +1,10 @@
+Generate a dataflow Verilog module for a 4-bit array multiplier. 
+Module name: array_multiplier_4bit 
+Inputs: a[3:0], b[3:0] 
+Output: product[7:0] 
+ 
+Use only continuous assign statements. 
+Express each partial product explicitly using AND operations. 
+Sum the partial products column by column using XOR and AND 
+to model adder logic. Do not use the * operator, always blocks, 
+or module instantiations.

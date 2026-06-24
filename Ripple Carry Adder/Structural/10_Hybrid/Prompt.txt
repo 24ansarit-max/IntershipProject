@@ -1,0 +1,54 @@
+[ROLE] You are a reusable arithmetic IP architect, following 
+clean RTL hierarchy practices so the full-adder cell is swappable. 
+ 
+[HARD CONSTRAINTS] 
+  Fmax > 100 MHz · FF = 0 · Total LUT ≤ 16 
+  Each instantiated full_adder independently meets timing 
+  Zero combinational loops in the carry chain 
+  Mandatory loop construct: generate-for with genvar for 
+  instantiating full_adder 16 times 
+ 
+[FORBIDDEN PATTERNS] 
+  ✗ Logic in the top-level rca16 module outside the generate block 
+  ✗ Positional port connections 
+  ✗ defparam usage 
+  ✗ Manual (non-loop) instantiation of all 16 full adders 
+  ✗ Unlabeled generate blocks 
+ 
+[CHAIN-OF-THOUGHT] 
+Step 1: Define full_adder responsibility and ports. 
+Step 2: Draw ASCII carry-chain connection diagram (cin→fa0→fa1→ 
+        ...→fa15→cout). 
+Step 3: Allocate PPA budget (FF=0, LUT≤16, critical path estimate). 
+Step 4: Verify no combinational loop (strictly increasing carry 
+        index). 
+ 
+[FEW-SHOT SEED] 
+
+  // Structural pattern: 
+  // generate 
+  //   for (i=0;i<WIDTH;i=i+1) begin : fa_chain 
+  //     full_adder fa_inst (.a(a[i]), .b(b[i]), .cin(carry[i]), 
+  //                          .sum(sum[i]), .cout(carry[i+1])); 
+  //   end 
+  // endgenerate 
+ 
+[SELF-PLAN] Output plan (steps 1-4) before any module code. 
+ 
+[ITERATIVE PASSES] 
+  Pass 1: Write full_adder and rca16 functionally 
+  Pass 2: Parameterize WIDTH in rca16, derive carry wire width 
+          and loop bound from it (// iter2) 
+  Pass 3: Add PPA comment block to each module (// iter3) 
+  Pass 4: Add a comment confirming CARRY4 mapping expectation 
+          (// iter4) 
+ 
+[FORMAT PER MODULE] 
+  // ============================================================ 
+  // Module  : <name> 
+  // Function: <single line> 
+  // FF      : <N>   LUT: <N>   Fmax_est: <N> MHz 
+  // ============================================================ 
+ 
+Modules required: full_adder, rca16 (with generate-for 
+instantiation loop). Target: xc7a100tcsg324-2.

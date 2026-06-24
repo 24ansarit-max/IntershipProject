@@ -1,0 +1,26 @@
+TASK: Write a 16-bit ripple carry adder using a for loop in 
+behavioral Verilog. 
+TARGET: xc7a100tcsg324-2 (Nexys A7 Artix-7) 
+STYLE: Behavioral (always @(*) with integer-indexed for loop) 
+ 
+REQUIRED OUTPUT FORMAT — deliver exactly these sections: 
+1. MODULE HEADER 
+   // Module, Author, Target, PPA budget comment block 
+2. PORT DECLARATION 
+   a[15:0], b[15:0], cin, sum[15:0], cout — fully annotated 
+3. INTERNAL SIGNALS 
+   reg/wire [16:0] carry declaration 
+4. COMBINATIONAL FOR-LOOP BLOCK 
+   always @(*) with integer i; for (i=0;i<16;i=i+1) ... 
+5. OPTIONAL REGISTERED OUTPUT BLOCK 
+   always @(posedge clk) — sync reset, sum_reg ← sum 
+6. SYNTHESIS ATTRIBUTES 
+   comment noting expected CARRY4 inference 
+7. PPA SUMMARY 
+   // LUT=XX FF=XX Fmax=XXXMHz Power=XXmW 
+ 
+PPA CONSTRAINTS (comment in code): 
+- Fmax target: > 100 MHz → note critical path (cin to cout) 
+- LUT budget: ≤ 16        → note CARRY4 grouping 
+- FF budget: 0 (or 17 if registered output requested) 
+- Power: < 0.5 mW dynamic → note glitch behavior of ripple carry

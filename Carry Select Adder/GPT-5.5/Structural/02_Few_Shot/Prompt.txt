@@ -1,0 +1,8 @@
+Below are two reference modules. Use them to construct a complete 16-bit Carry Select Adder covering all four 4-bit blocks (bits[3:0] through bits[15:12]).
+TASK: Write module csa16 with:
+- Parameters: BLOCK_SIZE=4, DELAY_PS, AREA_UM2, POWER_UW
+- Explicit instantiation of 8 RCA blocks (cin=0 and cin=1 per 4-bit group)
+- 4 mux stages selecting sum[3:0], sum[7:4], sum[11:8], sum[15:12]
+- Carry chain: c0 → mux_sel for block1 → carry out of block1 → mux_sel for block2 …
+- Generate final cout from last mux-selected carry
+- specify block annotating worst-case path delay

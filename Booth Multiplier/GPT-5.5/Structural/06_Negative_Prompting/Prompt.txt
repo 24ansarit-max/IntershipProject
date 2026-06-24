@@ -1,0 +1,41 @@
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier.
+
+Requirements:
+
+- Radix-2 Booth multiplication.
+
+- Structural RTL only.
+
+Do NOT:
+
+- Use the multiplication operator (*).
+
+- Use always blocks.
+
+- Use always_comb.
+
+- Use always_ff.
+
+- Use behavioral arithmetic.
+
+- Use high-level multiplication statements.
+
+- Use behavioral datapaths.
+
+- Use behavioral Booth implementations.
+
+Must:
+
+- Use Booth encoding.
+
+- Use structural hierarchy.
+
+- Use module instantiations.
+
+- Use partial-product generation logic.
+
+Target FPGA:
+
+xc7a100tcsg324-2
+
+Output code only.

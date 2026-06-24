@@ -1,0 +1,20 @@
+Design a 16-bit signed Booth Multiplier. 
+ 
+Before generating RTL: 
+ 
+1. Analyze the Booth multiplication algorithm. 
+2. Determine Booth encoding logic. 
+3. Determine partial-product generation. 
+
+4. Determine how to express the datapath using dataflow modeling. 
+5. Determine final summation structure. 
+ 
+After completing the reasoning process, generate synthesizable Dataflow Verilog. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Dataflow RTL style only. 
+- No procedural blocks. 
+- No always statements. 
+- Target FPGA: xc7a100tcsg324-2. 
+- Output complete code only.

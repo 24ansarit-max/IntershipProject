@@ -1,0 +1,1 @@
+Write a 16-bit priority encoder using behavioural modeling. Perform a self-audit checklist to verify that output reg/wire declarations are correct, reset/default cases are assigned, and latches are avoided. Correct any bugs from initial assumptions.

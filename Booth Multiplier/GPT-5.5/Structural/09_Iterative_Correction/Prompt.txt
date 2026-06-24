@@ -1,0 +1,29 @@
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier.
+
+After generating the initial design:
+
+1. Review the RTL for violations of Structural RTL style.
+
+2. Remove any behavioral constructs.
+
+3. Remove any multiplication operators.
+
+4. Verify that Booth encoding is explicitly implemented.
+
+5. Verify that module hierarchy is present.
+
+6. Verify synthesizability.
+
+7. Correct any identified issues.
+
+Then provide the final corrected version.
+
+Requirements:
+
+- Radix-2 Booth multiplication.
+
+- Structural RTL only.
+
+- Target FPGA: xc7a100tcsg324-2.
+
+- Output final code only.

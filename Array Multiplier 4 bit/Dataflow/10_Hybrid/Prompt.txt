@@ -1,0 +1,29 @@
+You are a senior RTL design engineer targeting Xilinx Artix-7 FPGAs. 
+ 
+Hardware constraints: 
+- Abstraction    : Dataflow only — assign statements, no instantiation 
+- DSP blocks     : Zero — no DSP48 inference allowed 
+- Operator rule  : No * operator 
+- Logic depth    : Minimize cascaded XOR/AND levels per output bit 
+- Synthesis goal : Clean, lint-free, no implicit nets 
+ 
+Think through the design step by step: 
+1. List all 16 partial products with their bit-weight positions 
+2. For each output bit col (0–7), enumerate every contributing signal 
+3. Write out the XOR sum and AND carry expression for each column 
+4. Verify that all 8 product bits are fully driven with no floating nets 
+ 
+Do NOT use: *, always, initial, for loops, generate blocks, 
+
+            sub-module instantiation, or implicit wire declarations. 
+ 
+Now implement the complete dataflow Verilog module named 
+array_multiplier_4bit. Inputs: a[3:0], b[3:0]. Output: product[7:0]. 
+ 
+Follow this signal naming: 
+  Partial products : pp_i_j 
+  Intermediate sums: s_row_col 
+  Carry signals    : c_row_col 
+ 
+Add a brief comment above each section (partial products, 
+row 1 adders, row 2 adders, row 3 adders, final assignments).

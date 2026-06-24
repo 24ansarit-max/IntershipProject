@@ -1,0 +1,19 @@
+Design a 16-bit barrel shifter for xc7a100tcsg324-2 using DATAFLOW Verilog. 
+ 
+FORBIDDEN (do not use): 
+  ✗ always @(*) or always @(posedge clk) blocks 
+  ✗ module instantiation 
+  ✗ Verilog shift operators << or >> on full 16-bit bus 
+  ✗ for/while loops in synthesis context 
+  ✗ casex / casez 
+  ✗ Flip-flops or latches 
+ 
+REQUIRED: 
+  ✓ assign statements only 
+  ✓ 4 intermediate wire stages 
+  ✓ Left logical shift 
+  ✓ Fmax > 100 MHz 
+
+  ✓ LUT count minimized 
+ 
+Estimate and report: Power (mW), Area (LUTs), Delay (ns).

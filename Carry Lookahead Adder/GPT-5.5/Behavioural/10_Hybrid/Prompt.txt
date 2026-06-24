@@ -1,0 +1,20 @@
+Write a Verilog BEHAVIORAL model of a Carry Lookahead Adder (CLA)  
+using the Iterative Correction method. 
+ 
+Requirements: 
+- Use always @(*) or always @(A, B, Cin) procedural blocks only 
+- Internally compute using reg variables: 
+    * Generate array:   G[i] = A[i] & B[i] 
+    * Propagate array:  P[i] = A[i] ^ B[i] 
+    * Carry array via iterative correction loop: 
+        - Start with initial carry estimate 
+        - Iteratively recompute carries until no change occurs (convergence) 
+    * Final Sum = P[i] ^ C[i] after convergence 
+- Parameterize bit width with default N = 8 
+- Use a for loop inside the always block for carry propagation 
+- Use a while loop or repeat block to handle iterative correction passes 
+- Output: N-bit Sum, 1-bit Cout 
+- Include a testbench with: 
+    * Directed tests: 0+0, max+max, 1+max, alternating patterns 
+    * At least 5 random test vectors using $random 
+    * Display intermediate carry correction iterations using $display

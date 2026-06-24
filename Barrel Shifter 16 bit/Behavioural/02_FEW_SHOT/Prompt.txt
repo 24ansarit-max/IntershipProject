@@ -1,0 +1,12 @@
+Reference behavioral 8-bit barrel shifter: 
+always @(*) begin 
+  case(opcode) 
+    3'b000: out = in << amt; 
+    3'b001: out = in >> amt; 
+    default: out = in; 
+  endcase 
+end 
+ 
+Now write a 16-bit version. Add arithmetic right shift and both rotates. 
+Iterate over all 16 shift amounts explicitly in comments. 
+Analyse power (toggle rate per mode) and critical-path delay for each case.

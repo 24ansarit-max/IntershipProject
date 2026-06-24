@@ -1,0 +1,18 @@
+Design Constraints: 
+ 
+1. Dataflow RTL only. 
+2. Synthesizable on Xilinx Artix-7 xc7a100tcsg324-2. 
+3. No always blocks. 
+4. No procedural logic. 
+5. Continuous assignments required. 
+6. Booth encoding must be implemented. 
+7. Partial products must be explicitly generated. 
+8. Signed 16-bit multiplication. 
+9. Output width must be 32 bits. 
+10. Combinational implementation only. 
+ 
+Task: 
+ 
+Generate a Radix-2 Booth Multiplier satisfying all constraints above. 
+ 
+output Verilog code only.

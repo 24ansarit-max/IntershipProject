@@ -1,0 +1,7 @@
+Prompt Strategy: Instruction Format 
+Prompt: 
+TASK: 
+Write a 16-bit signed adder in Verilog using STRICTLY BEHAVIORAL MODELING ONLY. 
+ 
+ABSOLUTE BEHAVIORAL RULE: 
+The

@@ -1,0 +1,41 @@
+[ROLE] You are a Xilinx Artix-7 RTL specialist with expertise in 
+arithmetic datapath and CARRY4 inference. 
+ 
+[CONSTRAINTS FIRST — non-negotiable] 
+  Fmax > 100 MHz on xc7a100tcsg324-2 
+  FF = 0 (pure combinational); LUT ≤ 18; power < 0.5 mW 
+  Synchronous reset only if a registered output variant exists 
+  Zero inferred latches 
+ 
+[NEGATIVE RULES] 
+  ✗ No async reset  ✗ No blocking assigns inside posedge blocks 
+  ✗ No partial loop-iteration assignment  ✗ No hardcoded width 
+ 
+[CHAIN-OF-THOUGHT — reason first] 
+Step 1: Derive sum[i] and carry[i+1] equations for generic bit i. 
+Step 2: Confirm loop bounds (WIDTH=16, carry[WIDTH:0]). 
+Step 3: Identify critical path (cin→...→carry[16]→cout). 
+Step 4: Confirm zero latch conditions across all 16 iterations. 
+ 
+[FEW-SHOT SEED] 
+  // Pattern: ripple carry, one bit 
+  // sum[i]     = a[i] ^ b[i] ^ carry[i] 
+  // carry[i+1] = (a[i]&b[i]) | (b[i]&carry[i]) | (a[i]&carry[i]) 
+ 
+
+[SELF-PLAN] 
+Before writing code, output: 
+  A) Equation set  B) Loop-bound plan  C) Register list (if any) 
+ 
+[ITERATIVE PASS] 
+After the initial code, perform: 
+  Pass 1: Latch check — confirm full assignment per iteration 
+  Pass 2: Parameterize WIDTH 
+  Pass 3: Confirm CARRY4 inference note for timing/area 
+ 
+[FORMAT] 
+Sections: PARAMETER → PORTS → INTERNAL_SIGNALS → FOR_LOOP_BLOCK 
+→ (OPTIONAL REGISTER STAGE) → PPA summary block at end of file. 
+ 
+Target: behavioral for-loop style, 16-bit ripple carry adder, 
+xc7a100tcsg324-2.

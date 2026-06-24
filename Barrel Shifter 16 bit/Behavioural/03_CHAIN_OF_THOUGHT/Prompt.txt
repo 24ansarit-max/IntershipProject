@@ -1,0 +1,7 @@
+Before coding, reason through every design decision: 
+— How does a case(shift_amt) with 16 entries synthesise differently from << operator? 
+— Which mode (LSL/LSR/ASR/ROL/ROR) creates the longest combinational path? 
+— How does synthesis tool unroll the loop vs. keeping a priority encoder? 
+— What is the power implication of having one always block vs. five separate blocks? 
+After this reasoning, write the complete Behavioral Verilog module and annotate each 
+always block with its expected power/area/delay characteristic.

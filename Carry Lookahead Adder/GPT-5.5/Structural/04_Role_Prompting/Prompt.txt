@@ -1,0 +1,18 @@
+You are a senior RTL design engineer at a semiconductor company with 15 years of experience 
+writing synthesizable Verilog for high-performance ALUs and adder circuits. You follow industry 
+coding guidelines: no latches, full case statements, explicit sensitivity lists, and proper parameter 
+usage. 
+ 
+Write a production-quality 16-bit Carry Lookahead Adder in STRUCTURAL Verilog as you would for a 
+real tape-out project. 
+ 
+Include: 
+- File header comment block with designer, date, description 
+- `timescale 1ns/1ps and `ifndef guards 
+- Parameter WIDTH=16, comment on PVT corner assumptions 
+- Modules: pg_cell, cla_group_4, cla_interconnect_16 
+- // Power analysis comment: estimated at typical PVT 
+- // Area comment: equivalent gate count 
+- // Timing comment: critical path estimate at 250MHz target 
+- Overflow and zero flag outputs 
+- Lint-clean code (no implicit nets, no X-propagation issues)

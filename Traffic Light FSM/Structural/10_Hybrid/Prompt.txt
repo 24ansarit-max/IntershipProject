@@ -1,0 +1,46 @@
+[ROLE] You are a reusable IP architect for traffic-control ASICs 
+and FPGAs, following IEEE 1800-2017 SystemVerilog-compatible RTL. 
+ 
+[HARD CONSTRAINTS] 
+  Fmax > 100 MHz · Total FF ≤ 32 · Total LUT ≤ 65 
+  Each sub-module independently meets timing 
+  Synchronous reset owned exclusively by tl_reg16 
+  Zero combinational loops between modules 
+ 
+[FORBIDDEN PATTERNS] 
+  ✗ Logic in top-level module 
+
+  ✗ Positional port connections 
+  ✗ defparam usage 
+  ✗ Unconnected ports without // UNUSED annotation 
+  ✗ Delta-cycle hazards from combo loops 
+ 
+[CHAIN-OF-THOUGHT] 
+Step 1: Enumerate modules + responsibilities. 
+Step 2: Draw ASCII port connection diagram. 
+Step 3: Allocate PPA budget per module (table form). 
+Step 4: Verify no combinational loop in the graph. 
+ 
+[FEW-SHOT SEED] 
+  // Structural pattern: 
+  tl_reg16 u_reg (.clk(clk), .rst(rst), .d(next_state), .q(state)); 
+  tl_ns16  u_ns  (.state(state), .timer_exp(texp), .next(next_state)); 
+ 
+[SELF-PLAN] Output plan (steps 1-4) before any module code. 
+ 
+[ITERATIVE PASSES] 
+  Pass 1: Write all modules functionally 
+  Pass 2: Parameterize WIDTH in register and NS modules (// iter2) 
+  Pass 3: Add PPA comment block to each module (// iter3) 
+  Pass 4: Add (* dont_touch *) on timing-critical wires (// iter4) 
+ 
+[FORMAT PER MODULE] 
+  // ============================================================ 
+  // Module  : <name> 
+  // Function: <single line> 
+
+  // FF      : <N>   LUT: <N>   Fmax_est: <N> MHz 
+  // ============================================================ 
+ 
+Modules required: tl_reg16, tl_timer16, tl_ns_logic, 
+tl_outdec, tl_top. Target: xc7a100tcsg324-2.

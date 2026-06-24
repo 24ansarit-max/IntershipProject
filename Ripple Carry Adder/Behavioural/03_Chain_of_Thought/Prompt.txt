@@ -1,0 +1,27 @@
+Think step by step before writing any code: 
+ 
+Step 1 — Full-adder equations: Derive sum[i] = a[i] XOR b[i] 
+  XOR carry_in[i], and carry_out[i] = majority(a[i], b[i], 
+  carry_in[i]). Show the truth table reasoning. 
+ 
+Step 2 — Loop structure: Decide between a `for` loop inside 
+  always @(*) (unrolled at elaboration, behavioral) versus 
+  generate-for (structural/dataflow). Justify your choice for 
+  a ripple carry adder (no actual hardware loop exists; this is 
+  purely an RTL-authoring convenience since all 16 bits are 
+  combinationally connected in a chain). 
+ 
+Step 3 — Carry propagation depth: Note that bit 15's sum depends 
+  on a ripple through all 16 carries — this is the critical path. 
+  Estimate worst-case delay: 16 × (LUT delay ~0.3ns) ≈ 4.8 ns. 
+ 
+Step 4 — Latch risk analysis: Confirm sum and carry are fully 
+  assigned in every loop iteration (no partial assignment). 
+
+ 
+Step 5 — Write the RTL: Behavioral Verilog with a for loop, 
+  xc7a100tcsg324-2 target, comments referencing each step. 
+ 
+PPA notes inline: annotate the critical path bit (bit 15) and 
+expected LUT count (Xilinx maps each FA to 1 LUT6 using CARRY4 
+primitives automatically during synthesis).

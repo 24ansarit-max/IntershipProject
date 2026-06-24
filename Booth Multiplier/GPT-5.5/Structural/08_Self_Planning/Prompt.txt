@@ -1,0 +1,33 @@
+Generate a 16-bit signed Booth Multiplier.
+
+First create an implementation plan.
+
+The plan should identify:
+
+- Booth encoding blocks
+
+- Partial-product generation blocks
+
+- Adder hierarchy
+
+- Datapath organization
+
+- Structural module hierarchy
+
+After creating the plan, implement the design according to the plan.
+
+Requirements:
+
+- Radix-2 Booth multiplication.
+
+- Structural RTL only.
+
+- Synthesizable Verilog.
+
+- No behavioral blocks.
+
+- No multiplication operator (*).
+
+- Target FPGA: xc7a100tcsg324-2.
+
+Output complete code.

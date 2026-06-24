@@ -1,0 +1,47 @@
+Write a 16-bit synchronous FIFO for Nexys A7 (xc7a100tcsg324-2). 
+Parameters: DATA_WIDTH=16, DEPTH=16, ADDR_WIDTH=4, PTR_WIDTH=5 
+ 
+/* ══ BEHAVIORAL DO (safe loop patterns) ════════ */ 
+// ✓ always @(posedge clk) for ALL sequential logic 
+// ✓ Non-blocking <= in every clocked always block 
+// ✓ Synchronous active-low rst_n in every always block 
+// ✓ Default assignments at top of always block to prevent latches 
+// ✓ for(k=0;k<DEPTH;k=k+1) inside always for array reset — safe 
+//   (synthesis unrolls to parallel reset enables, no carry chain) 
+// ✓ generate for(gi=0;gi<N;gi=gi+1) for parametric replication 
+// ✓ Separate always block for flag logic (improves Fmax) 
+// ✓ Separate always block for BRAM write and read 
+// ✓ (* ram_style = "block" *) on memory array 
+// ✓ Read-first BRAM mode (dout_pre <= mem[rd_addr] unconditional) 
+// ✓ CE on pointer FFs: if (wr_en && !full) / if (rd_en && !empty) 
+ 
+/* ══ BEHAVIORAL DO NOT (unsafe loop patterns) ══ */ 
+// ✗ Do NOT use always @(*) for any logic (use assign or clocked) 
+// ✗ Do NOT use always_comb (SystemVerilog — not portable Verilog) 
+// ✗ Do NOT use forever loop (infinite — not synthesizable here) 
+// ✗ Do NOT use while loop (unbounded — synthesis tool rejection) 
+// ✗ Do NOT use repeat(N) for sequential logic (use for instead) 
+// ✗ Do NOT use for loop for pointer increment arithmetic 
+//   → wr_ptr <= wr_ptr + 1'b1  NOT  for(i=0;i<1;i++) wr_ptr++ 
+// ✗ Do NOT use for loop creating carry chains (ripple adder risk) 
+// ✗ Do NOT use blocking = in any always @(posedge clk) block 
+// ✗ Do NOT leave any output of an always block unassigned 
+//   in any branch (infers latches — Vivado DRC W13) 
+// ✗ Do NOT use for(i=0;...) inside initial block in RTL 
+//   (initial blocks are simulation-only; not synthesizable) 
+// ✗ Do NOT use nested always blocks (illegal in Verilog) 
+// ✗ Do NOT drive same signal from two different always blocks 
+// ✗ Do NOT reset BRAM memory contents in always block 
+//   (forces LUT-RAM instead of BRAM — kills area target) 
+// ✗ Do NOT use posedge rst_n (async) — synchronous only 
+ 
+/* ══ REQUIRED LOOP COVERAGE ════════════════════ */ 
+// Design must include all of: 
+//   A) Pointer FFs always block 
+//   B) BRAM write always block 
+//   C) BRAM read-first always block 
+//   D) Flag register always block (registered, not combinational) 
+//   E) Output pipeline register always block 
+//   F) Generate-for parameterized loop 
+//   G) For-inside-always array reset 
+// Each with: // Power: ...  Area: X LUTs/Y FFs  Delay: Z ns

@@ -1,0 +1,14 @@
+Prompt Strategy: Constraints First 
+Prompt: 
+READ ALL CONSTRAINTS COMPLETELY BEFORE WRITING ANY CODE: 
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━ 
+DESIGN CONSTRAINTS 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━ 
+ 
+[C1]  BEHAVIORAL ONLY: adder16_beh must contain EXCLUSIVELY always @(*) blocks 
+      with blocking assignments. No exceptions. 
+ 
+[C2]  FORBIDDEN IN

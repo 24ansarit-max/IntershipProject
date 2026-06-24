@@ -1,0 +1,29 @@
+## Task 
+16-bit barrel shifter, DATAFLOW Verilog style. 
+ 
+## Device 
+xc7a100tcsg324-2 (Nexys A7, Artix-7 -2 speed grade) 
+ 
+## Coding Rules 
+- Only continuous assign statements allowed 
+- No always, no module instantiation, no shift ops on entire bus 
+- Four intermediate wire stages (s0, s1, s2, s3) 
+- Left logical shift, 4-bit shift amount 
+ 
+## Targets 
+- LUT count: minimize (target < 40) 
+- Flip-flops: 0 
+- Fmax: > 100 MHz 
+ 
+## Required Output Format 
+``` 
+Section 1: Port declaration table (ASCII) 
+Section 2: Wire declarations 
+Section 3: Assign statements (one per stage, commented) 
+Section 4: PPA estimate table 
+| Metric | Value | 
+| Dynamic power (mW) | | 
+| LUT count | | 
+| Critical path (ns) | | 
+
+```

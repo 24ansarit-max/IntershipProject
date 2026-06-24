@@ -1,0 +1,11 @@
+Reference 4-bit dataflow barrel shifter: 
+assign out = (sel==2'b00) ? in : 
+             (sel==2'b01) ? {in[2:0],in[3]} : 
+             (sel==2'b10) ? {in[1:0],in[3:2]} : 
+                            {in[0],in[3:1]}; 
+ 
+Extend to 16 bits supporting shift amounts 0–15 and all modes: LSL, LSR, ASR, ROL, 
+ROR. 
+
+For each mode, compare synthesised area (LUT count on FPGA) and critical-path 
+delay.

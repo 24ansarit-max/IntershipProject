@@ -1,0 +1,1 @@
+Write synthesizable Verilog code for a 16-bit priority encoder using structural modeling. The inputs are a 16-bit vector, and the outputs are a 4-bit encoded index and a valid signal. Ensure it compiles and is ready for synthesis.

@@ -1,0 +1,1 @@
+You are a Principal RTL Designer. Implement a 16-bit priority encoder using behavioural modeling under strict design rules (no behavioral blocks in structural, optimized delay, explicit port mappings, and no inferred latches). Analyze the synthesis impact before writing the code.

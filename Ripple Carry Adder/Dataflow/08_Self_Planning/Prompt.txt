@@ -1,0 +1,18 @@
+Self-plan then implement a 16-bit ripple carry adder in dataflow 
+Verilog using a generate-for loop, for xc7a100tcsg324-2. 
+ 
+PLANNING PHASE — output these before any code: 
+1. Write the equation for sum[i] = a[i] ^ b[i] ^ carry[i] 
+2. Write the equation for carry[i+1] = majority(a[i], b[i], 
+   carry[i]) and expand it to AND/OR terms 
+3. Decide genvar name, loop bounds (0 to WIDTH-1), and the 
+
+   carry wire width (WIDTH+1 bits) 
+4. Confirm carry[0] = cin and cout = carry[WIDTH] are tied 
+   outside the generate loop 
+ 
+IMPLEMENTATION PHASE — output after planning: 
+Translate your equations directly into Verilog assign statements 
+inside a generate-for block. Use a parameter WIDTH=16. 
+Pure combinational (FF=0). Target: > 100 MHz Fmax, ≤ 16 LUT, 
+< 0.4 mW power.

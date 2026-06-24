@@ -1,0 +1,164 @@
+TASK: Write a synthesizable behavioral Verilog module for a 16-state traffic light 
+controller FSM. 
+TARGET DEVICE: 
+• 
+Xilinx Artix-7 xc7a100tcsg324-2 
+• 
+Vivado 2023.x compatible 
+DESIGN REQUIREMENTS 
+[TIMING] 
+• 
+Target Fmax > 100 MHz 
+• 
+Single-cycle state transition 
+• 
+Critical path should be: 
+state_reg → next_state_logic → state_reg 
+[AREA] 
+• 
+State register: 16-bit one-hot encoding 
+• 
+Internal timer: 16-bit phase-duration counter 
+• 
+Expected FF count ≈ 32 
+(16 state FFs + 16 timer FFs) 
+• 
+LUT utilization target < 50 LUT6 
+
+[POWER] 
+• 
+Minimize switching activity where practical 
+• 
+One-hot FSM preferred for simplified decode logic 
+[RESET] 
+• 
+Synchronous active-high reset only 
+• 
+No asynchronous reset 
+[CODING STYLE] 
+• 
+Behavioral RTL 
+• 
+Use exactly: 
+o one always @(posedge clk) block for state register 
+o one always @(posedge clk) block for timer register 
+o one always @(*) block for next-state logic 
+o one always @(*) block for output decode 
+• 
+Use non-blocking assignments (<=) in clocked blocks 
+• 
+Use blocking assignments (=) in combinational blocks 
+FSM REQUIREMENTS 
+• 
+16 one-hot states using localparam [15:0] 
+• 
+Traffic controller for four directions: 
+o North 
+o South 
+o East 
+o West 
+Each direction supports: 
+• 
+RED 
+• 
+YELLOW 
+• 
+GREEN 
+• 
+WALK 
+OUTPUTS 
+
+North: 
+• 
+red_n 
+• 
+yellow_n 
+• 
+green_n 
+• 
+walk_n 
+South: 
+• 
+red_s 
+• 
+yellow_s 
+• 
+green_s 
+• 
+walk_s 
+East: 
+• 
+red_e 
+• 
+yellow_e 
+• 
+green_e 
+• 
+walk_e 
+West: 
+• 
+red_w 
+• 
+yellow_w 
+• 
+green_w 
+• 
+walk_w 
+TIMER 
+• 
+16-bit phase-duration timer 
+• 
+Parameter PHASE_TIME 
+• 
+Timer counts down each clock cycle 
+• 
+timer_expire asserted when counter reaches zero 
+• 
+Counter reloads automatically on state transition 
+LATCH PREVENTION 
+• 
+All combinational outputs must have default assignments 
+
+• 
+Full case statement coverage required 
+• 
+Include default branch in every case statement 
+• 
+No inferred latches 
+FORBIDDEN 
+• 
+No initial blocks 
+• 
+No #delay statements 
+• 
+No casex 
+• 
+No casez 
+• 
+No force/release 
+• 
+No simulation-only code 
+• 
+No implicit nets 
+• 
+No asynchronous reset 
+REQUIRED COMMENTS 
+Annotate: 
+• 
+State encoding section 
+• 
+State register section 
+• 
+Timer section 
+• 
+Next-state logic section 
+• 
+Output decode section 
+• 
+Estimated FF count 
+• 
+Estimated LUT count 
+• 
+Expected critical path 
+DELIVERABLE 
+Provide one complete Verilog module only.

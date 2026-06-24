@@ -1,0 +1,16 @@
+Think step by step before writing any Verilog code.
+
+TASK: Write a complete 16-bit Carry Lookahead Adder in STRUCTURAL style.
+
+Step 1 — Explain why a ripple-carry adder has O(N) gate depth while a two-level CLA has O(log N).
+
+Step 2 — Plan the module hierarchy: pg_cell, 4-bit carry_chain block, and top-level cla_16bit_structural.
+
+Step 3 — Derive the 4-bit carry lookahead equations (C1..C4) using only gate primitives (and, or, xor, buf).
+
+Step 4 — Plan how four 4-bit blocks connect with inter-block carries C4, C8, C12, C16.
+
+Step 5 — Plan sum generation and signed overflow detection.
+
+Step 6 — Write the complete structural Verilog using only module instantiations and gate primitives.
+Include `timescale 1ns/1ps and // Power / // Area / // Delay comments.

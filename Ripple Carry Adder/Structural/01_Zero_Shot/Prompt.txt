@@ -1,0 +1,19 @@
+Write a synthesizable Verilog module for a 16-bit ripple carry 
+adder using structural style: define a 1-bit full_adder module, 
+then instantiate it 16 times using a generate-for loop with genvar. 
+ 
+Target FPGA: xc7a100tcsg324-2. 
+ 
+- module full_adder(input a,b,cin, output sum,cout); 
+- module rca16 instantiates full_adder 16 times via: 
+  genvar i; 
+  generate 
+    for (i=0; i<16; i=i+1) begin : fa_chain 
+      full_adder fa_inst (.a(a[i]), .b(b[i]), .cin(carry[i]), 
+                           .sum(sum[i]), .cout(carry[i+1])); 
+    end 
+  endgenerate 
+- carry[0] = cin; cout = carry[16] 
+- Comment every instance with its bit index 
+ 
+PPA target: FF = 0, LUT ≤ 16, Fmax > 100 MHz.

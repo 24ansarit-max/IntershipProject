@@ -1,0 +1,21 @@
+ITERATION 1 — Flat version: 
+Write a single-module behavioral 16-bit traffic light FSM for 
+xc7a100tcsg324-2 (one-hot, sync reset). Functional correctness only. 
+ 
+ITERATION 2 — Structural refactor: 
+Extract the state register into tl_reg16 and the output decoder 
+into tl_outdec. Wire them from a new tl_top. Leave next-state 
+logic inline in a tl_ns module. Use named port connections. 
+Mark moved code: // refactored to structural. 
+ 
+ITERATION 3 — Interface hardening: 
+Add a parameter WIDTH=16 to tl_reg16 and tl_ns so they are 
+reusable for other FSM widths. Verify instantiation still uses 
+
+#(.WIDTH(16)). Mark: // iter3: parameterized. 
+ 
+ITERATION 4 — PPA annotation: 
+Add a // PPA: comment block to each module: 
+  // PPA: FF=XX LUT=XX critical_path=X.Xns Fmax_est=XXXMHz 
+ 
+Final: xc7a100tcsg324-2, Fmax > 100 MHz, total LUT < 65, FF ≤ 32.

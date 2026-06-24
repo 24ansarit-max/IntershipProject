@@ -1,0 +1,29 @@
+Here is a working 4-bit traffic light FSM in behavioral Verilog 
+as a reference example: 
+ 
+// --- EXAMPLE (4-bit, do NOT copy, use as style guide) --- 
+module tl_4bit (input clk, rst, output reg [1:0] light); 
+  parameter S0=4'b0001, S1=4'b0010, S2=4'b0100, S3=4'b1000; 
+  reg [3:0] state; 
+
+  always @(posedge clk) begin 
+    if (rst) state <= S0; 
+    else case(state) 
+      S0: state <= S1; 
+      S1: state <= S2; 
+      S2: state <= S3; 
+      S3: state <= S0; 
+      default: state <= S0; // prevent latch 
+    endcase 
+  end 
+  assign light = state[1:0]; 
+endmodule 
+// --- END EXAMPLE --- 
+ 
+Now write a 16-bit version with: 
+- 16 states (one-hot, parameter-defined) 
+- 4 traffic directions × 4 phases (RED/YELLOW/GREEN/WALK) 
+- 16-bit timer register for phase duration 
+- Synchronous reset, no latches 
+- Behavioral always blocks with comments 
+- Target: xc7a100tcsg324-2, Fmax > 100 MHz, < 60 LUTs

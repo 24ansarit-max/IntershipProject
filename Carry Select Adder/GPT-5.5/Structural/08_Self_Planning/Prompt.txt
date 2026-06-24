@@ -1,0 +1,1 @@
+Before writing Verilog, produce a PLAN (modules needed, iteration table, parameters, critical path trace), then write complete Verilog implementing every row in the iteration table.

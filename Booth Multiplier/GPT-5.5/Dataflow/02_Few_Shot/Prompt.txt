@@ -1,0 +1,24 @@
+Example of Dataflow RTL coding style: 
+ 
+module adder( 
+
+    input [7:0] a, 
+    input [7:0] b, 
+    output [8:0] sum 
+); 
+ 
+assign sum = a + b; 
+ 
+endmodule 
+ 
+Using the same Dataflow RTL style shown above, generate synthesizable Verilog code for a 
+16-bit signed Booth Multiplier. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Dataflow RTL only. 
+- Continuous assignments preferred. 
+- No procedural blocks. 
+- No always statements. 
+- Target FPGA: xc7a100tcsg324-2. 
+- Output code only.

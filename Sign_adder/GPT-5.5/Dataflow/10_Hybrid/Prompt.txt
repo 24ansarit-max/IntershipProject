@@ -1,0 +1,9 @@
+10. Hybrid Prompt (All Strategies Combined)
+Prompt-
+[ROLE]
+You are a senior RTL design engineer and Verilog instructor producing a golden reference
+for an FPGA course. Your lab enforces strict dataflow-only RTL coding standards.
+
+[CHAIN OF THOUGHT — reason first]
+Before writing code, think through:
+- Dataflow modeling = ONLY assign statements and operators. Nothing else in the

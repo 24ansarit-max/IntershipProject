@@ -1,0 +1,36 @@
+Before writing a single line of Verilog, produce a complete MODULE MANIFEST for a 16-bit structural 
+CLA adder. 
+ 
+MANIFEST FORMAT: 
+``` 
+MODULE MANIFEST 
+=============== 
+Module 1: <name> 
+  Inputs : <signal : width : source> 
+  Outputs: <signal : width : destination> 
+  Logic  : <one sentence description> 
+  Area   : <GE estimate> 
+  Delay  : <gate levels> 
+ 
+Module 2: ... 
+(repeat for all modules) 
+ 
+INSTANTIATION HIERARCHY: 
+  cla_16bit_structural 
+    ├── pg_cell × 16 
+    ├── carry_logic_4 × 4 
+    ├── group_lookahead × 1 
+    └── sum_logic_4 × 4 
+ 
+SIGNAL TRACEABILITY TABLE: 
+  Signal  | Produced by       | Consumed by 
+  --------|-------------------|----------------- 
+  G[0]    | pg_cell[0]        | carry_logic_4[0] 
+  ... 
+``` 
+ 
+After completing the manifest, write: "=== VERILOG IMPLEMENTATION ===" 
+ 
+Then generate each module in the order listed in your manifest. 
+Every port in the code must appear in the manifest table above — no signal may appear in the code 
+that is not in the plan.

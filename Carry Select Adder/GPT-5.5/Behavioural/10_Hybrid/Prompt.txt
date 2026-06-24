@@ -1,0 +1,4 @@
+[ROLE] Principal verification architect. Behavioral reference model.
+[CONSTRAINTS] DELAY_PS=300, AREA_UM2=648, POWER_UW=110, zero latches.
+[THINK] 4 iterations, 22 intermediate regs, defaults, carry chain b0→b1→b2→b3.
+[OUTPUT FORMAT] Sections 1-4 with always body subsections 4a-4f.

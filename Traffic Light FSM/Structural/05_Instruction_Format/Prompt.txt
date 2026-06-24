@@ -1,0 +1,19 @@
+TASK: 16-bit traffic light FSM, structural Verilog. 
+TARGET: xc7a100tcsg324-2 
+ 
+DELIVER IN THIS EXACT ORDER: 
+1. Sub-module: tl_dff16    — 16-bit D flip-flop, sync reset 
+2. Sub-module: tl_ns16     — next-state combinational 
+3. Sub-module: tl_timer16  — 16-bit countdown timer 
+4. Sub-module: tl_outdec   — output decoder 
+5. Top module: traffic_light_top — structural wiring only 
+
+ 
+FORMAT RULES: 
+- Every module starts with a // ===== MODULE NAME ===== banner 
+- Every port commented inline: input clk, // system clock 100MHz 
+- Every instance uses named port connections: .port(net) 
+- No logic in top-level module (assign and always forbidden there) 
+- End of file: PPA comment // LUT=XX FF=XX Fmax=XXXMHz 
+ 
+CONSTRAINTS: Fmax > 100 MHz, FF ≤ 32, LUT ≤ 70, sync reset.

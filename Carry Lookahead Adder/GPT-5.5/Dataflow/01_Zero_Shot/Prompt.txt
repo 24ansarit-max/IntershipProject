@@ -1,0 +1,10 @@
+Write a 16-bit Carry Lookahead Adder in Verilog DATAFLOW style using only assign statements. 
+ 
+- No always blocks, no instantiation 
+- Compute G[i]=a[i]&b[i] and P[i]=a[i]^b[i] for i=0..15 
+- Derive carries C[1]..C[16] using CLA equations 
+- Compute sum[i]=P[i]^C[i] 
+- Parameter N=16 
+- Comment // Delay: ~4 gate levels per 4-bit group 
+- Comment // Area: ~160 gates estimated 
+- Comment // Power: switching activity proportional to toggles

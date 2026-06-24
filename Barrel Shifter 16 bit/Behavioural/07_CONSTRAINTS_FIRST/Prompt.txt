@@ -1,0 +1,18 @@
+HARD CONSTRAINTS: 
+
+  1. Device: xc7a100tcsg324-2 
+  2. LUT budget: ≤ 64 LUTs (behavioral typically uses more than structural) 
+  3. FF budget: 0 
+  4. Fmax: > 100 MHz 
+  5. No latches allowed 
+  6. Style: BEHAVIORAL (always @(*) + case) 
+ 
+DESIGN NOTE: Behavioral case-based implementation has higher LUT cost than 
+structural MUX tree. Acknowledge this tradeoff explicitly before coding. 
+ 
+CODE: Write the complete synthesizable 16-bit left logical barrel shifter. 
+ 
+OPTIMIZATION HINT: Vivado can optimize case statements better when all 16 entries 
+are explicit. Do not use don't-cares. 
+ 
+VALIDATE: For each constraint, state met / at risk.

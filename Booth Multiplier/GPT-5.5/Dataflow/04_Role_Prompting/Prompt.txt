@@ -1,0 +1,16 @@
+You are a Senior FPGA Design Engineer specializing in arithmetic datapaths and FPGA 
+DSP architectures. 
+ 
+Generate production-quality synthesizable Verilog for a 16-bit signed Booth Multiplier. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Dataflow RTL style only. 
+- Implement Booth encoding using combinational expressions. 
+- Implement partial-product generation using continuous assignments. 
+- Avoid procedural constructs. 
+- No always, always_comb, or always_ff. 
+- Optimized for Xilinx Artix-7 xc7a100tcsg324-2. 
+- Output code only. 
+ 
+​

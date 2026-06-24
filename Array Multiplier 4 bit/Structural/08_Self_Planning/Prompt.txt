@@ -1,0 +1,12 @@
+You are about to write a structural Verilog implementation of a 
+4-bit array multiplier. Before writing any code, produce a design plan 
+that covers: 
+ 
+1. List of all sub-modules with their port signatures 
+2. Total count of AND gates, half adders, and full adders needed 
+3. A wire-naming convention for partial products and intermediate sums 
+4. The order in which rows will be instantiated 
+ 
+After your plan is complete, implement the full structural Verilog. 
+Module name: array_multiplier_4bit. Inputs: a[3:0], b[3:0]. 
+Output: product[7:0]. Use only instantiation and wire declarations.

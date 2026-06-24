@@ -1,0 +1,24 @@
+Write a behavioral Verilog 16-bit ripple carry adder using a 
+for loop for xc7a100tcsg324-2. 
+ 
+DO NOT do any of the following: 
+- Do NOT use asynchronous reset on any registered stage 
+  (if a registered output is included, use posedge clk only, 
+   with reset checked synchronously inside the always block) 
+- Do NOT infer latches (every loop iteration must fully assign 
+  sum[i] and carry[i+1] — no partial conditional assignment) 
+- Do NOT use initial blocks to initialize the carry chain 
+- Do NOT use `#delay` statements anywhere 
+
+- Do NOT hardcode 16 as a bare literal in the loop bound; 
+  use a parameter WIDTH=16 
+- Do NOT use blocking assignments (=) inside a clocked 
+  always @(posedge clk) block — use <= 
+- Do NOT leave carry[16] unconnected — explicitly assign cout 
+ 
+DO: 
+- Use a for loop inside always @(*) for the combinational core 
+- Pure combinational (FF=0) unless a registered version is 
+  explicitly requested, in which case use synchronous reset 
+ 
+PPA: Fmax > 100 MHz, LUT ≤ 18, FF=0 (or 17 if registered).

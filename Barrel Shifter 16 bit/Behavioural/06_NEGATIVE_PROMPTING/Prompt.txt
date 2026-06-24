@@ -1,0 +1,18 @@
+Write a 16-bit barrel shifter in BEHAVIORAL Verilog for xc7a100tcsg324-2. 
+ 
+DO NOT: 
+  ✗ Use clocked always blocks (posedge/negedge) 
+  ✗ Omit a default case (would create latches) 
+  ✗ Use if-else chains (prefer case — cleaner synthesis) 
+  ✗ Use Verilog arithmetic shift >>> (may sign-extend incorrectly) 
+  ✗ Leave output un-driven for any shift value 
+  ✗ Use reg for internal combinational signals not needed as reg 
+ 
+
+DO: 
+  ✓ Use always @(*) with case(shift[3:0]) 
+  ✓ Include default: out = 16'h0000; 
+  ✓ Left logical shift, 16 entries 
+  ✓ Fmax > 100 MHz 
+ 
+Estimate Power (mW), Area (LUTs), Delay (ns) after the code.

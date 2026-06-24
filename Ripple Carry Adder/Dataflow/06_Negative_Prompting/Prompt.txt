@@ -1,0 +1,22 @@
+Write a dataflow Verilog 16-bit ripple carry adder using a 
+generate-for loop for xc7a100tcsg324-2. 
+ 
+FORBIDDEN patterns — if you use any of these the code is wrong: 
+✗ No blocking assignment (=) inside any always block 
+
+  (this design should have no always block for the adder core 
+   at all — assign only) 
+✗ No multiple drivers on the same wire (each carry[i] must be 
+  driven by exactly one assign inside the generate loop) 
+✗ No casez/casex (not applicable here, but do not introduce any) 
+✗ No $display, $monitor, or simulation-only constructs 
+✗ No use of Z (high-impedance) on internal carry signals 
+✗ No implicit wire declarations — declare carry as 
+  wire [16:0] carry; explicitly before the generate block 
+✗ No genvar reuse outside its generate scope 
+ 
+REQUIRED: 
+- generate-for with genvar producing assign sum[i] and 
+  assign carry[i+1] statements 
+- carry[0] tied to cin, cout tied to carry[16] 
+- Pure combinational, Fmax > 100 MHz, LUT ≤ 16.

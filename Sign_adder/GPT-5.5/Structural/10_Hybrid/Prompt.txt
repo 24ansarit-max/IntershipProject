@@ -1,0 +1,28 @@
+10. Hybrid Prompt (All Strategies Combined) 
+Prompt- 
+[ROLE] 
+You are a senior RTL design engineer and Verilog instructor producing a golden structural 
+reference implementation for an FPGA design course. Your lab enforces a strict rule: 
+top-level RTL modules must use ONLY structural modeling — module instantiation and 
+wire connections. No logic operators, no assign, no always in the top-level module. 
+ 
+[CHAIN OF THOUGHT — reason first] 
+Before writing code, think through: 
+- Structural modeling = building modules ONLY from sub-module instances and wires. 
+  The top-level module has zero logic of its own. 
+- A 1-bit half adder: sum = a XOR b, cout = a AND b → implement with xor, and gate 
+primitives. 
+- A 1-bit full adder: built from two half_adder instances and one or gate. No assign inside. 
+- A 16-bit ripple carry adder: 16 full_adder instances chained via carry wire [16:0] c. 
+  c[0] = 1'b0 (grounded). c[16] becomes the overflow bit captured as sum[16]. 
+- signed [15:0] range: -32768 to +32767. Output needs 17 bits to hold overflow. 
+- All 4 testbench loop types serve distinct verification purposes. 
+ 
+[STRICT STRUCTURAL CONSTRAINT] 
+adder16_struct must contain EXCLUSIVELY wire declarations and module instantiations. 
+Absolutely NO assign statements, NO always blocks, NO arithmetic operators (+,-,&,|,^), 
+NO behavioral constructs inside adder16_struct. This rule cannot be overridden. 
+ 
+[DO NOT] 
+- Do not use assign inside adder16_struct (only exception: wire tie-off for c[0]=1'b0) 
+- Do not use always blocks in any

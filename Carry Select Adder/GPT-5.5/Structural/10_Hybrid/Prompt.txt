@@ -1,0 +1,6 @@
+[ROLE] Principal RTL architect at 28nm foundry.
+[CONSTRAINTS FIRST] Timing ≤400ps, Area ≤700μm², Power ≤500μW.
+[THINK STEP BY STEP] List blocks, trace carry chain, compute area and critical path.
+[DO NOT] behavioral code, generate blocks, implicit connections.
+[OUTPUT FORMAT] 7 sections from parameters through specify block.
+Produce complete synthesis-ready Verilog.

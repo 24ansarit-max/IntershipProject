@@ -1,0 +1,21 @@
+Generate synthesizable Verilog for a 16-bit signed Booth Multiplier. 
+ 
+After generating the initial design: 
+ 
+1. Review Booth algorithm correctness. 
+2. Verify signed multiplication support. 
+3. Verify arithmetic shift behavior. 
+
+4. Verify synthesizability. 
+5. Verify correct output width. 
+6. Verify procedural implementation. 
+7. Correct any identified issues. 
+ 
+Then provide the final corrected version. 
+ 
+Requirements: 
+- Radix-2 Booth multiplication. 
+- Behavioral RTL. 
+- No multiplication operator (*). 
+- Target FPGA: xc7a100tcsg324-2. 
+- Output final code only.
