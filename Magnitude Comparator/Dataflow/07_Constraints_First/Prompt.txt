@@ -1,0 +1,3 @@
+READ ALL CONSTRAINTS BEFORE WRITING ANY CODE:
+DESIGN CONSTRAINTS: [C1] Dataflow only, [C2] Forbidden constructs, [C3] Output ports (5 wire outputs), [C4] Unsigned 16-bit inputs, [C5] Specific assign statements, [C6] One-hot property comments, [C7] Derived outputs comments.
+TESTBENCH CONSTRAINTS: [C8] FOR loop with 20 specific pairs, [C9] WHILE loop with 100 random runs, [C10] REPEAT loop with 50 random runs, [C11] FOREVER loop clk toggle and finish at 2000ns, [C12] Pass/Fail verification, [C13] One-hot verification, [C14] Display format, [C15] Final summary.

@@ -1,0 +1,7 @@
+Write a complete Verilog implementation of a 16-bit Magnitude Comparator
+using STRICTLY DATAFLOW MODELING ONLY.
+STRICT DATAFLOW RULE:
+The design module must contain ONLY assign statements using Verilog operators (relational, logical, bitwise, conditional, concatenation).
+No always blocks, no structural instantiation, no gate primitives, no module instantiation of any kind inside the design module.
+DESIGN MODULE REQUIREMENTS: Module name: comparator16_df, input [15:0] A, input [15:0] B, outputs A_gt_B, A_lt_B, A_eq_B. All outputs driven by assign statements.
+TESTBENCH REQUIREMENTS: Write tb_comparator16 that tests using ALL FOUR loop types (FOR, WHILE, REPEAT, FOREVER).

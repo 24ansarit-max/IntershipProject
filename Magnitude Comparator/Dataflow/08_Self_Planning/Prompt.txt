@@ -1,0 +1,4 @@
+INSTRUCTION: Before writing any Verilog code, produce a complete written PLAN answering all 12 questions below. Then execute that plan to produce final code.
+PLANNING PHASE questions Q1-Q12 about module signature, inputs/outputs, wire vs reg, one-hot proof, loops, error verification.
+EXECUTION PHASE: Write comparator16_df and tb_comparator16 based on the plan.
+REVIEW PHASE checklist.

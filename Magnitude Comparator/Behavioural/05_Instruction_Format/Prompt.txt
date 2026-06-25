@@ -1,0 +1,5 @@
+Write a 16-bit behavioral Verilog magnitude comparator.
+Deliver response in EXACTLY this format:
+### SECTION 1 — MODULE SPECIFICATION (Port Name table)
+### SECTION 2 — DESIGN RATIONALE (Explain always @(*), if/else, latch prevention)
+### SECTION 3 — VERILOG MODULE (mag_comp16.v)

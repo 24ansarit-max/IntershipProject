@@ -1,0 +1,6 @@
+Master prompt combining role, constraints, chain-of-thought, examples, format, negative rules, self-planning, and iterative correction.
+[ROLE] Principal RTL engineer.
+[CONSTRAINTS] C1-C8.
+[CHAIN-OF-THOUGHT] Q1-Q6.
+[EXAMPLES] skeletons.
+[FORMAT] exact output format.

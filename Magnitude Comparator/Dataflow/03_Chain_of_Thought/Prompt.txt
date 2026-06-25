@@ -1,0 +1,9 @@
+Think step by step through every decision before writing any Verilog code.
+STRICT DATAFLOW RULE: ONLY assign statements, no always, no structural, no gate primitives.
+STEP 1: Understand magnitude comparator (A_gt_B, A_lt_B, A_eq_B).
+STEP 2: Understand dataflow modeling.
+STEP 3: Design comparator16_df module with A, B, A_gt_B, A_lt_B, A_eq_B, A_gte_B, A_lte_B.
+STEP 4: Verify dataflow logic.
+STEP 5: Plan 20 corner case pairs.
+STEP 6: Write testbench with FOR, WHILE, REPEAT, FOREVER loops.
+STEP 7: Verify.

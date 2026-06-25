@@ -1,0 +1,8 @@
+Write behavioral Verilog for a 16-bit magnitude comparator targeting the Nexys A7 FPGA (xc7a100tcsg324-2, Vivado 2023.x).
+Requirements:
+- Module name: mag_comp16
+- Inputs: A[15:0], B[15:0] (unsigned)
+- Outputs: A_gt_B, A_lt_B, A_eq_B (all 1-bit reg)
+- Use behavioral modeling: a single always @(*) block with if/else if/else
+- All three outputs driven in every branch (no latches)
+- Synthesizable in Vivado.

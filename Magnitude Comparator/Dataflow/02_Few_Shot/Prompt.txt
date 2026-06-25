@@ -1,0 +1,4 @@
+I will show you examples of dataflow Verilog modeling. You will extend them into a complete 16-bit Magnitude Comparator with testbench.
+STRICT DATAFLOW RULE: ONLY assign statements, no always blocks, no structural, no gate primitives.
+Scale EXAMPLE 2 to 16-bit comparator (comparator16_df) with outputs A_gt_B, A_lt_B, A_eq_B, A_gte_B, A_lte_B and eq_bitwise.
+Build testbench with all 4 loop types.

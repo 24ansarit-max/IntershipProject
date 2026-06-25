@@ -1,0 +1,4 @@
+You will write a 16-bit magnitude comparator in behavioral Verilog in three rounds.
+ROUND 1: First draft focusing on structure.
+ROUND 2: Self-review checklist (reg outputs, always @(*), no latches, etc.).
+ROUND 3: Write corrected synthesizable code.

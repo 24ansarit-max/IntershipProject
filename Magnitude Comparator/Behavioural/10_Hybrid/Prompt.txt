@@ -1,0 +1,5 @@
+[ROLE] Senior RTL verification engineer.
+[TASK] Design and verify 16-bit unsigned magnitude comparator in behavioral Verilog.
+[HARD CONSTRAINTS] C1-C10 (latch-free, combinational always @(*)).
+[DO NOT] no assign, no ternary, no structural, no wire outputs, no synchronous.
+[OUTPUT FORMAT] 1. Plan, 2. Checklist, 3. Code, 4. Vivado synthesis note.

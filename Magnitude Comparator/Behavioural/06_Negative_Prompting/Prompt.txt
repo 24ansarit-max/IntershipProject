@@ -1,0 +1,9 @@
+Write a 16-bit magnitude comparator in behavioral Verilog.
+DO NOT use structural modeling (no gates, no sub-modules, no generate).
+DO NOT use dataflow modeling (no assign).
+DO NOT use ternary operators.
+DO NOT use synchronous logic (no clk).
+DO NOT write incomplete sensitivity list (no always @(A,B)).
+DO NOT leave any output undriven in any branch (latch prevention).
+DO NOT declare outputs as wire.
+DO THE FOLLOWING: single always @(*) block, if/else if/else with 3 branches, reg outputs.

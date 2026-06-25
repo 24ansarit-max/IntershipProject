@@ -1,0 +1,11 @@
+The following constraints are non-negotiable. Read them all before writing code.
+CONSTRAINT C1: Verilog-2001 only.
+CONSTRAINT C2: Structural form strictly (gate primitives or sub-modules, no always, no assign in chain).
+CONSTRAINT C3: 16-bit inputs, GT, LT, EQ outputs.
+CONSTRAINT C4: Parameters N, POWER_OPT, AREA_OPT, DELAY_OPT.
+CONSTRAINT C5: Loop types C5a-C5e (all 5 present in distinct roles).
+CONSTRAINT C6: cmp1 and cmp4 defined before top module.
+CONSTRAINT C7: Synthesizability (iverilog & Synopsys Design Compiler).
+CONSTRAINT C8: Named blocks inside generate.
+CONSTRAINT C9: Completeness (all 8 parameter combinations must work).
+CONSTRAINT C10: Loop type comments.

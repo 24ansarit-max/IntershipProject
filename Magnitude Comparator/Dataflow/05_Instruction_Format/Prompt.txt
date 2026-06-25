@@ -1,0 +1,4 @@
+TASK: Write a 16-bit Magnitude Comparator in Verilog using STRICTLY DATAFLOW MODELING ONLY.
+DELIVER IN EXACTLY THIS FORMAT:
+SECTION 1: DATAFLOW DESIGN MODULE (Module name: comparator16_df, 5 outputs, assign statements ONLY)
+SECTION 2: TESTBENCH (Module name: tb_comparator16, FOR, WHILE, REPEAT, FOREVER loops, simulation error summary)

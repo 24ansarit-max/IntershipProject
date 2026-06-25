@@ -1,0 +1,9 @@
+Write synthesizable Verilog code for a 16-bit magnitude comparator in structural form only (no behavioral always blocks). The module must use generate loops for all structural repetition.
+Module name: cmp16_structural. Parameters: N=16, POWER_OPT=0, AREA_OPT=0, DELAY_OPT=0.
+You must include all five loop constructs at least once:
+1. genvar i + generate for for primary bit-by-bit chain.
+2. Nested generate for outer/inner loop for grouping.
+3. generate if (AREA_OPT) for shared-gate vs standard paths.
+4. generate case ({POWER_OPT, AREA_OPT, DELAY_OPT}) for topologies.
+5. Explicit repeated cmp4 instantiation four times.
+Sub-modules: cmp1 (gate primitives only), cmp4 (nested generate for).

@@ -1,0 +1,3 @@
+Write a 16-bit Magnitude Comparator in Verilog using dataflow modeling only, with a comprehensive testbench.
+STRICTLY DO NOT VIOLATE DESIGN MODULE VIOLATIONS (no always, no structural, no gate primitives, outputs must be wire, provide all 5 outputs, inline comments).
+DO NOT VIOLATE TESTBENCH VIOLATIONS (all 4 loop types, test equal and boundary pairs, one-hot check, delay, print error summary).

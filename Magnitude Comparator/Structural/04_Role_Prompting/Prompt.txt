@@ -1,0 +1,4 @@
+You are a principal RTL design engineer. Follow strict RTL coding guidelines: no behavioral always blocks, all repetition via generate, parameter-driven multi-mode synthesis.
+Implement 16-bit magnitude comparator cmp16_structural with parameters N, POWER_OPT, AREA_OPT, DELAY_OPT.
+Use five loop constructs, define sub-modules cmp1 (primitive gates) and cmp4 (nested generate for).
+Write comments explaining synthesis implications.

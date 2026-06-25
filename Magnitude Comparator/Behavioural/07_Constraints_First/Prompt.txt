@@ -1,0 +1,3 @@
+READ ALL CONSTRAINTS BELOW BEFORE WRITING CODE:
+[C1] Target device: Nexys A7. [C2] Tool: Vivado. [C3] Name: mag_comp16. [C4] Style: Behavioral only. [C5] Inputs: unsigned 16-bit. [C6] Outputs: 1-bit reg. [C7] Latch rule: assign in every branch. [C8] Sensitivity: always @(*). [C9] No clock.
+DELIVERABLES: 1. Confirm all 9 constraints are understood. 2. Write mag_comp16.v.

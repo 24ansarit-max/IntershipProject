@@ -1,0 +1,2 @@
+Before writing any Verilog code, you must complete a written design plan. Fill out the plan completely (Top module parameters/ports, sub-modules needed, loop type mapping, parameter structural effects, critical path analysis, potential issues).
+Then write the complete structural Verilog based on the approved plan.

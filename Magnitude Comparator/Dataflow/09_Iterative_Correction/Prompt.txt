@@ -1,0 +1,7 @@
+Write a 16-bit Magnitude Comparator using dataflow modeling through a structured iterative self-correction process.
+ITERATION 1: Skeleton draft (minimal).
+ITERATION 2: Review and fix core outputs (wire outputs, no always/structural).
+ITERATION 3: Add derived outputs (gte, lte).
+ITERATION 4: Basic testbench with FOR loop (20 pairs, check expected outputs).
+ITERATION 5: Add WHILE and REPEAT loops (random checks, PASS/FAIL).
+ITERATION 6: Add FOREVER loop and finalize (total errors summary).

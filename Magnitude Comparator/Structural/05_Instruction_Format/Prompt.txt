@@ -1,0 +1,9 @@
+Follow every instruction exactly. Write Verilog according to format template.
+INSTRUCTION 1: cmp1 sub-module using Verilog gate primitives.
+INSTRUCTION 2: cmp4 sub-module using nested generate for (Loop Type 2).
+INSTRUCTION 3: cmp16_structural top module with parameters N, POWER_OPT, AREA_OPT, DELAY_OPT.
+INSTRUCTION 4: Loop Type 1 for primary chain.
+INSTRUCTION 5: Loop Type 3 (generate if AREA_OPT == 1).
+INSTRUCTION 6: Loop Type 4 (generate case switching on POWER_OPT, DELAY_OPT).
+INSTRUCTION 7: Loop Type 5 (repeated unroll cmp4 instantiations).
+FORMAT TEMPLATE exactly as specified.

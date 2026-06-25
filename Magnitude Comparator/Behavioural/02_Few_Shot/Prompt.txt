@@ -1,0 +1,4 @@
+Below are two working examples of behavioral magnitude comparators. Follow the exact same style to write a 16-bit version.
+EXAMPLE 1: mag_comp2 (2-bit).
+EXAMPLE 2: mag_comp8 (8-bit).
+YOUR TASK: Write mag_comp16 (16-bit) targeting Nexys A7, Vivado 2023.x using the exact same style.

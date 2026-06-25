@@ -1,0 +1,3 @@
+Before writing any Verilog code, create a detailed written plan for implementing a 16-bit unsigned magnitude comparator in behavioral Verilog.
+Plan must answer Q1-Q5 about ports, always block sensitivity, comparison logic structure, latch prevention, and Vivado synthesis behavior.
+After plan, write mag_comp16.v.

@@ -1,0 +1,8 @@
+Think step-by-step through each design decision before writing any code.
+Target: 16-bit magnitude comparator in behavioral Verilog for Nexys A7.
+STEP 1: Port definition.
+STEP 2: Sensitivity list (always @(*) vs posedge clk).
+STEP 3: Comparison logic (if/else if/else).
+STEP 4: Latch prevention (avoid inferred latches).
+STEP 5: Synthesis considerations (LUTs on Artix-7).
+STEP 6: Write the code.

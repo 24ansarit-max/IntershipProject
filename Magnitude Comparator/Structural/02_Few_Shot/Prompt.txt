@@ -1,0 +1,4 @@
+Study the following two example patterns, then use them to write a complete 16-bit structural magnitude comparator with all five loop types and three optimization parameters.
+Example A: genvar + generate for (Loop Type 1).
+Example B: nested generate for (Loop Type 2).
+Write: cmp16_structural with cmp1, cmp4, Loop Type 1-5, and parameters N, POWER_OPT, AREA_OPT, DELAY_OPT.

@@ -52,6 +52,15 @@ Synchronous FIFO/
     │   ├── 01_Zero_Shot/ … 10_Hybrid/
     └── Structural/
         ├── 01_Zero_Shot/ … 10_Hybrid/
+
+Magnitude Comparator/
+├── GPT-5.5/
+├── Behavioural/
+│   ├── 01_Zero_Shot/ … 10_Hybrid/
+├── Dataflow/
+│   ├── 01_Zero_Shot/ … 10_Hybrid/
+└── Structural/
+    ├── 01_Zero_Shot/ … 10_Hybrid/
 ```
 
 ## Prompt strategies
@@ -135,6 +144,18 @@ Generated from `SYNCHRONOUS FIFO.pdf`. Implementations are organized under `Sync
 | Behavioural | Procedural `always` blocks for memory, pointers, and status registers |
 
 Each prompting folder contains `Prompt.txt` (the LLM prompt) and `synchronous FIFO.v` (the generated RTL).
+
+## Magnitude Comparator (16-bit)
+
+Generated from prompt collections for magnitude comparators. The implementation is separated into folders based on the architectural style under `Magnitude Comparator/`:
+
+| Section | Description |
+|---------|-------------|
+| Behavioural | Procedural block implementations (`always @(*)`) handling comparisons without inferred latches |
+| Dataflow | Pure continuous assignments (`assign`) for greater than, less than, and equality checks |
+| Structural | Gate-level hierarchy using `cmp1`, `cmp4`, and top-level `cmp16_structural` with multi-mode synthesis options |
+
+Each prompting folder contains `Prompt.txt` (the LLM prompt) and `magnitude comparator.v` (the generated RTL).
 
 ## Simulation
 

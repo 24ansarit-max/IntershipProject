@@ -1,0 +1,3 @@
+Write a 16-bit structural magnitude comparator in Verilog with generate loops and parameters POWER_OPT, AREA_OPT, DELAY_OPT.
+PROHIBITED: no always, no single assign GT=(A>B), no single loop type, no hardcoding 16, no regular for loops, no integer loop vars, no unnamed generate blocks.
+REQUIRED: cmp1, cmp4, cmp16_structural, Loop Type 1-5, synthesizable by Synopsys Design Compiler.

@@ -1,0 +1,5 @@
+This prompt uses four explicit passes.
+PASS 1: Initial draft for cmp16_structural with N=16, POWER_OPT=0, AREA_OPT=0, DELAY_OPT=0.
+PASS 2: Self-audit check list for loop types, parameters, structural rules, completeness.
+PASS 3: Targeted correction.
+PASS 4: Final complete module incorporating all corrections in one file.

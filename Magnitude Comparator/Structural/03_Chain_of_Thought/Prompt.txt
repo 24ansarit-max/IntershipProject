@@ -1,0 +1,7 @@
+Answer each numbered thinking step before writing any code. Write your reasoning explicitly, then write final Verilog.
+Step 1: Decompose problem (GT, LT, EQ, relation to XOR/AND).
+Step 2: Choose sub-modules (cmp1, cmp4).
+Step 3: Map 5 loop constructs.
+Step 4: Plan parameter effects (POWER_OPT, AREA_OPT, DELAY_OPT).
+Step 5: Verify plan (all 8 combinations).
+Step 6: Write Verilog (cmp1, cmp4, cmp16_structural).
