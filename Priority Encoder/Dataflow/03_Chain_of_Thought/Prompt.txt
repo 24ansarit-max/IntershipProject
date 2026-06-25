@@ -1,0 +1,5 @@
+Before writing the code, think step-by-step through the following design decisions for a 16-bit priority encoder:
+1. Decompose the problem of identifying the highest active input bit.
+2. Choose appropriate signals and styles.
+3. Map logical components or loop bounds.
+Now, write the final synthesizable Verilog code using dataflow modeling.

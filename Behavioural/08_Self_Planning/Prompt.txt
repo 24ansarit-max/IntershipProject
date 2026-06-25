@@ -1,0 +1,20 @@
+Before writing any Verilog, create a design plan as comments, then implement it. 
+ 
+PHASE 1 — PLAN (write as // PLAN: comments inside the file): 
+// PLAN: 1. List all ports and their roles 
+// PLAN: 2. Choose loop constructs and justify: for vs generate 
+
+// PLAN: 3. Identify critical path for Fmax > 100 MHz on xc7a100tcsg324-2 
+// PLAN: 4. Estimate LUT count and strategy to stay under 30 
+// PLAN: 5. Identify any latch risk and mitigation 
+ 
+PHASE 2 — IMPLEMENT: 
+After the plan comments, write the full module shift_reg_16 for Nexys A7. 
+- Parameter WIDTH = 16 
+- Ports: clk, rst (sync active-high), mode[1:0], serial_in, data_in[WIDTH-1:0], q[WIDTH-
+1:0] 
+- Use generate + genvar for the FF array (area: reuses routing resources) 
+- Use for loop in always block for the shift mux chain 
+- Every design decision from Phase 1 must map to a // IMPL: comment in the code 
+- PPA targets: Fmax > 100 MHz, ≤30 LUT, dynamic power minimised via CE inference 
+- Zero latches; full comments

@@ -1,0 +1,34 @@
+// FPGA: Nexys A7 (xc7a100tcsg324-2) | STYLE: STRUCTURAL 
+// LOOP: all structural loops compared | STRATEGY: Self-planning 
+
+// ───────────────────────────────────────────────────────────── 
+ 
+Before writing any structural Verilog, build your own implementation plan: 
+ 
+PLAN PHASE: 
+ 
+Q1 — Which loop constructs are valid inside a structural Verilog module? 
+  List all options: 
+  a) genvar + generate for-loop (module replication) 
+  b) generate if / generate case (conditional instantiation) 
+  c) generate for + if combined (conditional per-stage) 
+  d) Manual unrolling (no loop — just 16 copy-pasted instances) 
+  For each: is it truly structural? Does Vivado handle it well? 
+ 
+Q2 — For a 16-bit shift register chain, rank the options by: 
+  Column: Loop type | LUTs | FFs | Fmax | Code scalability | Vivado QoR 
+ 
+Q3 — Which combination will you use for: 
+  - Left-only shift (simplest, best power)? 
+  - Bidirectional shift (needs mux)? 
+  - Universal shift (load + bidir + CE)? 
+ 
+IMPLEMENTATION PHASE — write all three based on your plan: 
+  Module A: sr16_left_struct   (your Q3 pick for left-only) 
+  Module B: sr16_bidir_struct  (your Q3 pick for bidirectional) 
+  Module C: sr16_universal_struct (your Q3 pick for universal) 
+ 
+EVALUATION PHASE: 
+
+  Compare LUT/FF/power estimates across A, B, C. 
+  State which to use in a real Nexys A7 lab project and why.

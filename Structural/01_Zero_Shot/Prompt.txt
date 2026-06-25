@@ -1,0 +1,14 @@
+// Target: Nexys A7 (xc7a100tcsg324-2) | Style: STRUCTURAL 
+// Loop: for | Strategy: Zero-shot 
+ 
+Write synthesizable Verilog for a 16-bit structural shift register 
+targeting the Nexys A7 (xc7a100tcsg324-2) FPGA. 
+ 
+Requirements: 
+- Use STRUCTURAL style: instantiate 16 D flip-flop modules explicitly 
+- Use a Verilog 'for' loop (genvar + generate) to replicate the DFF instances 
+- Include all parameters: WIDTH = 16, SHIFT_DIR = "LEFT" 
+- Ports: clk, rst_n (active-low), load, serial_in, parallel_in[15:0], 
+         serial_out, parallel_out[15:0] 
+- Add comments on each generate block explaining its role 
+- Optimize for minimum power on Artix-7 fabric

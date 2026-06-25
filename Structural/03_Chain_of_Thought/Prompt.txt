@@ -1,0 +1,27 @@
+// Target: Nexys A7 (xc7a100tcsg324-2) | Style: STRUCTURAL-PARAMETRIC 
+// Loop: for + generate | Strategy: Chain-of-thought 
+ 
+
+Think step by step before writing any code: 
+ 
+Step 1 — Architecture decision: 
+  Explain why a structural generate-for loop is optimal for a 16-bit 
+  shift register on Artix-7 vs. a behavioral for loop. Consider: 
+  power, area (LUT count), timing (critical path delay), and Vivado 
+  synthesis behavior. 
+ 
+Step 2 — Module hierarchy: 
+  Describe the hierarchy: top-level sr16 -> 16x dff_ce submodules. 
+  Explain each port's role. 
+ 
+Step 3 — Loop design: 
+  Show how genvar + generate for(i=0;i<WIDTH;i++) chains DFFs. 
+  Include clock enable (CE) for power reduction. 
+ 
+Step 4 — Parameter table: 
+  List all parameters (WIDTH, DIRECTION, INIT, USE_CE) and their 
+  Artix-7 impact on power/area/delay. 
+ 
+Step 5 — Write the complete Verilog: 
+  Now generate the full synthesizable code with all comments from 
+  your analysis above embedded inline. Target: <20 LUTs, <3 ns.

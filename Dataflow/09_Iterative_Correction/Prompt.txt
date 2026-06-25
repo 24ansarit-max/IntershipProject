@@ -1,0 +1,43 @@
+FIVE-ITERATION PROMPT SERIES — 16-bit Shift Register, Dataflow Verilog, Nexys A7 
+(xc7a100tcsg324-2) 
+ 
+Each iteration builds on the previous. Generate all five in sequence. 
+ 
+━━━ ITERATION 1 — Dataflow baseline (right-shift, assign operator) ━━━ 
+Write a minimal dataflow 16-bit right-shift register: 
+  wire [15:0] next_q = {serial_in, q[15:1]};  // right shift via concat 
+  always @(posedge clk) if (rst) q<=16'b0; else if (en) q<=next_q; 
+Use assign only; no always for logic. Add // TIMING: on the assign. 
+ 
+━━━ ITERATION 2 — Add generate/for right-tap wires ━━━ 
+Replace the concat operator with a generate/for ascending block (genvar i, 0 to WIDTH-
+2) producing per-bit assign wires r_tap[i] = q[i+1]. Compare LUT cost vs operator 
+approach. Add // AREA: to justify. 
+
+ 
+━━━ ITERATION 3 — Add generate/for descending (left-shift) ━━━ 
+Add a descending generate block (genvar j, WIDTH-1 downto 1) for left-shift tap wires 
+l_tap[j]=q[j-1]. Expand to bidirectional: assign next_q = dir ? {q[WIDTH-2:0],serial_in} : 
+{serial_in,q[WIDTH-1:1]}; Add // TIMING: on mux. 
+ 
+━━━ ITERATION 4 — Add 4-mode mux + PPA annotations ━━━ 
+Expand to mode[1:0] (00=hold,01=right,10=left,11=load). Use 4-way ternary assign. 
+Add: 
+  // POWER: CE guard in always block — only register when mode!=00 
+  // AREA: total estimated LUTs after mux tree 
+  // TIMING: critical path = mux depth + FDRE setup 
+ 
+━━━ ITERATION 5 — Self-check + simulation loop block + final PPA ━━━ 
+Review all iterations for: latches, async reset, blocking in clocked block, missing mux 
+arms. 
+Fix any issues. Add at bottom: 
+ 
+// ===== SIM ONLY — DO NOT SYNTHESISE ===== 
+// forever: clock generator in testbench 
+// repeat(16): shift 16 serial bits through the register 
+// for (i=0; i<16; i=i+1): check each bit output 
+// ========================================= 
+ 
+// ══ FINAL PPA ESTIMATE ══ 
+// LUTs: XX | FFs: 16 | Fmax: >100 MHz | Power: ~X mW 
+// Loop coverage: gen/for(asc)✓ gen/for(desc)✓ forever(sim)✓ repeat(sim)✓ for(sim)✓

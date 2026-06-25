@@ -1,0 +1,44 @@
+// FPGA: Nexys A7 (xc7a100tcsg324-2) | STYLE: STRUCTURAL 
+// LOOP: generate-for | STRATEGY: Instruction + format 
+// ───────────────────────────────────────────────────────────── 
+ 
+INSTRUCTION: Write a 16-bit structural Verilog shift register 
+for xc7a100tcsg324-2 using generate-for loop. 
+ 
+OUTPUT FORMAT — follow this exact section order, no deviations: 
+
+ 
+## SECTION 1: Parameters 
+```verilog 
+parameter WIDTH     = 16;   // chain length 
+parameter DIRECTION = 2'b00; // 00=left, 01=right, 10=bidir 
+parameter USE_CE    = 1;    // 1=clock enable, 0=free-run 
+parameter INIT      = 16'h0000; // initial shift reg value 
+``` 
+ 
+## SECTION 2: Port map comment table 
+// Port           | Width     | Dir | Function 
+// ───────────────|───────────|─────|────────────────────────── 
+// clk            | 1         | I   | System clock (up to 250MHz) 
+// rst_n          | 1         | I   | Sync active-low reset 
+// ce             | 1         | I   | Clock enable (power gate) 
+// dir            | 1         | I   | 0=left shift, 1=right shift 
+// load           | 1         | I   | Parallel load enable 
+// serial_in      | 1         | I   | Serial data input 
+// parallel_in    | WIDTH     | I   | Parallel load data 
+// parallel_out   | WIDTH     | O   | Registered parallel output 
+// serial_out     | 1         | O   | Serial data output 
+ 
+## SECTION 3: dff_ce submodule (complete, synthesizable) 
+ 
+## SECTION 4: sr16_struct top module with generate-for loop 
+ 
+## SECTION 5: Vivado synthesis attributes (inline with code) 
+ 
+
+## SECTION 6: Resource estimate comment block 
+// Vivado expected report: 
+// Slice LUTs  : ___ 
+// Slice FFs   : ___ 
+// Dynamic Pwr : ___ mW  @ 100MHz, toggle=0.5 
+// Critical path: ___ ns

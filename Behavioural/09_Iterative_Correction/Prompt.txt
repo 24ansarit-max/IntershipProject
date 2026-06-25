@@ -1,0 +1,30 @@
+ITERATION PROMPT SERIES for 16-bit Shift Register on Nexys A7 (xc7a100tcsg324-2). 
+ 
+--- ITERATION 1 (baseline): --- 
+Write a minimal 16-bit right-shift register (shift_reg_16) using a for loop. Synchronous 
+active-high reset. No other features yet. 
+ 
+--- ITERATION 2 (add left-shift with while loop): --- 
+Extend the previous code to support bidirectional shifting. Add left-shift using a while 
+loop (i starts at WIDTH-1, decrements). Keep for loop for right-shift. Add dir input 
+(0=right, 1=left). 
+ 
+--- ITERATION 3 (add parallel load + generate flop array): --- 
+Refactor the FF array into a generate block with genvar. Add parallel_load mode and 
+data_in[15:0]. Use mode[1:0]: 00=hold,01=right,10=left,11=load. 
+ 
+
+--- ITERATION 4 (PPA annotations): --- 
+Annotate the Iteration 3 code with: 
+// POWER: where CE inference eliminates toggling 
+// AREA: where generate or shared logic saves LUTs 
+// TIMING: where the critical path runs and Fmax is determined 
+ 
+--- ITERATION 5 (self-check + final): --- 
+Review the annotated code for: latches, asynchronous resets, blocking assignments in 
+clocked blocks, and missing else branches. Fix all issues. Output the final clean module 
+with a // FINAL PPA ESTIMATE: block at the top. 
+ 
+Note on repeat/forever: demonstrate repeat in a // SIM ONLY comment showing how a 
+testbench would clock the DUT N times; demonstrate forever in a // SIM ONLY clock 
+generator comment. Do not synthesise these.

@@ -1,0 +1,59 @@
+// 
+═════════════════════════════════════════════════════
+═══════════ 
+// ITERATION 1 — STRUCTURAL BASELINE 
+// FPGA : Nexys A7 (xc7a100tcsg324-2) 
+// GOAL : Simplest correct structural shift register — get it working 
+// LOOP : genvar + generate for-loop 
+// LABEL: // v1.0 - structural baseline 
+// 
+═════════════════════════════════════════════════════
+═══════════ 
+ 
+Write a minimal 16-bit STRUCTURAL Verilog shift register. 
+ 
+STRUCTURAL RULE: Zero behavioral always blocks in the top module. 
+All sequential logic lives ONLY in the dff submodule. 
+ 
+SUBMODULE: dff (v1.0 — plain, no extras) 
+  module dff( 
+    input  clk, 
+    input  rst_n,   // sync active-low reset 
+    input  d, 
+    output reg q 
+  ); 
+  // single clocked always block — ONLY place in the design 
+  always @(posedge clk) 
+    if (!rst_n) q <= 1'b0; 
+    else        q <= d; 
+
+  endmodule 
+ 
+TOP MODULE: sr16_v1 (v1.0) 
+  parameter WIDTH = 16 
+  Ports: clk, rst_n, serial_in, serial_out 
+  Body: 
+    wire [WIDTH:0] chain; 
+    assign chain[0] = serial_in; 
+    genvar i; 
+    generate 
+      for (i = 0; i < WIDTH; i = i + 1) begin : dff_chain 
+        dff u_dff ( 
+          .clk   (clk), 
+          .rst_n (rst_n), 
+          .d     (chain[i]), 
+          .q     (chain[i+1]) 
+        ); 
+      end 
+    endgenerate 
+    assign serial_out = chain[WIDTH]; 
+ 
+Accept imperfections. No parallel load, no CE, no direction. 
+This is intentionally incomplete — it will be improved in iterations 2-6. 
+ 
+Add at top: 
+  // v1.0 - structural baseline 
+  // [POWER]  ~9 mW (no clock enable — all FFs toggle freely) 
+  // [AREA]   16 FFs, 0 LUTs (pure shift chain) 
+
+  // [DELAY]  ~1.9 ns FF-to-FF (single FDCE stage)

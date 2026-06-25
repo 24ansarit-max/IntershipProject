@@ -1,0 +1,36 @@
+// FPGA: Nexys A7 (xc7a100tcsg324-2) | STYLE: STRUCTURAL 
+// LOOP: generate-for | STRATEGY: Constraints-first 
+// ───────────────────────────────────────────────────────────── 
+ 
+HARD CONSTRAINTS — satisfy ALL before writing a single line of code: 
+ 
+[C1 — TIMING] 
+  Target clock: 200 MHz on xc7a100tcsg324-2 speed grade -2 
+  Maximum combinational delay through any path: 0 ns 
+  (pure FF-to-FF path only — no combinational logic in shift chain) 
+  Required: each generate stage = exactly 1 FDCE, no LUT in data path 
+ 
+[C2 — AREA] 
+
+  Slice FFs:  exactly WIDTH (16) 
+  Slice LUTs: 0 for the shift chain itself 
+              ≤16 for control (load mux, direction mux) 
+  No DSP48, no BRAM, no BUFG added by the module itself 
+ 
+[C3 — POWER] 
+  Dynamic power < 8 mW at 100 MHz, toggle rate 0.5 
+  All 16 DFFs must be gated by a common clock enable (ce) 
+  Use (* use_clock_enable = "yes" *) on generate block 
+ 
+[C4 — STRUCTURAL STYLE] 
+  Top module: ZERO behavioral always blocks (only assign + instantiation) 
+  All sequential logic in dff_ce submodule only 
+  Loop: genvar + generate for-loop ONLY (no manual unrolling) 
+ 
+[C5 — SYNTHESIS] 
+  Verilog-2001 syntax only (no SystemVerilog) 
+  (* shreg_extract = "no" *) to force FDCE not SRL16E (meets C1) 
+  Named generate blocks: begin : dff_chain_i end 
+ 
+Now write the complete structural code. After each constraint above, 
+add a comment line: // [C1 MET], // [C2 MET], etc. in the code.

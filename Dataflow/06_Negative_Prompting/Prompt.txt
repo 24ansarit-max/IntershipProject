@@ -1,0 +1,31 @@
+Write a synthesisable DATAFLOW Verilog module shift_reg_16 for Nexys A7 
+(xc7a100tcsg324-2). 
+ 
+══ DO NOT do any of the following ══ 
+- Do NOT use always @(*) or always @(posedge clk) for combinational dataflow logic 
+- Do NOT use blocking assignments (=) anywhere except testbench 
+- Do NOT use non-blocking (<=) outside the single output-register always block 
+- Do NOT use if/else inside assign statements — use ternary (?:) only 
+- Do NOT use while, repeat, or forever in synthesisable code 
+- Do NOT use for loops outside generate blocks in synthesisable context 
+- Do NOT use asynchronous reset (no posedge rst in sensitivity list) 
+- Do NOT infer latches — every output of every assign must have a defined value for all 
+input combos 
+- Do NOT hardcode 16 — use parameter WIDTH=16 everywhere including generate 
+bounds 
+
+- Do NOT use $display, $monitor, or $finish in the synthesis module 
+- Do NOT create a second always block — only one is allowed (the output register) 
+- Do NOT use arithmetic operators (+, -) in the shift path — use >> << {} only 
+- Do NOT infer SRL16E unintentionally — add // AREA: SRL=NO comment if pure register 
+chain is intended 
+ 
+══ DO the following ══ 
+- Use assign with >>, <<, and {} to compute right_shifted, left_shifted wires 
+- Use generate/for (genvar i, 0 to WIDTH-2) for per-bit tap wires on the right-shift path 
+- Use 4-way ternary assign for next_q mux 
+- One clocked always block: synchronous reset + q <= next_q 
+- // POWER: annotate CE inference that gates toggling when mode=00 
+- // AREA: annotate every wire-only path 
+- // TIMING: annotate critical path (mux depth → FDRE D pin) 
+- Fmax > 100 MHz; LUT ≤ 30; zero latches

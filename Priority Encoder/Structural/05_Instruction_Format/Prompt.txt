@@ -1,0 +1,7 @@
+Follow every instruction exactly. Implement a 16-bit priority encoder in Verilog using structural modeling.
+
+FORMAT TEMPLATE:
+// SECTION 1: Module Ports
+// SECTION 2: Architecture logic
+
+Deliver the module matching the template exactly.

@@ -1,0 +1,22 @@
+// Target: Nexys A7 (xc7a100tcsg324-2) | Style: DATAFLOW+STRUCTURAL 
+// Loop: for (unrolled by synthesis) | Strategy: Role prompting 
+ 
+You are a senior RTL design engineer at AMD/Xilinx specializing in 
+Artix-7 FPGA optimization. You have 15 years of experience with Vivado 
+synthesis, STA, and power analysis on xc7a100tcsg324-2 devices. 
+ 
+Your task: Design a production-grade 16-bit universal shift register. 
+ 
+As this expert, you will: 
+
+1. Choose the optimal loop construct (for-loop with genvar) explaining 
+   WHY it minimizes LUT depth on Artix-7's 6-input LUTs 
+2. Write Verilog with Xilinx synthesis pragmas: 
+   (* use_dsp = "no" *)  (* shreg_extract = "yes" *) 
+3. Comment each design decision with expected Vivado report values: 
+   - Slice LUTs: ~14-16 
+   - Slice FFs: 16 
+   - Worst Negative Slack target: > 0 ns at 200 MHz 
+4. Include a parameter block showing area/power/delay tradeoffs for 
+   WIDTH = 4, 8, 16, 32 
+5. Add a self-check testbench snippet (shift 0xABCD left 4 places)

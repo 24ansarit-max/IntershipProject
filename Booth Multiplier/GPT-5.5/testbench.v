@@ -23,7 +23,7 @@ module tb_booth_multiplier;
 
     integer i;
 
-    both_multiplier_16bit dut (
+    booth_multiplier_16bit dut (
         .multiplicand(multiplicand),
         .multiplier(multiplier),
         .product(product)

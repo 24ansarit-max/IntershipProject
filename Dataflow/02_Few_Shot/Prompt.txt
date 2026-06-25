@@ -1,0 +1,50 @@
+Study these two short dataflow reference modules, then generate a 16-bit version. 
+ 
+--- EXAMPLE 1: 4-bit right-shift (dataflow, generate/for, area-optimised) --- 
+module sr4_right #(parameter W=4)( 
+  input clk, rst, en, serial_in, 
+  output reg [W-1:0] q); 
+  wire [W-1:0] shifted; 
+  genvar i; 
+  generate 
+    for (i=0; i<W-1; i=i+1) begin : rshift 
+      assign shifted[i] = q[i+1]; // AREA: direct wire, no LUT 
+    end 
+
+  endgenerate 
+  assign shifted[W-1] = serial_in; 
+  always @(posedge clk) 
+    if (rst)    q <= {W{1'b0}}; 
+    else if(en) q <= shifted; 
+endmodule 
+ 
+--- EXAMPLE 2: 4-bit left-shift (dataflow, generate-while-equivalent via for countdown, 
+area) --- 
+module sr4_left #(parameter W=4)( 
+  input clk, rst, en, serial_in, 
+  output reg [W-1:0] q); 
+  wire [W-1:0] lshifted; 
+  genvar j; 
+  generate 
+    for (j=W-1; j>0; j=j-1) begin : lshift 
+      assign lshifted[j] = q[j-1]; // AREA: wire fan-out, no logic 
+    end 
+  endgenerate 
+  assign lshifted[0] = serial_in; 
+  always @(posedge clk) 
+    if (rst)    q <= {W{1'b0}}; 
+    else if(en) q <= lshifted; 
+endmodule 
+ 
+--- GENERATE NOW --- 
+Using both patterns above, create shift_reg_16 (WIDTH=16) for xc7a100tcsg324-2: 
+- generate/for block for right-shift wires (i: 0 to WIDTH-2) 
+
+- generate/while-style block using a descending for (j: WIDTH-1 downto 1) for left-shift 
+wires 
+- Combine via assign next_q = (mode==2'b01) ? r_shifted : (mode==2'b10) ? l_shifted : 
+(mode==2'b11) ? data_in : q; 
+- Register next_q with one clocked always block (sync active-high reset) 
+- // AREA: comment every line where a wire replaces a LUT 
+- Target: LUT count ≤ 28 (area primary goal) 
+- Fmax > 100 MHz; zero latches; full comments

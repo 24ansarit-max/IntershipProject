@@ -1,0 +1,48 @@
+Generate a dataflow Verilog module following this EXACT section structure: 
+ 
+════════════════════════════════════════════ 
+[HEADER BLOCK] 
+// ============================================ 
+// Module      : shift_reg_16 
+// Style       : Dataflow (assign + operators) 
+// Target      : xc7a100tcsg324-2 (Nexys A7) 
+// PPA Goals   : Area ≤28 LUT | Fmax >100 MHz 
+// Loop types  : generate/for (right) | generate/while-style (left) 
+// Reset       : Synchronous active-high 
+// ============================================ 
+════════════════════════════════════════════ 
+ 
+[PARAMETER SECTION] 
+Format: parameter NAME = VALUE; // description 
+ 
+[PORT DECLARATION] 
+One port per line; inline comment required; show direction + width. 
+ 
+[WIRE DECLARATIONS] 
+Declare: r_taps[WIDTH-1:0], l_taps[WIDTH-1:0], next_q[WIDTH-1:0] 
+Comment each wire with its role and expected net count. 
+ 
+[GENERATE BLOCK A — right-shift taps] 
+Use genvar i, ascending for (i=0; i<WIDTH-1; i=i+1) 
+
+Each assign line: // AREA: wire tap, 0 LUTs | // TIMING: 0 logic levels 
+ 
+[GENERATE BLOCK B — left-shift taps (descending — generate/while style)] 
+Use genvar j, descending for (j=WIDTH-1; j>0; j=j-1) 
+Each assign line: // AREA: wire tap | // TIMING: 0 logic levels 
+ 
+[COMBINATIONAL MUX ASSIGNS] 
+assign next_q = ...  (4-way ternary mux over r_taps, l_taps, data_in, q) 
+// TIMING: this is the critical path — estimate depth on Artix-7 -2 
+ 
+[REGISTERED OUTPUT — ONLY ALWAYS BLOCK ALLOWED] 
+always @(posedge clk): synchronous reset + register next_q 
+// TIMING: FDRE CE path; no extra logic after register 
+ 
+[PPA SUMMARY] 
+// ====== PPA ESTIMATE ====== 
+// LUTs   : XX 
+// FFs    : 16 
+// Fmax   : >100 MHz 
+// Power  : ~X mW @ 12.5% toggle 
+// ==========================

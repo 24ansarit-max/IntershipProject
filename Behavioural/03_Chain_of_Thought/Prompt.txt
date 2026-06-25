@@ -1,0 +1,22 @@
+Think step-by-step before writing any code. For each step, reason about the critical path 
+and timing impact on xc7a100tcsg324-2 (Artix-7 speed grade -2). 
+ 
+Step 1 – Architecture decision: Should the 16-bit shift register be implemented with a 
+single wide flop chain, segmented pipeline, or LUT-RAM? Reason about Fmax tradeoffs. 
+ 
+Step 2 – Loop selection: Explain when to use a for loop vs a while loop inside an always 
+block for shift logic. Which minimises the combinational depth seen by Vivado? 
+ 
+Step 3 – Critical path: Identify the longest path in a 16-bit bidirectional shift register with 
+parallel load. Suggest register placement strategy. 
+ 
+Step 4 – Write the code: 
+Now produce synthesizable behavioral Verilog (shift_reg_16) for Nexys A7: 
+- Ports: clk, rst (sync active-high), mode[1:0] (00=hold,01=right,10=left,11=par_load), 
+serial_in, data_in[15:0], q[15:0] 
+- Use for loop for right-shift, while loop for left-shift, to demonstrate both constructs 
+
+- Add // TIMING: comments next to every register or mux that sits on the critical path 
+- Goal: Fmax > 100 MHz in Vivado; annotate any resource (SRL16E, FDRE) you expect 
+Vivado to infer 
+- Zero latches; synchronous reset; full comments

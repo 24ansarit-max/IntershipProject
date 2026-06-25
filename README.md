@@ -61,6 +61,15 @@ Magnitude Comparator/
 │   ├── 01_Zero_Shot/ … 10_Hybrid/
 └── Structural/
     ├── 01_Zero_Shot/ … 10_Hybrid/
+
+Shift Registor/
+└── GPT-5.5/
+    ├── Behavioural/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    ├── Dataflow/
+    │   ├── 01_Zero_Shot/ … 10_Hybrid/
+    └── Structural/
+        ├── 01_Zero_Shot/ … 10_Hybrid/
 ```
 
 ## Prompt strategies
@@ -156,6 +165,18 @@ Generated from prompt collections for magnitude comparators. The implementation 
 | Structural | Gate-level hierarchy using `cmp1`, `cmp4`, and top-level `cmp16_structural` with multi-mode synthesis options |
 
 Each prompting folder contains `Prompt.txt` (the LLM prompt) and `magnitude comparator.v` (the generated RTL).
+
+## Shift Registor (16-bit Universal)
+
+This project implements a 16-bit universal shift register targeting Xilinx Artix-7 FPGAs (specifically Nexys A7, xc7a100tcsg324-2) using three distinct Verilog styles and ten different LLM prompting techniques.
+
+### Verilog Implementation Styles
+
+- **Behavioural**: Procedural always block with an integer-indexed for-loop / while-loop generating the shifts.
+- **Dataflow**: Continuous assign statements inside generate-for loops and 4-way multiplexers.
+- **Structural**: Hierarchical instantiation of 16 `dff_ce` submodules connected via generate-for loops.
+
+Each prompting folder contains `Prompt.txt` (the LLM prompt) and `Shift_Registor.v` (the generated RTL).
 
 ## Simulation
 

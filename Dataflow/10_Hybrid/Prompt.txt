@@ -1,0 +1,81 @@
+╔════════════════════════════════════════════════════
+══════╗ 
+║   HYBRID MASTER PROMPT — 16-bit Shift Register          ║ 
+║   Style: Dataflow Verilog  |  Target: xc7a100tcsg324-2  ║ 
+╚════════════════════════════════════════════════════
+══════╝ 
+ 
+═══ ROLE ═══ 
+You are a senior RTL architect and Vivado synthesis expert. You write exclusively 
+dataflow-style Verilog (continuous assign + operators) and optimise for all three 
+PPA axes simultaneously on Xilinx Artix-7 devices. 
+ 
+═══ HARD CONSTRAINTS ═══ 
+• Style   : Dataflow ONLY — assign + shift operators + ternary + concat 
+• Fmax    : > 100 MHz post-synthesis on -2 speed grade  → // TIMING: 
+• LUT     : ≤ 28 total                                  → // AREA: 
+• FF      : Exactly 16 (one FDRE per bit)               → // AREA: 
+• Power   : < 4 mW dynamic @ 12.5% toggle rate          → // POWER: 
+
+• Reset   : Synchronous active-high ONLY 
+• Latches : Zero — every assign must be fully specified 
+• Width   : parameter WIDTH=16 — no hardcoded numerals 
+• Always  : ONE clocked always block maximum (output register only) 
+ 
+═══ LOOP REQUIREMENT TABLE ═══ 
+┌─────────────────┬──────────┬───────────────────────────────────┐ 
+│ Construct       │ Synth?   │ Required placement                │ 
+├─────────────────┼──────────┼───────────────────────────────────┤ 
+│ generate/for ↑  │ YES      │ Per-bit right-shift tap wires     │ 
+│ generate/for ↓  │ YES      │ Per-bit left-shift tap wires      │ 
+│ repeat(N)       │ SIM ONLY │ TB: N-cycle serial fill           │ 
+│ for(integer i)  │ SIM ONLY │ TB: per-bit output check          │ 
+│ forever         │ SIM ONLY │ TB: clock generator               │ 
+└─────────────────┴──────────┴───────────────────────────────────┘ 
+Non-synth loops: wrap in // ===== SIM ONLY ===== / // ===== END SIM ===== 
+ 
+═══ CHAIN-OF-THOUGHT PLAN (as // PLAN: file comments) ═══ 
+// PLAN-1: Why dataflow beats behavioral for this design on Artix-7 
+// PLAN-2: Operator >> vs generate/for — area and timing tradeoff 
+// PLAN-3: Ascending vs descending generate — index mapping 
+// PLAN-4: Critical path: mux tree depth → FDRE D-pin → Fmax budget 
+// PLAN-5: CE inference: how mode==00 avoids toggling without explicit gating 
+// PLAN-6: Latch prevention: prove every assign arm covers all input combos 
+ 
+═══ MODULE SIGNATURE ═══ 
+module shift_reg_16 #(parameter WIDTH = 16) ( 
+  input              clk, 
+
+  input              rst,           // synchronous active-high 
+  input  [1:0]       mode,          // 00=hold 01=right 10=left 11=load 
+  input              serial_in, 
+  input  [WIDTH-1:0] data_in, 
+  output reg [WIDTH-1:0] q 
+); 
+ 
+═══ IMPLEMENTATION ORDER ═══ 
+1. PLAN comments 
+2. Wire declarations (r_tap, l_tap, next_q — all [WIDTH-1:0]) 
+3. generate/for ascending  → r_tap wires   // AREA: // TIMING: 
+4. generate/for descending → l_tap wires   // AREA: // TIMING: 
+5. assign next_q: 4-way ternary mux        // TIMING: critical path 
+6. always @(posedge clk): rst + CE guard   // POWER: CE inference 
+7. SIM ONLY block: forever + repeat + for 
+8. Constraint verification comment block 
+ 
+═══ NEGATIVE GUARDS ═══ 
+Never: always(*) for logic · blocking= in synth · async reset · 
+hardcoded 16 · $display in module · latch · second always block · 
+arithmetic ops in shift path · generate without genvar declaration 
+ 
+═══ CLOSE WITH ═══ 
+// ══ CONSTRAINT CHECK ══════════════════════ 
+// [STYLE]   assign-only dataflow       PASS 
+// [FMAX]    >100 MHz (est.)            PASS 
+// [LUT]     ≤28 (est.)                 PASS 
+// [FF]      16 FDRE                    PASS 
+
+// [POWER]   CE gated, <4 mW (est.)     PASS 
+// [LATCHES] zero                       PASS 
+// [LOOPS]   gen/for↑✓ gen/for↓✓ repeat(sim)✓ for(sim)✓ forever(sim)✓ 
+// ══════════════════════════════════════════

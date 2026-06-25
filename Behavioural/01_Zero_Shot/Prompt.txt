@@ -1,0 +1,19 @@
+Write synthesizable behavioral Verilog for a 16-bit shift register targeting Nexys A7 
+(xc7a100tcsg324-2). 
+ 
+Requirements: 
+- Module name: shift_reg_16 
+- Ports: clk (input), rst (input, synchronous active-high), shift_en (input), dir (input, 0=left 
+1=right), serial_in (input), parallel_load (input), data_in [15:0] (input), q [15:0] (output 
+reg) 
+- Use a single always @(posedge clk) block 
+- Implement all shift operations using a for loop (i from 0 to 14) 
+- Synchronous active-high reset clears q to 16'b0 
+- parallel_load has priority over shift_en 
+- Target Fmax > 100 MHz; minimize LUT usage (area); avoid enable toggling on idle 
+cycles (power) 
+- Zero inferred latches; no combinational loops 
+- Include inline comments on every key line 
+- Style: behavioral 
+ 
+Output ONLY the module; no testbench.
